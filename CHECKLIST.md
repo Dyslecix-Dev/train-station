@@ -48,8 +48,8 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 
 ## 3. App Identity & Branding
 
-- [ ] **[`lib/config.ts`](lib/config.ts)** — update `name` and `description` in `siteConfig` (propagates to layout, manifest, OG image, sitemap, robots, hero, nav, and JSON-LD automatically)
-- [ ] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
+- [x] **[`lib/config.ts`](lib/config.ts)** — update `name` and `description` in `siteConfig` (propagates to layout, manifest, OG image, sitemap, robots, hero, nav, and JSON-LD automatically)
+- [x] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
 - [ ] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
 - [ ] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
 - [ ] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
