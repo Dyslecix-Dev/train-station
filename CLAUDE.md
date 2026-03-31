@@ -93,7 +93,6 @@ Configured in `.mcp.json`. Available during AI-assisted development:
 - **Sentry** — Sentry error tracking integration (`mcp.sentry.dev`)
 - **shadcn** — Browse and add shadcn/ui components
 - **supabase** — Manage Supabase project (tables, auth, edge functions, logs)
-- **upstash** — Manage Upstash Redis databases (requires `UPSTASH_EMAIL`, `UPSTASH_API_KEY`)
 - **vercel** — Manage Vercel deployments and project settings
 - **vitest** — Run and analyze Vitest tests
 

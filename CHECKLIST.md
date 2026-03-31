@@ -6,7 +6,7 @@ A checklist of everything to update before shipping this full-stack boilerplate 
 
 ## 1. Repository Setup
 
-- [ ] Remove the boilerplate git history and start fresh:
+- [x] Remove the boilerplate git history and start fresh:
 
   ```bash
   rm -rf .git
@@ -15,7 +15,7 @@ A checklist of everything to update before shipping this full-stack boilerplate 
   git commit -m "Initial commit"
   ```
 
-- [ ] Point the remote to your new repository:
+- [x] Point the remote to your new repository:
 
   ```bash
   git remote add origin https://github.com/your-org/your-app.git
@@ -28,21 +28,21 @@ A checklist of everything to update before shipping this full-stack boilerplate 
 
 See [docs/environment.md](docs/environment.md) for full details on every variable.
 
-- [ ] Copy `.env.example` to `.env` and fill in all values
-- [ ] Create a [Supabase](https://supabase.com/dashboard/organizations) account and set Supabase **Site URL** to your domain in the Supabase dashboard (`Authentication → URL Configuration`)
-- [ ] Add your domain to Supabase **Redirect URLs** (include `http://localhost:3000/**` for local dev)
-- [ ] Generate VAPID keys and add to `.env`:
+- [x] Copy `.env.example` to `.env` and fill in all values
+- [x] Create a [Supabase](https://supabase.com/dashboard/organizations) account and set Supabase **Site URL** to your domain in the Supabase dashboard (`Authentication → URL Configuration`)
+- [x] Add your domain to Supabase **Redirect URLs** (include `http://localhost:3000/**` for local dev)
+- [x] Generate VAPID keys and add to `.env`:
 
   ```bash
   pnpm dlx web-push generate-vapid-keys
   ```
 
-- [ ] Create a [Resend](https://resend.com) account, generate an API key, and add `RESEND_API_KEY` to `.env` (`API Keys`)
-- [ ] Verify your sending domain in the Resend dashboard (`Domains`)
-- [ ] Add Resend DNS records to your domain provider
-- [ ] Set `VAPID_MAILTO` in `.env` to your app's contact email (e.g. `mailto:you@example.com`) — required for push notification delivery
-- [ ] Set `NEXT_PUBLIC_SENTRY_DSN` in `.env` to your [Sentry](https://sentry.io) project DSN (optional — error tracking is disabled when unset)
-- [ ] Set `KV_REST_API_URL` and `KV_REST_API_TOKEN` in `.env` for production rate limiting (optional — falls back to in-memory in dev)
+- [x] Create a [Resend](https://resend.com) account, generate an API key, and add `RESEND_API_KEY` to `.env` (`API Keys`)
+- [x] Verify your sending domain in the Resend dashboard (`Domains`)
+- [x] Add Resend DNS records to your domain provider
+- [x] Set `VAPID_MAILTO` in `.env` to your app's contact email (e.g. `mailto:you@example.com`) — required for push notification delivery
+- [x] Set `NEXT_PUBLIC_SENTRY_DSN` in `.env` to your [Sentry](https://sentry.io) project DSN (optional — error tracking is disabled when unset)
+- [x] Set `KV_REST_API_URL` and `KV_REST_API_TOKEN` in `.env` for production rate limiting (optional — falls back to in-memory in dev)
 
 ---
 

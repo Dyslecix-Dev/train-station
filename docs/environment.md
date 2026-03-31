@@ -59,11 +59,9 @@ pnpm dlx web-push generate-vapid-keys
 
 ### Server-only (Integrations)
 
-| Variable                       | Description                             | Build-validated? |
-| ------------------------------ | --------------------------------------- | :--------------: |
-| `GITHUB_PERSONAL_ACCESS_TOKEN` | GitHub PAT (GitHub MCP server only)     |        No        |
-| `UPSTASH_EMAIL`                | Upstash account email (MCP server only) |        No        |
-| `UPSTASH_API_KEY`              | Upstash API key (MCP server only)       |        No        |
+| Variable                       | Description                         | Build-validated? |
+| ------------------------------ | ----------------------------------- | :--------------: |
+| `GITHUB_PERSONAL_ACCESS_TOKEN` | GitHub PAT (GitHub MCP server only) |        No        |
 
 > **Note**: These integration variables are optional — only required if you use the corresponding MCP servers. Leave them blank or omit otherwise.
 

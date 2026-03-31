@@ -42,10 +42,6 @@
       "type": "http",
       "url": "https://mcp.vercel.com"
     },
-    "upstash": {
-      "command": "npx",
-      "args": ["-y", "@upstash/mcp-server@latest", "--email", "${UPSTASH_EMAIL}", "--api-key", "${UPSTASH_API_KEY}"]
-    },
     "vitest": {
       "command": "npx",
       "args": ["-y", "@djankies/vitest-mcp"]
