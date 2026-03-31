@@ -50,8 +50,8 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 
 - [x] **[`lib/config.ts`](lib/config.ts)** — update `name` and `description` in `siteConfig` (propagates to layout, manifest, OG image, sitemap, robots, hero, nav, and JSON-LD automatically)
 - [x] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
-- [ ] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
-- [ ] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
+- [x] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
+- [x] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
 - [ ] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
 - [ ] **[`app/manifest.ts`](app/manifest.ts)** — update `background_color` and `theme_color` to match your brand
 - [ ] **[`app/layout.tsx`](app/layout.tsx)** — update `themeColor` in viewport export to match your brand
