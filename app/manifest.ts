@@ -9,9 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.description,
     start_url: "/",
     display: "standalone",
-    // TODO: update background_color and theme_color to match your brand
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#F3F5FC",
+    theme_color: "#FF6600",
     icons: [
       {
         src: "/icons/icon-192x192.png",

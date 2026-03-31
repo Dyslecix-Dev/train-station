@@ -52,14 +52,14 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 - [x] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
 - [x] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
 - [x] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
-- [ ] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
-- [ ] **[`app/manifest.ts`](app/manifest.ts)** — update `background_color` and `theme_color` to match your brand
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — update `themeColor` in viewport export to match your brand
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — replace Geist with your preferred font (or keep it)
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — update `lang` attribute to match your app's primary locale
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — remove `<Analytics />` and `<SpeedInsights />` if not deploying to Vercel
-- [ ] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
-- [ ] **[`app/opengraph-image.tsx`](app/opengraph-image.tsx)** — update `backgroundColor` and styling to match your brand (text pulls from `siteConfig` automatically)
+- [x] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
+- [x] **[`app/manifest.ts`](app/manifest.ts)** — update `background_color` and `theme_color` to match your brand
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — update `themeColor` in viewport export to match your brand
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — replace Geist with your preferred font (or keep it)
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — update `lang` attribute to match your app's primary locale
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — remove `<Analytics />` if not deploying to Vercel
+- [x] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
+- [x] **[`app/opengraph-image.tsx`](app/opengraph-image.tsx)** — update `backgroundColor` and styling to match your brand (text pulls from `siteConfig` automatically)
 - [ ] **[`app/error.tsx`](app/error.tsx)** — customize the error page copy and styling to match your brand
 - [ ] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
 

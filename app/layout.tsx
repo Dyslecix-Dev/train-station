@@ -1,8 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
-import { Geist } from "next/font/google";
+import { Epilogue, Syne } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "@/app/globals.css";
@@ -26,8 +25,6 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: siteConfig.name,
-    // TODO: replace placeholder splash screens in public/splash/ with branded images.
-    // NOTE: use a tool like https://progressier.com/pwa-icons-and-ios-splash-screen-generator to generate them from your app icon.
     startupImage: [
       { url: "/splash/apple-splash-2048-2732.jpg", media: "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
       { url: "/splash/apple-splash-2732-2048.jpg", media: "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" },
@@ -73,25 +70,31 @@ export const metadata: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: siteConfig.description,
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: {
       default: siteConfig.name,
       template: APP_TITLE_TEMPLATE,
     },
     description: siteConfig.description,
+    images: ["/images/og-image.png"],
   },
 };
 
 export const viewport: Viewport = {
-  // TODO: update themeColor to match your brand
-  themeColor: "#000000",
+  themeColor: "#FF6600",
 };
 
-// TODO: replace Geist with your preferred font (https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
+  display: "swap",
+  subsets: ["latin"],
+});
+
+const epilogue = Epilogue({
+  variable: "--font-epilogue",
   display: "swap",
   subsets: ["latin"],
 });
@@ -102,9 +105,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // TODO: update lang to match your app's primary locale (e.g., "fr", "de", "ja")
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${syne.variable} ${epilogue.variable} antialiased`}>
         <a
           href="#main-content"
           className="focus:bg-background focus:text-foreground focus:ring-ring sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2"
@@ -122,9 +124,7 @@ export default function RootLayout({
             </NuqsAdapter>
           </QueryProvider>
         </SerwistProvider>
-        {/* TODO: remove <Analytics /> and <SpeedInsights /> if not deploying to Vercel */}
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
