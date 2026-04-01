@@ -88,7 +88,7 @@ See [docs/database-patterns.md](docs/database-patterns.md) for full details.
 
 See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 
-- [ ] **[`lib/supabase/proxy.ts`](lib/supabase/proxy.ts)** — update the route protection condition to match your app's public vs. protected routes
+- [x] **[`lib/supabase/proxy.ts`](lib/supabase/proxy.ts)** — update the route protection condition to match your app's public vs. protected routes
 - [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
 - [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — uncomment OTP sign-in handler and buttons if you want OTP support (or remove the TODOs)
 - [ ] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
