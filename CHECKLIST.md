@@ -89,19 +89,18 @@ See [docs/database-patterns.md](docs/database-patterns.md) for full details.
 See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 
 - [x] **[`lib/supabase/proxy.ts`](lib/supabase/proxy.ts)** — update the route protection condition to match your app's public vs. protected routes
-- [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
 - [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — uncomment OTP sign-in handler and buttons if you want OTP support (or remove the TODOs)
-- [ ] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
-- [ ] **[`components/forgot-password-form.tsx`](components/forgot-password-form.tsx)** — ensure the redirect URL is configured in Supabase dashboard redirect URLs
-- [ ] **[`components/update-password-form.tsx`](components/update-password-form.tsx)** — update redirect route to an authenticated route
-- [ ] **[`app/auth/confirm/route.ts`](app/auth/confirm/route.ts)** — update the default redirect (`"/"`) to your app's main authenticated route
-- [ ] Decide if you need email confirmation enabled or disabled in the Supabase Auth settings (`Authentication → Sign In / Providers → Email`)
-- [ ] In Resend, (`Settings → SMTP`) copy the SMTP credentials:
+- [x] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
+- [x] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
+- [x] **[`components/update-password-form.tsx`](components/update-password-form.tsx)** — update redirect route to an authenticated route
+- [x] **[`app/auth/confirm/route.ts`](app/auth/confirm/route.ts)** — update the default redirect (`"/"`) to your app's main authenticated route
+- [x] Decide if you need email confirmation enabled or disabled in the Supabase Auth settings (`Authentication → Sign In / Providers → Email`)
+- [x] In Resend, (`Settings → SMTP`) copy the SMTP credentials:
   - Host: `smtp.resend.com`
   - Port: `465`
   - Username: `resend`
   - Password: your Resend API key
-- [ ] In Supabase (`Authentication → Email → Set up SMTP`) fill in the SMTP credentials:
+- [x] In Supabase (`Authentication → Email → Set up SMTP`) fill in the SMTP credentials:
   - Sender email address: your verified domain address (e.g. `noreply@yourdomain.com`)
   - Sender name: your app name
   - Host: `smtp.resend.com`
