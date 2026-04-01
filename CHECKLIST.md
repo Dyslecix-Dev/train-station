@@ -115,8 +115,8 @@ See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 See [docs/pwa.md](docs/pwa.md) for full details.
 
 - [ ] **[`app/sw.ts`](app/sw.ts)** — add custom `urlPattern` entries to the `appCaching` array for your app's API routes or CDN assets if needed
-- [ ] **[`app/sw.ts`](app/sw.ts)** — update default notification icon/badge paths in the push event handler if you've changed icon filenames
-- [ ] Verify the offline fallback page ([`app/~offline/page.tsx`](app/~offline/page.tsx)) looks appropriate for your app
+- [x] **[`app/sw.ts`](app/sw.ts)** — update default notification icon/badge paths in the push event handler if you've changed icon filenames
+- [x] Verify the offline fallback page ([`app/~offline/page.tsx`](app/~offline/page.tsx)) looks appropriate for your app
 
 ---
 

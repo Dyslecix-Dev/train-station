@@ -100,7 +100,6 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      // TODO: update default icon/badge paths to match your app's assets
       icon: data.icon || "/icons/icon-192x192.png",
       badge: data.badge || "/icons/icon-192x192.png",
       tag: data.tag || "default",
