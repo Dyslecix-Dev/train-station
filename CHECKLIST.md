@@ -61,7 +61,7 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 - [x] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
 - [x] **[`app/opengraph-image.tsx`](app/opengraph-image.tsx)** — update `backgroundColor` and styling to match your brand (text pulls from `siteConfig` automatically)
 - [x] **[`app/error.tsx`](app/error.tsx)** — customize the error page copy and styling to match your brand
-- [ ] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
+- [x] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
 
 ---
 
