@@ -152,8 +152,7 @@ self.addEventListener("message", (event) => {
     // NOTE: clear any previous reminder
     if (reminderTimeout) clearTimeout(reminderTimeout);
 
-    // TODO: adjust default delay (ms) to match your app's UX expectations
-    const delay = data.delay ?? 5 * 60 * 1000; // default: 5 minutes
+    const delay = data.delay ?? 30 * 1000; // default: 30 seconds
 
     reminderTimeout = setTimeout(() => {
       self.registration.showNotification(data.title || "Don\u2019t forget!", {

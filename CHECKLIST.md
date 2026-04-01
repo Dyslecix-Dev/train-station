@@ -172,17 +172,15 @@ See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
 - [ ] **[`next.config.ts`](next.config.ts)** — update the Content-Security-Policy if you add external scripts, fonts, or APIs (and remove Vercel Analytics / Sentry domains if you remove those services)
 - [x] **[`next.config.ts`](next.config.ts)** — review security headers (`X-Frame-Options`, `Referrer-Policy`, etc.) and adjust if your app needs to be embedded in iframes or has different referrer requirements
-- [x] **[`lib/push/index.ts`](lib/push/index.ts)** — now throws if `VAPID_MAILTO` is not set (hardcoded fallback removed)
 
 ---
 
 ## 12. Service Worker & Misc
 
-- [ ] **[`app/sw.ts`](app/sw.ts)** — adjust the default background sync delay (ms) to match your app's UX expectations
-- [ ] **[`lib/push/index.ts`](lib/push/index.ts)** — set `VAPID_MAILTO` in `.env` to your app's contact email
-- [ ] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `exercise-images` bucket in Supabase before using storage helpers
+- [x] **[`app/sw.ts`](app/sw.ts)** — adjust the default background sync delay (ms) to match your app's UX expectations
+- [x] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `exercise-images` bucket in Supabase before using storage helpers
 - [ ] **[`lib/db/ensure-user.test.ts`](lib/db/ensure-user.test.ts)** — mock the db module and finish the test
-- [ ] Add a `LICENSE` file to the project root if open-sourcing
+- [x] Add a `LICENSE` file to the project root if open-sourcing
 
 ---
 
