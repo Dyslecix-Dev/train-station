@@ -164,14 +164,14 @@ See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
 - [ ] **[`app/sitemap.ts`](app/sitemap.ts)** — add your app's public routes (dynamic routes can be fetched from the database)
 - [ ] **[`app/robots.ts`](app/robots.ts)** — update disallow rules to match your app's private routes
-- [ ] **[`app/page.tsx`](app/page.tsx)** — review the JSON-LD structured data `@type` (defaults to `"WebSite"`) and update if your app is a different schema type
+- [x] **[`app/page.tsx`](app/page.tsx)** — review the JSON-LD structured data `@type` (defaults to `"WebSite"`) and update if your app is a different schema type
 
 ---
 
 ## 11. Security & Infrastructure
 
 - [ ] **[`next.config.ts`](next.config.ts)** — update the Content-Security-Policy if you add external scripts, fonts, or APIs (and remove Vercel Analytics / Sentry domains if you remove those services)
-- [ ] **[`next.config.ts`](next.config.ts)** — review security headers (`X-Frame-Options`, `Referrer-Policy`, etc.) and adjust if your app needs to be embedded in iframes or has different referrer requirements
+- [x] **[`next.config.ts`](next.config.ts)** — review security headers (`X-Frame-Options`, `Referrer-Policy`, etc.) and adjust if your app needs to be embedded in iframes or has different referrer requirements
 - [x] **[`lib/push/index.ts`](lib/push/index.ts)** — now throws if `VAPID_MAILTO` is not set (hardcoded fallback removed)
 
 ---
