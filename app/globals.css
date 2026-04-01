@@ -96,4 +96,7 @@
   body {
     @apply bg-background text-foreground;
   }
+  button {
+    @apply cursor-pointer disabled:cursor-not-allowed;
+  }
 }

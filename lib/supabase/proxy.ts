@@ -52,7 +52,7 @@ export async function updateSession(request: NextRequest) {
   const user = data?.claims;
 
   // TODO: update this condition to match your app's protected routes (e.g., add public marketing pages or restrict additional paths)
-  if (request.nextUrl.pathname !== "/" && !user && !request.nextUrl.pathname.startsWith("/auth")) {
+  if (request.nextUrl.pathname.startsWith("/protected") && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     url.searchParams.set("next", request.nextUrl.pathname);
