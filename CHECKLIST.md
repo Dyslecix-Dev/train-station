@@ -123,16 +123,16 @@ See [docs/pwa.md](docs/pwa.md) for full details.
 ## 8. Demo & Boilerplate Content
 
 - [ ] **[`app/protected/page.tsx`](app/protected/page.tsx)** — replace the demo content with your actual protected page
-- [ ] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove `<DeployButton />` (boilerplate helper only) and replace the placeholder nav with your app's navigation
+- [x] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove `<DeployButton />` (boilerplate helper only) and replace the placeholder nav with your app's navigation
 - [ ] **[`app/page.tsx`](app/page.tsx)** — replace the landing page content with your own
 - [ ] **[`app/page.tsx`](app/page.tsx)** — remove `DeployButton` and `Hero` imports/usage (boilerplate demos)
 - [ ] **[`app/protected/page.tsx`](app/protected/page.tsx)** — remove `ExampleCounter` (Zustand demo)
-- [ ] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove Users link (pagination demo)
+- [x] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove Users link (pagination demo)
 - [ ] **[`app/protected/users/page.tsx`](app/protected/users/page.tsx)** — replace demo page with your app's actual paginated data
 - [ ] **[`app/protected/profile/page.tsx`](app/protected/profile/page.tsx)** — replace demo page with your app's actual profile page
 - [ ] **[`app/protected/profile/actions.ts`](app/protected/profile/actions.ts)** — update profile schema to match your app's user fields
 - [ ] **[`app/protected/profile/profile-form.tsx`](app/protected/profile/profile-form.tsx)** — replace demo form with your app's actual profile form
-- [ ] **[`components/deploy-button.tsx`](components/deploy-button.tsx)** — delete this component (boilerplate only)
+- [x] **`components/deploy-button.tsx`** — delete this component (boilerplate only)
 - [ ] **[`components/hero.tsx`](components/hero.tsx)** — replace with your app's title and description, or delete
 - [ ] **[`components/example-counter.tsx`](components/example-counter.tsx)** — replace demo with your app's actual Zustand-powered component, or delete
 - [ ] **[`components/example-counter.test.tsx`](components/example-counter.test.tsx)** — replace with tests for your own components
@@ -149,12 +149,14 @@ See [docs/pwa.md](docs/pwa.md) for full details.
 
 See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
-- [ ] Add required secrets to your GitHub repository (`Settings → Secrets and variables → Actions`):
+- [x] Add required secrets to your GitHub repository (`Settings → Secrets and variables → Actions`):
   - `NEXT_PUBLIC_SUPABASE_URL`
   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+  - `POSTGRES_URL`
+  - `POSTGRES_URL_NON_POOLING`
   - Any other env vars needed for your test suite
 - [ ] Review `.github/workflows/` and remove or adjust any workflows not relevant to your project
-- [ ] Connect the repo to Vercel (or your chosen host) and configure env vars there (`Settings → Environment Variables`)
+- [x] Connect the repo to Vercel (or your chosen host) and configure env vars there (`Settings → Environment Variables`)
 
 ---
 

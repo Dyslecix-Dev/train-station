@@ -2,13 +2,11 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { AuthButton } from "@/components/auth-button";
-// TODO: remove DeployButton and Hero imports — these are boilerplate demos only
-import { DeployButton } from "@/components/deploy-button";
+// TODO: remove Hero import — these are boilerplate demos only
 import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { siteConfig } from "@/lib/config";
 
-// TODO: update with your app's real name, URL, and description
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -28,10 +26,6 @@ export default function Home() {
           <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
             <div className="flex items-center gap-5 font-semibold">
               <Link href={"/"}>{siteConfig.name}</Link>
-              {/* TODO: remove <DeployButton /> — this is a boilerplate helper only */}
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
             </div>
             <Suspense>
               <AuthButton />
