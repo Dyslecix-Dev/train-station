@@ -59,7 +59,6 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 - [x] **[`app/layout.tsx`](app/layout.tsx)** — update `lang` attribute to match your app's primary locale
 - [x] **[`app/layout.tsx`](app/layout.tsx)** — remove `<Analytics />` if not deploying to Vercel
 - [x] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
-- [x] **[`app/opengraph-image.tsx`](app/opengraph-image.tsx)** — update `backgroundColor` and styling to match your brand (text pulls from `siteConfig` automatically)
 - [x] **[`app/error.tsx`](app/error.tsx)** — customize the error page copy and styling to match your brand
 - [x] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
 
@@ -69,8 +68,8 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 
 See [docs/email.md](docs/email.md) for full details.
 
-- [ ] **[`emails/welcome.tsx`](emails/welcome.tsx)** — update the default `appName` prop to match your app (or pass it from `siteConfig.name` when calling `sendEmail`)
-- [ ] Set `EMAIL_FROM` in `.env` to your verified domain address (e.g. `"My App <noreply@yourdomain.com>"`) — required for `sendEmail()` calls
+- [x] **[`emails/welcome.tsx`](emails/welcome.tsx)** — update email text to reference your app's messaging
+- [x] Set `EMAIL_FROM` in `.env` to your verified domain address (e.g. `"My App <noreply@yourdomain.com>"`) — required for `sendEmail()` calls
 
 ---
 
@@ -78,11 +77,10 @@ See [docs/email.md](docs/email.md) for full details.
 
 See [docs/database-patterns.md](docs/database-patterns.md) for full details.
 
-- [ ] **[`lib/db/schema/users.ts`](lib/db/schema/users.ts)** — review and update the `user_role` enum values if your app uses different roles
-- [ ] **[`lib/db/seed.ts`](lib/db/seed.ts)** — replace the placeholder seed data with data relevant to your app
+- [x] **[`lib/db/seed.ts`](lib/db/seed.ts)** — replace the placeholder seed data with data relevant to your app
 - [ ] Run `pnpm db:push` (or `pnpm db:generate && pnpm db:migrate`) to apply the schema to your database
 - [ ] Run `pnpm db:seed` to seed the database with your initial data (requires `POSTGRES_URL_NON_POOLING` to be set)
-- [ ] If using file uploads: create an `uploads` bucket in Supabase Storage (`Storage → Files`) (the `lib/storage/` helpers expect this bucket to exist)
+- [x] If using file uploads: create an `exercise-images` bucket in Supabase Storage (`Storage → Files`) (the `lib/storage/` helpers expect this bucket to exist)
 
 ---
 
@@ -181,7 +179,7 @@ See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
 - [ ] **[`app/sw.ts`](app/sw.ts)** — adjust the default background sync delay (ms) to match your app's UX expectations
 - [ ] **[`lib/push/index.ts`](lib/push/index.ts)** — set `VAPID_MAILTO` in `.env` to your app's contact email
-- [ ] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `uploads` bucket in Supabase before using storage helpers
+- [ ] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `exercise-images` bucket in Supabase before using storage helpers
 - [ ] **[`lib/db/ensure-user.test.ts`](lib/db/ensure-user.test.ts)** — mock the db module and finish the test
 - [ ] Add a `LICENSE` file to the project root if open-sourcing
 

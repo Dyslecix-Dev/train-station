@@ -8,7 +8,7 @@ interface WelcomeEmailProps {
   appName?: string;
 }
 
-// TODO: update email copy (Preview, Heading, Text) to reference your app's actual name and messaging
+// TODO: update email text to reference your app's messaging
 export function WelcomeEmail({ username, loginUrl, appName = siteConfig.name }: WelcomeEmailProps) {
   return (
     <Html>

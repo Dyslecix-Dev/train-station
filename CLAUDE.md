@@ -148,7 +148,7 @@ Configured in `.mcp.json`. Available during AI-assisted development:
 
 - Use `uploadFile()` / `deleteFile()` / `getPublicUrl()` / `getSignedUrl()` from `@/lib/storage`
 - File uploads go through the `uploadFileAction` server action in `@/lib/storage/actions`
-- Create an `uploads` bucket in Supabase Storage dashboard before using
+- Create an `exercise-images` bucket in Supabase Storage dashboard before using
 
 ### Rate Limiting
 
