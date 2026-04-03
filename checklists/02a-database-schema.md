@@ -175,7 +175,7 @@ If this phase is too large for one Claude Code session, split at the "Migration"
 - [x] `fat_g_snapshot` — numeric(8,2), nullable
 - [x] `fiber_g_snapshot` — numeric(8,2), nullable
 - [x] `created_at` — timestamp with time zone, not null, default `now()`
-- [ ] **Important**: All nutrition totals (daily summary, weekly average, dashboard card) must read from the `_snapshot` columns, not from the joined `foods` table. The join is only for display purposes (food name, serving unit).
+- [x] **Important**: All nutrition totals (daily summary, weekly average, dashboard card) must read from the `_snapshot` columns, not from the joined `foods` table. The join is only for display purposes (food name, serving unit).
 
 **`water_logs`**
 
@@ -232,7 +232,7 @@ If this phase is too large for one Claude Code session, split at the "Migration"
   export const ALLOWED_EMOTIONS = ["anxious", "stressed", "calm", "energized", "motivated", "tired", "irritable", "happy", "sad", "neutral"] as const;
   ```
 
-- [ ] This is the single source of truth. Import it into the Zod schema and the UI. Never duplicate this list.
+- [x] This is the single source of truth. Import it into the Zod schema and the UI. Never duplicate this list.
 
 ### Indexes
 
@@ -251,7 +251,7 @@ If this phase is too large for one Claude Code session, split at the "Migration"
 
 ### `updated_at` Trigger
 
-- [ ] Create a SQL migration file (or include in the Drizzle migration) that defines a shared trigger function:
+- [x] Create a SQL migration file (or include in the Drizzle migration) that defines a shared trigger function:
 
   ```sql
   CREATE OR REPLACE FUNCTION set_updated_at()
@@ -263,17 +263,17 @@ If this phase is too large for one Claude Code session, split at the "Migration"
   $$ LANGUAGE plpgsql;
   ```
 
-- [ ] Apply this trigger to all tables that have an `updated_at` column: `user_profiles`, `exercises`, `workout_templates`, `foods`. Create the trigger via:
+- [x] Apply this trigger to all tables that have an `updated_at` column: `user_profiles`, `exercises`, `workout_templates`, `foods`. Create the trigger via:
 
   ```sql
   CREATE TRIGGER set_updated_at BEFORE UPDATE ON <table_name>
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
   ```
 
-- [ ] This ensures `updated_at` auto-updates on every row change without needing application-level code.
+- [x] This ensures `updated_at` auto-updates on every row change without needing application-level code.
 
 ### Migration
 
-- [ ] Run `pnpm db:generate` to create migration SQL
-- [ ] Run `pnpm db:migrate` to apply against the database (uses `POSTGRES_URL_NON_POOLING`)
-- [ ] Verify all tables exist in Supabase dashboard
+- [x] Run `pnpm db:generate` to create migration SQL
+- [x] Run `pnpm db:migrate` to apply against the database (uses `POSTGRES_URL_NON_POOLING`)
+- [x] Verify all tables exist in Supabase dashboard
