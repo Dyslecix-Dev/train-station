@@ -88,7 +88,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 - [x] Verify shadcn/ui is installed with New York style and these components are available: Button, Input, Label, Card, Dialog, Sheet, Select, Tabs, Progress, Badge, Separator, Skeleton, DropdownMenu. Add any missing via `pnpm dlx shadcn@latest add <name>`. Do NOT add the shadcn Form component — we use Conform for forms.
 - [x] Create `components/page-header.tsx` — reusable `PageHeader` (title + optional subtitle + optional action button)
 - [x] Create `components/empty-state.tsx` — reusable `EmptyState` (icon + message + optional CTA)
-- [ ] Create `components/loading-skeleton.tsx` — reusable `LoadingSkeleton` that accepts a variant (card, list, detail)
+- [x] Create `components/loading-skeleton.tsx` — reusable `LoadingSkeleton` that accepts a variant (card, list, detail)
 - [ ] Create `components/confirm-dialog.tsx` — reusable `ConfirmDialog` (title, description, confirm/cancel actions, destructive variant)
 
 ### Shared Constants (Early Setup)
