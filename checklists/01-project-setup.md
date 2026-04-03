@@ -89,7 +89,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 - [x] Create `components/page-header.tsx` — reusable `PageHeader` (title + optional subtitle + optional action button)
 - [x] Create `components/empty-state.tsx` — reusable `EmptyState` (icon + message + optional CTA)
 - [x] Create `components/loading-skeleton.tsx` — reusable `LoadingSkeleton` that accepts a variant (card, list, detail)
-- [ ] Create `components/confirm-dialog.tsx` — reusable `ConfirmDialog` (title, description, confirm/cancel actions, destructive variant)
+- [x] Create `components/confirm-dialog.tsx` — reusable `ConfirmDialog` (title, description, confirm/cancel actions, destructive variant)
 
 ### Shared Constants (Early Setup)
 
