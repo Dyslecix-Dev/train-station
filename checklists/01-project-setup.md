@@ -43,12 +43,12 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### Environment Variables
 
-- [ ] Verify `.env.local` has `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (this is the anon key — the boilerplate uses `PUBLISHABLE_KEY`, not `ANON_KEY`)
-- [ ] Verify `.env.local` has `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never exposed to client)
-- [ ] Verify `.env.local` has `SUPABASE_JWT_SECRET` (used for JWT verification in the proxy)
-- [ ] Verify `POSTGRES_URL` (pooled, for runtime) and `POSTGRES_URL_NON_POOLING` (direct, for migrations) are set — these are the Vercel-Supabase integration names. Do NOT use `DATABASE_URL` / `DIRECT_URL`.
-- [ ] Verify `USDA_API_KEY` is set — required, not optional. Register for a free key at [USDA](https://fdc.nal.usda.gov/api-key-signup). Do NOT default to `DEMO_KEY`; it is shared across the internet and rate-limited to ~30 requests/IP/hour.
-- [ ] Verify `drizzle.config.ts` references `POSTGRES_URL` and `POSTGRES_URL_NON_POOLING` (not `DATABASE_URL` / `DIRECT_URL`)
+- [x] Verify `.env.local` has `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (this is the anon key — the boilerplate uses `PUBLISHABLE_KEY`, not `ANON_KEY`)
+- [x] Verify `.env.local` has `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never exposed to client)
+- [x] Verify `.env.local` has `SUPABASE_JWT_SECRET` (used for JWT verification in the proxy)
+- [x] Verify `POSTGRES_URL` (pooled, for runtime) and `POSTGRES_URL_NON_POOLING` (direct, for migrations) are set — these are the Vercel-Supabase integration names. Do NOT use `DATABASE_URL` / `DIRECT_URL`.
+- [x] Verify `USDA_API_KEY` is set — required, not optional. Register for a free key at [USDA](https://fdc.nal.usda.gov/api-key-signup). Do NOT default to `DEMO_KEY`; it is shared across the internet and rate-limited to ~30 requests/IP/hour.
+- [x] Verify `drizzle.config.ts` references `POSTGRES_URL` and `POSTGRES_URL_NON_POOLING` (not `DATABASE_URL` / `DIRECT_URL`)
 
 ### Route Group Restructure
 
