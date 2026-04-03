@@ -93,12 +93,12 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### Shared Constants (Early Setup)
 
-- [ ] Create `lib/workout-constants.ts` with:
+- [x] Create `lib/workout-constants.ts` with:
   - `SECTION_LABELS` mapping: `{ warm_up: "Dynamic Warm-Up", main: "Main Routine", cooldown: "Static Cooldown" }`
   - `EXERCISE_CATEGORIES` array: `["strength", "cardio", "bodyweight", "flexibility", "other"]`
   - `MUSCLE_GROUPS` array: `["chest", "back", "shoulders", "biceps", "triceps", "core", "quadriceps", "hamstrings", "glutes", "calves", "full_body", "other"]`
   - `PROGRESS_METRIC_MAP` mapping category → progress_metric_type
-- [ ] Create `lib/nutrition-constants.ts` with:
+- [x] Create `lib/nutrition-constants.ts` with:
   - `MEAL_TYPES` array: `["breakfast", "lunch", "dinner", "snack"]`
   - `SERVING_UNITS` array: `["g", "ml", "oz", "cup", "piece", "tbsp", "tsp", "slice"]`
 
