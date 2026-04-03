@@ -20,7 +20,7 @@ test.describe("accessibility", () => {
   });
 
   test("login page has no critical a11y violations", async ({ page }) => {
-    await page.goto("/auth/login");
+    await page.goto("/login");
 
     const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
 
@@ -28,7 +28,7 @@ test.describe("accessibility", () => {
   });
 
   test("sign-up page has no critical a11y violations", async ({ page }) => {
-    await page.goto("/auth/sign-up");
+    await page.goto("/sign-up");
 
     const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
 

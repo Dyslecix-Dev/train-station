@@ -24,7 +24,7 @@ export function ForgotPasswordForm({ className, ...props }: ComponentPropsWithou
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL ?? location.origin}/auth/update-password`,
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL ?? location.origin}/update-password`,
       });
       if (error) throw error;
       setSuccess(true);
@@ -71,7 +71,7 @@ export function ForgotPasswordForm({ className, ...props }: ComponentPropsWithou
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{" "}
-                <Link href="/auth/login" className="underline underline-offset-4">
+                <Link href="/login" className="underline underline-offset-4">
                   Login
                 </Link>
               </div>

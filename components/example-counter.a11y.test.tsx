@@ -15,7 +15,7 @@ import type { NoViolationsMatcherResult } from "vitest-axe/matchers";
 
 declare module "vitest" {
   // NOTE: extends Vitest's Assertion interface with vitest-axe matchers
-  interface Assertion<T> {
+  interface Assertion {
     toHaveNoViolations(): NoViolationsMatcherResult;
   }
   interface AsymmetricMatchersContaining {

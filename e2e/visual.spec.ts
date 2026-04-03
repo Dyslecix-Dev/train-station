@@ -24,19 +24,19 @@ test.describe("visual regression", () => {
   });
 
   test("login page", async ({ page }) => {
-    await page.goto("/auth/login");
+    await page.goto("/login");
     await expect(page.getByRole("heading", { name: "Login" })).toBeVisible();
     await expect(page).toHaveScreenshot("login.png", { fullPage: true });
   });
 
   test("sign up page", async ({ page }) => {
-    await page.goto("/auth/sign-up");
+    await page.goto("/sign-up");
     await expect(page.getByRole("heading", { name: "Sign up" })).toBeVisible();
     await expect(page).toHaveScreenshot("sign-up.png", { fullPage: true });
   });
 
   test("forgot password page", async ({ page }) => {
-    await page.goto("/auth/forgot-password");
+    await page.goto("/forgot-password");
     await expect(page.getByRole("heading")).toBeVisible();
     await expect(page).toHaveScreenshot("forgot-password.png", { fullPage: true });
   });
@@ -55,7 +55,7 @@ test.describe("visual regression", () => {
 
   test("login page - dark mode", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
-    await page.goto("/auth/login");
+    await page.goto("/login");
     await expect(page.getByRole("heading", { name: "Login" })).toBeVisible();
     await expect(page).toHaveScreenshot("login-dark.png", { fullPage: true });
   });
