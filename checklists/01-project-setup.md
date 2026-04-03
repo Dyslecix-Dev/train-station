@@ -53,9 +53,9 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 ### Route Group Restructure
 
 - [x] The boilerplate ships with `app/auth/` and `app/protected/` (flat directories). Convert these to **route groups**: rename to `app/(auth)/` and `app/(protected)/`. Route groups prevent the folder name from appearing in the URL while allowing shared layouts.
-- [ ] After converting to `app/(auth)/`, update all internal links, redirects, and `emailRedirectTo` values in auth forms — the `auth/` segment is removed from URLs (e.g. `/auth/login` → `/login`).
-- [ ] Verify password reset flow exists: `/forgot-password` + `/update-password`
-- [ ] Verify email confirmation callback route exists at `app/(auth)/confirm/route.ts`
+- [x] After converting to `app/(auth)/`, update all internal links, redirects, and `emailRedirectTo` values in auth forms — the `auth/` segment is removed from URLs (e.g. `/auth/login` → `/login`).
+- [x] Verify password reset flow exists: `/forgot-password` + `/update-password`
+- [x] Verify email confirmation callback route exists at `app/(auth)/confirm/route.ts`
 
 ### Auth Guards (in `proxy.ts`)
 
