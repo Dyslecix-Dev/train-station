@@ -78,7 +78,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
   - Passes user profile data to children via React context or a Zustand store
   - Checks `onboarding_completed` — if `false`, redirects to `/onboarding`
   - **Do NOT use `getUser()` here** — it makes a network round-trip to Supabase on every page navigation. Reserve `getUser()` for sensitive server actions only.
-- [ ] Create `components/bottom-nav.tsx` — a mobile bottom navigation bar (PWA-first): Dashboard, Workouts, Nutrition, More (sleep + mental health + settings). Highlights the active route.
+- [x] Create `components/bottom-nav.tsx` — a mobile bottom navigation bar (PWA-first): Dashboard, Workouts, Nutrition, More (sleep + mental health + settings). Highlights the active route.
 - [ ] Create `components/sidebar-nav.tsx` — a desktop sidebar with the same links
 - [ ] Use responsive rendering: bottom nav on mobile (`md:hidden`), sidebar on desktop (`hidden md:block`) via Tailwind breakpoints
 - [ ] Verify dark mode toggle works via next-themes (already configured in boilerplate)
