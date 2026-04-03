@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { ProfileForm } from "@/app/protected/profile/profile-form";
+import { ProfileForm } from "@/app/(protected)/profile/profile-form";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
@@ -18,7 +18,7 @@ export default async function ProfilePage() {
   const { data, error } = await supabase.auth.getClaims();
 
   if (error || !data?.claims) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   // NOTE: the protected layout already calls createOrGetUser(), so the row is guaranteed to exist

@@ -9,13 +9,19 @@ const authLimiter = createRateLimiter({
   windowMs: Number(process.env.AUTH_RATE_WINDOW_MS) || 60_000,
 });
 
+// NOTE: auth paths after route group conversion — app/(auth)/ strips the segment from URLs
+const AUTH_PATHS = ["/login", "/sign-up", "/forgot-password", "/update-password", "/confirm", "/error", "/sign-up-success"];
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
 
+  const pathname = request.nextUrl.pathname;
+  const isAuthPath = AUTH_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
+
   // NOTE: rate-limit auth routes to prevent brute-force attacks
-  if (request.nextUrl.pathname.startsWith("/auth")) {
+  if (isAuthPath) {
     // NOTE: x-forwarded-for is trusted here because Vercel (and most reverse proxies) overwrite the first value with the real client IP. If you self-host behind a proxy that doesn't strip client-provided values, replace this with a trusted header (e.g. cf-connecting-ip, x-real-ip).
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
     const { success } = await authLimiter.check(ip);
@@ -51,23 +57,21 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  const pathname = request.nextUrl.pathname;
-
   // NOTE: public routes that don't require authentication
-  const isPublicRoute = pathname === "/" || pathname.startsWith("/auth/") || pathname === "/~offline" || pathname.startsWith("/api/") || pathname.startsWith("/serwist");
+  const isPublicRoute = pathname === "/" || isAuthPath || pathname === "/~offline" || pathname.startsWith("/api/") || pathname.startsWith("/serwist");
 
   // NOTE: redirect unauthenticated users to login for all non-public routes
   if (!isPublicRoute && !user) {
     const url = request.nextUrl.clone();
-    url.pathname = "/auth/login";
+    url.pathname = "/login";
     url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
 
   // NOTE: redirect authenticated users away from auth pages (they're already logged in)
-  if (pathname.startsWith("/auth/") && user) {
+  if (isAuthPath && user) {
     const url = request.nextUrl.clone();
-    url.pathname = "/protected";
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 

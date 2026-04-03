@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 // NOTE: example paginated server component.
 // Demonstrates offset pagination with the Drizzle `paginate()` helper.
 
-// NOTE: URL pattern - /protected/users?page=1&pageSize=10
+// NOTE: URL pattern - /users?page=1&pageSize=10
 
 // TODO: replace this demo page with your app's actual paginated data
 
@@ -59,7 +59,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
       <div className="flex items-center justify-center gap-2">
         {result.hasPreviousPage ? (
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/protected/users?page=${page - 1}&pageSize=${pageSize}`}>&larr; Previous</Link>
+            <Link href={`/users?page=${page - 1}&pageSize=${pageSize}`}>&larr; Previous</Link>
           </Button>
         ) : (
           <Button variant="outline" size="sm" disabled>
@@ -68,7 +68,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
         )}
         {result.hasNextPage ? (
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/protected/users?page=${page + 1}&pageSize=${pageSize}`}>Next &rarr;</Link>
+            <Link href={`/users?page=${page + 1}&pageSize=${pageSize}`}>Next &rarr;</Link>
           </Button>
         ) : (
           <Button variant="outline" size="sm" disabled>

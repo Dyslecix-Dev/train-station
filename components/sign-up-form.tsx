@@ -59,7 +59,7 @@ export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"di
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
+      router.push("/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -114,7 +114,7 @@ export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"di
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}
-              <Link href="/auth/login" className="underline underline-offset-4">
+              <Link href="/login" className="underline underline-offset-4">
                 Login
               </Link>
             </div>

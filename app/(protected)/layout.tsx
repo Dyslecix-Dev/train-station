@@ -16,7 +16,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
   const { data, error } = await supabase.auth.getClaims();
 
   if (error || !data?.claims) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   await createOrGetUser({ id: data.claims.sub as string, email: data.claims.email as string });
@@ -29,7 +29,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
           <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
             <div className="flex items-center gap-5 font-semibold">
               <Link href={"/"}>{siteConfig.name}</Link>
-              <Link href={"/protected/profile"} className="text-muted-foreground hover:text-foreground font-normal transition-colors">
+              <Link href={"/profile"} className="text-muted-foreground hover:text-foreground font-normal transition-colors">
                 Profile
               </Link>
             </div>

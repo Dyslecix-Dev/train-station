@@ -10,8 +10,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // TODO: update the disallow rules to match your app's private routes
-        disallow: ["/protected/", "/auth/"],
+        // TODO: update the disallow rules to match your app's private routes (route groups strip folder names from URLs)
+        disallow: [],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

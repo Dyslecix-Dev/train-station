@@ -24,10 +24,10 @@ export async function GET(request: NextRequest) {
       redirect(safeNext);
     } else {
       // NOTE: redirect the user to an error page with some instructions
-      redirect(`/auth/error?error=${encodeURIComponent(error?.message ?? "Verification failed")}`);
+      redirect(`/error?error=${encodeURIComponent(error?.message ?? "Verification failed")}`);
     }
   }
 
   // NOTE: redirect the user to an error page with some instructions
-  redirect(`/auth/error?error=${encodeURIComponent("No token hash or type")}`);
+  redirect(`/error?error=${encodeURIComponent("No token hash or type")}`);
 }

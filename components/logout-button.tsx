@@ -20,7 +20,7 @@ export function LogoutButton() {
       setIsLoading(false);
       return;
     }
-    router.push("/auth/login");
+    router.push("/login");
   };
 
   return (

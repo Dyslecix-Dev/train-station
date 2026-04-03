@@ -9,7 +9,7 @@ test("home page loads", async ({ page }) => {
 });
 
 test("login page renders form", async ({ page }) => {
-  await page.goto("/auth/login");
+  await page.goto("/login");
   await expect(page.getByRole("heading", { name: "Login" })).toBeVisible();
   await expect(page.getByLabel("Email")).toBeVisible();
   await expect(page.getByLabel("Password")).toBeVisible();
@@ -17,25 +17,25 @@ test("login page renders form", async ({ page }) => {
 });
 
 test("sign up page renders form", async ({ page }) => {
-  await page.goto("/auth/sign-up");
+  await page.goto("/sign-up");
   await expect(page.getByRole("heading", { name: "Sign up" })).toBeVisible();
   await expect(page.getByLabel("Email")).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign up" })).toBeVisible();
 });
 
 test("protected route redirects unauthenticated users to login", async ({ page }) => {
-  await page.goto("/protected");
-  await expect(page).toHaveURL(/\/auth\/login/);
+  await page.goto("/profile");
+  await expect(page).toHaveURL(/\/login/);
 });
 
 test("login page links to sign up", async ({ page }) => {
-  await page.goto("/auth/login");
+  await page.goto("/login");
   await page.getByRole("link", { name: "Sign up" }).click();
-  await expect(page).toHaveURL(/\/auth\/sign-up/);
+  await expect(page).toHaveURL(/\/sign-up/);
 });
 
 test("sign up page links to login", async ({ page }) => {
-  await page.goto("/auth/sign-up");
+  await page.goto("/sign-up");
   await page.getByRole("link", { name: "Login" }).click();
-  await expect(page).toHaveURL(/\/auth\/login/);
+  await expect(page).toHaveURL(/\/login/);
 });
