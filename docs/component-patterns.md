@@ -256,16 +256,16 @@ export function ProfileForm({ defaultName }: { defaultName: string }) {
 - `useForm` from Conform wires up validation attributes, error display, and form state
 - `shouldValidate: "onBlur"` gives immediate feedback without being intrusive
 
-See `app/protected/profile/` for a working example that also uses `useOptimistic` for instant UI feedback.
+See the profile form in `app/(protected)/settings/` for a working example that also uses `useOptimistic` for instant UI feedback.
 
 ## Adding a Protected Page
 
-Pages under `app/protected/` are automatically guarded by the proxy — unauthenticated users are redirected to `/auth/login`. To add a new protected page:
+Pages under `app/(protected)/` are automatically guarded by the proxy — unauthenticated users are redirected to `/login`. The `(protected)` route group does not appear in the URL. To add a new protected page:
 
 **1. Create the page file:**
 
 ```tsx
-// app/protected/dashboard/page.tsx
+// app/(protected)/dashboard/page.tsx
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
@@ -279,7 +279,7 @@ export default async function DashboardPage() {
   const { data, error } = await supabase.auth.getClaims();
 
   if (error || !data?.claims) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   return (
@@ -296,12 +296,12 @@ export default async function DashboardPage() {
 - Default to a **Server Component** (no `"use client"`) — fetch data and check auth on the server
 - Use `getClaims()` for fast, local JWT validation (no network call). Use `getUser()` only when you need guaranteed-current data (see [Auth Patterns](auth-patterns.md#getclaims-vs-getuser))
 - Always create the Supabase client inside the function, never in a global variable (Fluid Compute requirement)
-- Add a navigation link in `app/protected/layout.tsx` if the page should appear in the sidebar/nav
+- Add a navigation link in `app/(protected)/layout.tsx` if the page should appear in the sidebar/nav
 
 **2. If the page needs client interactivity**, extract interactive parts into a separate client component:
 
 ```tsx
-// app/protected/dashboard/counter.tsx
+// app/(protected)/dashboard/counter.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -316,7 +316,7 @@ export function Counter() {
 Then import it in the server page:
 
 ```tsx
-// app/protected/dashboard/page.tsx
+// app/(protected)/dashboard/page.tsx
 import { Counter } from "./counter";
 
 export default async function DashboardPage() {

@@ -51,11 +51,23 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  // TODO: update this condition to match your app's protected routes (e.g., add public marketing pages or restrict additional paths)
-  if (request.nextUrl.pathname !== "/" && !user && !request.nextUrl.pathname.startsWith("/auth")) {
+  const pathname = request.nextUrl.pathname;
+
+  // NOTE: public routes that don't require authentication
+  const isPublicRoute = pathname === "/" || pathname.startsWith("/auth/") || pathname === "/~offline" || pathname.startsWith("/api/") || pathname.startsWith("/serwist");
+
+  // NOTE: redirect unauthenticated users to login for all non-public routes
+  if (!isPublicRoute && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
-    url.searchParams.set("next", request.nextUrl.pathname);
+    url.searchParams.set("next", pathname);
+    return NextResponse.redirect(url);
+  }
+
+  // NOTE: redirect authenticated users away from auth pages (they're already logged in)
+  if (pathname.startsWith("/auth/") && user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/protected";
     return NextResponse.redirect(url);
   }
 

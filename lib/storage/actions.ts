@@ -35,6 +35,6 @@ export async function uploadFileAction(formData: FormData) {
   const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "bin";
   const path = `${user.id}/${Date.now()}.${ext}`;
 
-  const { path: storedPath } = await uploadFile("uploads", path, file);
+  const { path: storedPath } = await uploadFile("exercise-images", path, file);
   return { path: storedPath };
 }

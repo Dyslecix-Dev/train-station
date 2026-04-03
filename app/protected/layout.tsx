@@ -4,8 +4,6 @@ import { Suspense } from "react";
 
 import { ActivityTracker } from "@/components/activity-tracker";
 import { AuthButton } from "@/components/auth-button";
-// TODO: remove DeployButton import — this is a boilerplate demo only
-import { DeployButton } from "@/components/deploy-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { siteConfig } from "@/lib/config";
 import { createOrGetUser } from "@/lib/db/ensure-user";
@@ -34,14 +32,6 @@ export default async function ProtectedLayout({ children }: { children: React.Re
               <Link href={"/protected/profile"} className="text-muted-foreground hover:text-foreground font-normal transition-colors">
                 Profile
               </Link>
-              {/* TODO: remove Users link — this is a pagination demo only */}
-              <Link href={"/protected/users"} className="text-muted-foreground hover:text-foreground font-normal transition-colors">
-                Users
-              </Link>
-              {/* TODO: remove <DeployButton /> — this is a boilerplate helper only */}
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
             </div>
             <Suspense>
               <AuthButton />

@@ -100,7 +100,6 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      // TODO: update default icon/badge paths to match your app's assets
       icon: data.icon || "/icons/icon-192x192.png",
       badge: data.badge || "/icons/icon-192x192.png",
       tag: data.tag || "default",
@@ -153,8 +152,7 @@ self.addEventListener("message", (event) => {
     // NOTE: clear any previous reminder
     if (reminderTimeout) clearTimeout(reminderTimeout);
 
-    // TODO: adjust default delay (ms) to match your app's UX expectations
-    const delay = data.delay ?? 5 * 60 * 1000; // default: 5 minutes
+    const delay = data.delay ?? 30 * 1000; // default: 30 seconds
 
     reminderTimeout = setTimeout(() => {
       self.registration.showNotification(data.title || "Don\u2019t forget!", {

@@ -74,7 +74,7 @@ jobs:
 
 ## Deployment
 
-The project is configured for Vercel deployment (uses `VERCEL_PROJECT_PRODUCTION_URL` env var for metadata). Deploy by connecting your GitHub repo to Vercel, or use the deploy button in the app.
+The project is configured for Vercel deployment (uses `VERCEL_PROJECT_PRODUCTION_URL` env var for metadata). Deploy by connecting your GitHub repo to Vercel.
 
 For other platforms, run:
 

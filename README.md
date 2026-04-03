@@ -1,8 +1,18 @@
-# Full-Stack Boilerplate
+# Train Station
 
-An opinionated full-stack Next.js boilerplate for building modern web applications. Ships with authentication, database, UI components, PWA support, and a comprehensive testing setup — ready to build on.
+A fitness tracking PWA built with Next.js 16, Supabase, and Drizzle ORM. Tracks workouts, nutrition, sleep, and mental health in a mobile-first progressive web app.
 
-## What's Included
+## Features
+
+| Pillar        | What it does                                                            |
+| ------------- | ----------------------------------------------------------------------- |
+| Workouts      | Templates, active tracking with sets/rest timers, history, 1RM progress |
+| Nutrition     | USDA food search, meal logging, macros, water intake, body stats        |
+| Sleep         | Bedtime/wake time logging, duration, quality, trend charts              |
+| Mental Health | Mood score, emotion tags, journal entries, trend charts                 |
+| Dashboard     | Today summary across all pillars, weekly trends, consistency streak     |
+
+## Tech Stack
 
 | Category      | Technology                                                    |
 | ------------- | ------------------------------------------------------------- |
@@ -10,14 +20,14 @@ An opinionated full-stack Next.js boilerplate for building modern web applicatio
 | Database      | PostgreSQL (Supabase), Drizzle ORM                            |
 | Auth          | Supabase Auth (cookie sessions, proxy-based route protection) |
 | UI            | shadcn/ui (New York), Tailwind CSS v4, Radix UI               |
-| State         | Zustand (global), nuqs (URL query params)                     |
+| State         | Zustand (active workout), TanStack Query, nuqs (URL params)   |
 | Forms         | Conform, Zod v4                                               |
-| PWA           | Serwist (service worker, offline fallback, installable)       |
+| PWA           | Serwist (service worker, offline workout, installable)        |
 | Testing       | Vitest (unit), Playwright (e2e), Lighthouse CI (perf)         |
 | Code Quality  | ESLint, Prettier, CI pipelines via GitHub Actions             |
 | Animations    | Motion (Framer Motion)                                        |
 | Charts        | Recharts                                                      |
-| Email         | Resend + React Email (transactional email, templates)         |
+| Email         | Resend + React Email (welcome email, transactional)           |
 | Notifications | Sonner (toasts)                                               |
 | Dark Mode     | next-themes (system, light, dark)                             |
 
@@ -28,62 +38,38 @@ An opinionated full-stack Next.js boilerplate for building modern web applicatio
 - [Node.js](https://nodejs.org/) (LTS)
 - [pnpm](https://pnpm.io/) v10+
 - A [Supabase](https://supabase.com/) project
+- A [USDA FoodData Central API key](https://fdc.nal.usda.gov/api-key-signup) (free, required for nutrition search)
 
 ### Setup
 
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/Dyslecix-Dev/full-stack-boilerplate.git my-new-project
-   cd my-new-project
-   ```
-
-2. **Reset git history and point to your own repository**
-
-   Remove the boilerplate's commit history and push a clean initial commit to a new GitHub repo:
-
-   ```bash
-   rm -rf .git
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/your-org/your-app.git
-   git push -u origin main
-   ```
-
-3. **Install dependencies**
+1. **Install dependencies**
 
    ```bash
    pnpm install
    ```
 
-4. **Set up environment variables**
+2. **Set up environment variables**
 
    ```bash
    cp .env.example .env
    ```
 
-   Fill in your Supabase credentials. See [docs/environment.md](docs/environment.md) for details on each variable.
+   Fill in your Supabase credentials and `USDA_API_KEY`. See [docs/environment.md](docs/environment.md) for all variables.
 
-   > **Want to explore the UI first?** You can skip env setup and run `NODE_ENV=test pnpm dev` to start the dev server with validation disabled. Auth and database features won't work, but you can browse the pages and components.
-   >
-   > **Using the Vercel × Supabase integration?** All env vars are populated automatically when you create a Supabase project through Vercel. The `.env.example` file includes every variable Vercel provides — some are aliases for the same value (see [docs/environment.md](docs/environment.md) for details).
-
-5. **Configure Supabase Auth**
+3. **Configure Supabase Auth**
 
    In your [Supabase dashboard](https://supabase.com/dashboard) under **Authentication → URL Configuration**:
    - Set **Site URL** to `http://localhost:3000`
    - Add `http://localhost:3000/**` to **Redirect URLs**
 
-   For production, add your deployed domain to both fields as well.
-
-6. **Set up the database**
+4. **Set up the database**
 
    ```bash
-   pnpm db:push       # Push schema to your Supabase database
+   pnpm db:push       # Push schema to Supabase
+   pnpm db:seed       # Seed system exercises and foods
    ```
 
-7. **Start the dev server**
+5. **Start the dev server**
 
    ```bash
    pnpm dev
@@ -95,10 +81,10 @@ An opinionated full-stack Next.js boilerplate for building modern web applicatio
 
 ```text
 app/
-  layout.tsx          # Root layout (theme, PWA, toasts, URL state providers)
+  layout.tsx          # Root layout (theme, PWA, toasts, URL state, TanStack Query)
   page.tsx            # Landing page
   auth/               # Auth routes (login, sign-up, forgot-password, etc.)
-  protected/          # Auth-guarded pages
+  (protected)/        # Auth-guarded routes (dashboard, workouts, nutrition, etc.)
   ~offline/           # PWA offline fallback page
 emails/               # React Email templates (welcome, reset-password, otp)
 components/
@@ -107,9 +93,20 @@ components/
 lib/
   db/                 # Drizzle ORM (client, schema, queries)
   email/              # Resend client + sendEmail helper
+  storage/            # Supabase Storage helpers + upload action
   supabase/           # Supabase clients (server, browser, proxy)
-  utils.ts            # Shared utilities
+  stores/             # Zustand stores (active-workout, etc.)
+  hooks/              # Shared hooks (use-date-param, etc.)
+  tdee.ts             # TDEE / BMR / macro target calculations
+  units.ts            # Unit conversion (kg↔lb, km↔mi, formatters)
+  streak.ts           # Streak update utility
+  usda.ts             # USDA FoodData Central API integration
+  config.ts           # App name, description, URL — single source of truth
+  utils.ts            # cn() utility + helpers
+proxy.ts              # Next.js 16 proxy (route protection + session refresh)
 e2e/                  # Playwright E2E tests
+drizzle/              # Generated migrations
+checklists/           # Phased build checklists (00-MASTER-INDEX through 13)
 docs/                 # Detailed documentation
 .agents/skills/       # Claude Code agent skills
 .github/workflows/    # CI pipelines (Vitest, Playwright, Lighthouse)
@@ -117,22 +114,22 @@ docs/                 # Detailed documentation
 
 ## Available Scripts
 
-| Command                 | Description                     |
-| ----------------------- | ------------------------------- |
-| `pnpm dev`              | Start development server        |
-| `pnpm build`            | Build for production            |
-| `pnpm start`            | Start production server         |
-| `pnpm test`             | Run unit tests (Vitest)         |
-| `pnpm test:e2e`         | Run E2E tests (Playwright)      |
-| `pnpm lighthouse:local` | Build and run Lighthouse audit  |
-| `pnpm lint`             | Run ESLint                      |
-| `pnpm format`           | Format code with Prettier       |
-| `pnpm db:generate`      | Generate a database migration   |
-| `pnpm db:migrate`       | Run pending migrations          |
-| `pnpm db:push`          | Push schema to database (dev)   |
-| `pnpm db:seed`          | Seed database with initial data |
-| `pnpm db:studio`        | Open Drizzle Studio             |
-| `pnpm email:dev`        | Preview email templates (3001)  |
+| Command                 | Description                    |
+| ----------------------- | ------------------------------ |
+| `pnpm dev`              | Start development server       |
+| `pnpm build`            | Build for production           |
+| `pnpm start`            | Start production server        |
+| `pnpm test`             | Run unit tests (Vitest)        |
+| `pnpm test:e2e`         | Run E2E tests (Playwright)     |
+| `pnpm lighthouse:local` | Build and run Lighthouse audit |
+| `pnpm lint`             | Run ESLint                     |
+| `pnpm format`           | Format code with Prettier      |
+| `pnpm db:generate`      | Generate a database migration  |
+| `pnpm db:migrate`       | Run pending migrations         |
+| `pnpm db:push`          | Push schema to database (dev)  |
+| `pnpm db:seed`          | Seed system exercises + foods  |
+| `pnpm db:studio`        | Open Drizzle Studio            |
+| `pnpm email:dev`        | Preview email templates (3001) |
 
 ## Documentation
 
@@ -148,90 +145,37 @@ Detailed guides for each area of the codebase:
 - [PWA](docs/pwa.md) — Service worker, manifest, offline support, push notifications
 - [Testing](docs/testing.md) — Vitest, Playwright, Lighthouse CI configuration
 
-## Pre-Launch Checklist
+## Build Phases
 
-Before shipping, work through [CHECKLIST.md](CHECKLIST.md) — it covers branding, environment setup, email templates, database, auth configuration, and removing demo content.
-
-## Cleaning Up
-
-The full-stack boilerplate ships with a few demo-only files. These are safe to delete — they have no effect on the rest of the app:
-
-| What to remove        | File(s)                                       | Also remove from                                                                         |
-| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Deploy button         | `components/deploy-button.tsx`                | Its `<DeployButton />` usage and import in `app/page.tsx` and `app/protected/layout.tsx` |
-| Hero section          | `components/hero.tsx`                         | Its `<Hero />` usage and import in `app/page.tsx`                                        |
-| Demo protected page   | `app/protected/page.tsx`                      | Replace with your own protected content                                                  |
-| Example E2E test      | `e2e/example.spec.ts`                         | Replace with your own tests                                                              |
-| Example profile page  | `app/protected/profile/`                      | Replace with your own profile page                                                       |
-| Example Zustand store | `lib/stores/example-store.ts`                 | Replace with your own stores                                                             |
-| Example nuqs hook     | `lib/hooks/use-search-params.ts`              | Replace with your own hooks                                                              |
-| Example unit tests    | `lib/utils.test.ts`, `lib/rate-limit.test.ts` | Replace with your own tests                                                              |
-
-Every removable line is also marked with a `TODO` comment in the code — search for `TODO: remove` to find them all.
-
-## Customizing
-
-### Branding
-
-1. Update app name in `app/manifest.ts` and `app/layout.tsx`
-2. Replace icons in `public/icons/` and splash screens in `public/splash/`
-3. Modify theme colors in `app/globals.css`
-
-### Adding UI Components
-
-```bash
-pnpm dlx shadcn@latest add button card dialog
-```
-
-### Adding Database Tables
-
-1. Create a new schema file in `lib/db/schema/`
-2. Export it from `lib/db/schema/index.ts`
-3. Run `pnpm db:generate && pnpm db:migrate`
-
-### Deployment
-
-The project is configured for [Vercel](https://vercel.com). Connect your GitHub repo and deploy. For other platforms:
-
-```bash
-pnpm build && pnpm start
-```
+Work through the `checklists/` folder in order — each phase is self-contained and depends on the previous one completing. See [checklists/00-MASTER-INDEX.md](checklists/00-MASTER-INDEX.md) for the full build plan.
 
 ## Agent Skills (Claude Code)
 
-This full-stack boilerplate ships with pre-configured [Claude Code](https://claude.ai/claude-code) agent skills in `.agents/skills/` for AI-assisted development:
+Pre-configured [Claude Code](https://claude.ai/claude-code) agent skills in `.agents/skills/`:
 
-| Skill                            | Source                      | Purpose                                           |
-| -------------------------------- | --------------------------- | ------------------------------------------------- |
-| agent-email-inbox                | resend/resend-skills        | Resend inbox and email management patterns        |
-| email-best-practices             | resend/email-best-practices | Email design, deliverability, and templates       |
-| frontend-design                  | anthropics/skills           | Frontend design best practices                    |
-| react-email                      | resend/react-email          | React Email component patterns                    |
-| resend                           | resend/resend-skills        | Resend API usage, sending patterns, and webhooks  |
-| seo-audit                        | coreyhaines31               | SEO auditing guidelines                           |
-| shadcn                           | shadcn/ui                   | Component patterns, composition, forms, styling   |
-| supabase-postgres-best-practices | supabase/agent-skills       | PostgreSQL queries, schema, security, connections |
-| systematic-debugging             | obra/superpowers            | Root cause tracing and debugging strategies       |
-| test-driven-development          | obra/superpowers            | TDD workflow and testing anti-patterns            |
-| vercel-react-best-practices      | vercel-labs                 | React performance, rendering, bundle optimization |
-| web-design-guidelines            | vercel-labs                 | a11y, performance, and UX auditing guidelines     |
-
-Skills are locked via `skills-lock.json`.
+| Skill                            | Purpose                                           |
+| -------------------------------- | ------------------------------------------------- |
+| agent-email-inbox                | Resend inbox and email management patterns        |
+| email-best-practices             | Email design, deliverability, and templates       |
+| frontend-design                  | Frontend design best practices                    |
+| react-email                      | React Email component patterns                    |
+| resend                           | Resend API usage, sending patterns, and webhooks  |
+| seo-audit                        | SEO auditing guidelines                           |
+| shadcn                           | Component patterns, composition, forms, styling   |
+| supabase-postgres-best-practices | PostgreSQL queries, schema, security, connections |
+| systematic-debugging             | Root cause tracing and debugging strategies       |
+| test-driven-development          | TDD workflow and testing anti-patterns            |
+| vercel-react-best-practices      | React performance, rendering, bundle optimization |
+| web-design-guidelines            | a11y, performance, and UX auditing guidelines     |
 
 ## Health Check & Uptime Monitoring
 
-The app exposes a `GET /api/health` endpoint that tests database connectivity and returns:
+`GET /api/health` tests database connectivity:
 
 - `200 { "status": "ok" }` — app and database are healthy
-- `503 { "status": "error", "message": "Database connection failed" }` — app is up but the database is unreachable
+- `503 { "status": "error", "message": "Database connection failed" }` — database unreachable
 
-This endpoint is designed for uptime monitoring services like [Better Stack](https://betterstack.com/). To set it up:
-
-1. Create a monitor in Better Stack pointing to `https://your-domain.com/api/health`
-2. Set the expected status code to `200`
-3. Choose your check interval (e.g., every 30 seconds)
-
-Better Stack will alert you when the endpoint returns a non-200 status or becomes unreachable, catching both app crashes and database outages.
+Configure an uptime monitor (e.g., [Better Stack](https://betterstack.com/)) pointing to `https://your-domain.com/api/health`.
 
 ## Code Quality
 
@@ -239,7 +183,7 @@ Better Stack will alert you when the endpoint returns a non-200 status or become
 - **Prettier** with import sorting and Tailwind class ordering
 - **Build-time env validation** via Zod in `next.config.ts`
 - **Security headers** (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
-- **Lighthouse CI** enforces accessibility scores above 90%
+- **Lighthouse CI** enforces performance, accessibility, and best-practices scores above 90%
 
 ## License
 

@@ -11,10 +11,10 @@
 1. User submits the login form (`components/login-form.tsx`) with email and password
 2. The form calls `supabase.auth.signInWithPassword()`, which sets session cookies in the browser
 3. On every subsequent request, `proxy.ts` runs and calls `supabase.auth.getClaims()` to validate the session
-4. If the session is missing or expired, the proxy redirects to `/auth/login?next=/original-path`
-5. Protected pages (e.g., `app/protected/page.tsx`) read the user's claims via `createClient()` from `lib/supabase/server.ts`
+4. If the session is missing or expired, the proxy redirects to `/login?next=/original-path`
+5. Protected pages (e.g., `app/(protected)/dashboard/page.tsx`) read the user's claims via `createClient()` from `lib/supabase/server.ts`
 
-Sign-up follows a similar flow but routes through email confirmation (`/auth/confirm`) before creating the session.
+Sign-up follows a similar flow but routes through email confirmation (`/confirm`) before creating the session.
 
 ## Architecture
 
@@ -56,7 +56,7 @@ The proxy in `proxy.ts` runs on every request (except static files/images). It:
 
 1. Creates a Supabase server client with cookie access
 2. Calls `supabase.auth.getClaims()` to validate/refresh the session
-3. Redirects unauthenticated users to `/auth/login` if they access protected routes
+3. Redirects unauthenticated users to `/login` if they access protected routes
 
 **Critical**: Do not add code between `createServerClient()` and `getClaims()` in the proxy. This can cause random session drops.
 
@@ -75,24 +75,26 @@ The proxy in `proxy.ts` runs on every request (except static files/images). It:
 
 ## Auth Routes
 
-| Route                   | Purpose                  | Component            |
-| ----------------------- | ------------------------ | -------------------- |
-| `/auth/login`           | Email/password login     | `LoginForm`          |
-| `/auth/sign-up`         | New account registration | `SignUpForm`         |
-| `/auth/sign-up-success` | Post-signup confirmation | Static page          |
-| `/auth/forgot-password` | Request password reset   | `ForgotPasswordForm` |
-| `/auth/update-password` | Set new password         | `UpdatePasswordForm` |
-| `/auth/confirm`         | Email OTP verification   | Route handler (GET)  |
-| `/auth/error`           | Auth error display       | Static page          |
+| Route              | Purpose                  | Component            |
+| ------------------ | ------------------------ | -------------------- |
+| `/login`           | Email/password login     | `LoginForm`          |
+| `/sign-up`         | New account registration | `SignUpForm`         |
+| `/sign-up-success` | Post-signup confirmation | Static page          |
+| `/forgot-password` | Request password reset   | `ForgotPasswordForm` |
+| `/update-password` | Set new password         | `UpdatePasswordForm` |
+| `/confirm`         | Email OTP verification   | Route handler (GET)  |
+| `/error`           | Auth error display       | Static page          |
 
 ## Protected Routes
 
-Any route under `/protected` is guarded by the proxy. The proxy redirects to `/auth/login` if no valid session exists.
+Any route under `app/(protected)/` is guarded by the proxy. Both `(auth)` and `(protected)` are route groups — the parentheses do not appear in the URL. The proxy checks URL paths, not filesystem paths, so it checks for known auth page paths (e.g. `/login`, `/sign-up`) to identify auth pages and redirects everything else when unauthenticated.
 
 To protect additional routes, update the condition in `lib/supabase/proxy.ts`:
 
 ```ts
-if (request.nextUrl.pathname !== "/" && !user && !request.nextUrl.pathname.startsWith("/auth")) {
+const authPaths = ["/login", "/sign-up", "/sign-up-success", "/forgot-password", "/update-password", "/confirm", "/error"];
+
+if (request.nextUrl.pathname !== "/" && !user && !authPaths.some((p) => request.nextUrl.pathname.startsWith(p))) {
   // redirect to login
 }
 ```
@@ -100,9 +102,9 @@ if (request.nextUrl.pathname !== "/" && !user && !request.nextUrl.pathname.start
 ## Auth Components
 
 - **`AuthButton`** (server component): Shows the current user's email and a logout button when authenticated, or sign in/sign up links when not.
-- **`LoginForm`** (client component): Email/password form using `supabase.auth.signInWithPassword()`. Redirects to `/protected` on success.
-- **`SignUpForm`** (client component): Email/password form using `supabase.auth.signUp()`. Includes password confirmation. Redirects to `/auth/sign-up-success`.
-- **`LogoutButton`** (client component): Calls `supabase.auth.signOut()` and redirects to `/auth/login`.
+- **`LoginForm`** (client component): Email/password form using `supabase.auth.signInWithPassword()`. Redirects to `/dashboard` on success.
+- **`SignUpForm`** (client component): Email/password form using `supabase.auth.signUp()`. Includes password confirmation. Redirects to `/sign-up-success`.
+- **`LogoutButton`** (client component): Calls `supabase.auth.signOut()` and redirects to `/login`.
 
 ## Getting User Data in Server Components
 
@@ -122,7 +124,7 @@ async function MyComponent() {
   const { data, error } = await supabase.auth.getClaims();
 
   if (error || !data?.claims) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   return <div>Hello, {data.claims.email}</div>;
@@ -148,7 +150,7 @@ By default, Supabase requires email confirmation before a user can sign in. You 
 1. Go to [Authentication → Providers → Email](https://supabase.com/dashboard/project/_/auth/providers)
 2. Toggle "Confirm email" on or off depending on your needs
 
-When confirmation is enabled, `supabase.auth.signUp()` creates the user but they can't sign in until they click the confirmation link. The full-stack boilerplate handles this by redirecting to `/auth/sign-up-success` which tells the user to check their email.
+When confirmation is enabled, `supabase.auth.signUp()` creates the user but they can't sign in until they click the confirmation link. The full-stack boilerplate handles this by redirecting to `/sign-up-success` which tells the user to check their email.
 
 ## Supabase Emails vs. Resend Emails
 

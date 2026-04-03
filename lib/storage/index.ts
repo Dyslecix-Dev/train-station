@@ -4,19 +4,19 @@ import { createClient } from "@/lib/supabase/server";
 // Free tier: 1 GB storage, 2 GB bandwidth/month.
 
 // TODO: before using, create a storage bucket in the Supabase dashboard or via SQL:
-// INSERT INTO storage.buckets (id, name, public) VALUES ('uploads', 'uploads', false);
+// INSERT INTO storage.buckets (id, name, public) VALUES ('exercise-images', 'exercise-images', false);
 
 // NOTE: for public files (e.g., avatars), set `public: true` on the bucket.
 
 // Usage:
 // ```ts
 // import { uploadFile, getPublicUrl, deleteFile } from "@/lib/storage";
-// const { path } = await uploadFile("uploads", `avatars/${userId}.png`, file);
-// const url = getPublicUrl("uploads", path);
-// await deleteFile("uploads", path);
+// const { path } = await uploadFile("exercise-images", `avatars/${userId}.png`, file);
+// const url = getPublicUrl("exercise-images", path);
+// await deleteFile("exercise-images", path);
 // ```
 
-const DEFAULT_BUCKET = "uploads";
+const DEFAULT_BUCKET = "exercise-images";
 
 export async function uploadFile(bucket: string = DEFAULT_BUCKET, path: string, file: File | Blob | Buffer) {
   const supabase = await createClient();

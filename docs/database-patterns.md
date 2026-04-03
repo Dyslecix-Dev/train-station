@@ -12,19 +12,21 @@
 Schemas live in `lib/db/schema/`. Each domain gets its own file (e.g., `users.ts`). All schemas are re-exported from `lib/db/schema/index.ts`.
 
 ```ts
-// lib/db/schema/users.ts
-import { pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+// lib/db/schema/user-profiles.ts
+import { pgTable, text, boolean, timestamp, uuid } from "drizzle-orm/pg-core";
 
-export const userRoleEnum = pgEnum("user_role", ["admin", "member", "viewer"]);
-
-export const users = pgTable("users", {
+export const userProfiles = pgTable("user_profiles", {
   id: uuid("id").primaryKey().defaultRandom(),
-  email: text("email").notNull().unique(),
-  name: text("name"),
-  role: userRoleEnum("role").notNull().default("member"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  authUserId: uuid("auth_user_id").notNull().unique(),
+  displayName: text("display_name"),
+  onboardingCompleted: boolean("onboarding_completed").notNull().default(false),
+  timezone: text("timezone").notNull().default("America/New_York"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+export type UserProfile = typeof userProfiles.$inferSelect;
+export type NewUserProfile = typeof userProfiles.$inferInsert;
 ```
 
 ### Adding a new table
@@ -71,21 +73,23 @@ Import `db` from `@/lib/db` and use Drizzle's query builder:
 
 ```ts
 import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { userProfiles, exercises } from "@/lib/db/schema";
+import { eq, isNull } from "drizzle-orm";
 
 // Select
-const allUsers = await db.select().from(users);
-const user = await db.select().from(users).where(eq(users.email, "test@example.com"));
+const profile = await db.select().from(userProfiles).where(eq(userProfiles.authUserId, userId));
 
 // Insert
-await db.insert(users).values({ email: "new@example.com", name: "New User" });
+await db.insert(userProfiles).values({ authUserId: userId });
 
 // Update
-await db.update(users).set({ name: "Updated" }).where(eq(users.id, userId));
+await db.update(userProfiles).set({ displayName: "Alex" }).where(eq(userProfiles.id, profileId));
 
-// Delete
-await db.delete(users).where(eq(users.id, userId));
+// Delete (soft-delete pattern for user-created exercises)
+await db.update(exercises).set({ deletedAt: new Date() }).where(eq(exercises.id, exerciseId));
+
+// Filter soft-deleted rows
+const activeExercises = await db.select().from(exercises).where(isNull(exercises.deletedAt));
 ```
 
 ## Seeding
@@ -96,16 +100,16 @@ The seed script lives in `lib/db/seed.ts` and is run with:
 pnpm db:seed
 ```
 
-By default it inserts three placeholder users (admin, member, viewer) to demonstrate the `user_role` enum. The seed uses `onConflictDoNothing()` so it is safe to run multiple times without duplicate key errors. Replace the seed data with whatever your app needs for local development:
+It inserts system exercises (visible to all users, `is_system = true`) across all categories (strength, cardio, bodyweight, flexibility). The seed uses `onConflictDoNothing()` so it is safe to run multiple times without duplicate key errors:
 
 ```ts
-// lib/db/seed.ts
-async function seed() {
+// lib/db/seed/exercises.ts
+async function seedExercises() {
   await db
-    .insert(schema.users)
+    .insert(schema.exercises)
     .values([
-      { email: "admin@example.com", name: "Admin User", role: "admin" },
-      // add your own seed data here
+      { name: "Bench Press", category: "strength", isSystem: true, progressMetricType: "estimated_1rm", ... },
+      // more exercises...
     ])
     .onConflictDoNothing();
 }

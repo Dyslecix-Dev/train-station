@@ -3,7 +3,6 @@ import { count, desc } from "drizzle-orm";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
@@ -46,7 +45,6 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base">{user.name ?? "Unnamed"}</CardTitle>
-                <Badge variant="secondary">{user.role}</Badge>
               </div>
               <CardDescription>{user.email}</CardDescription>
             </CardHeader>

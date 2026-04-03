@@ -29,7 +29,7 @@ import { WelcomeEmail } from "@/emails/welcome";
 await sendEmail({
   to: user.email,
   subject: "Welcome!",
-  template: <WelcomeEmail username={user.name} loginUrl="https://yourdomain.com/auth/login" />,
+  template: <WelcomeEmail username={user.name} loginUrl="https://yourdomain.com/login" />,
 });
 ```
 

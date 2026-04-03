@@ -31,9 +31,8 @@ export function LoginForm({ className, ...props }: ComponentPropsWithoutRef<"div
         password,
       });
       if (error) throw error;
-      // TODO: update the fallback route to your app's main authenticated route
       const next = searchParams.get("next");
-      const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/protected";
+      const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
       router.push(safeNext);
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");

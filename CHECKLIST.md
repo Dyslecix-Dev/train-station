@@ -6,7 +6,7 @@ A checklist of everything to update before shipping this full-stack boilerplate 
 
 ## 1. Repository Setup
 
-- [ ] Remove the boilerplate git history and start fresh:
+- [x] Remove the boilerplate git history and start fresh:
 
   ```bash
   rm -rf .git
@@ -15,7 +15,7 @@ A checklist of everything to update before shipping this full-stack boilerplate 
   git commit -m "Initial commit"
   ```
 
-- [ ] Point the remote to your new repository:
+- [x] Point the remote to your new repository:
 
   ```bash
   git remote add origin https://github.com/your-org/your-app.git
@@ -28,40 +28,39 @@ A checklist of everything to update before shipping this full-stack boilerplate 
 
 See [docs/environment.md](docs/environment.md) for full details on every variable.
 
-- [ ] Copy `.env.example` to `.env` and fill in all values
-- [ ] Create a [Supabase](https://supabase.com/dashboard/organizations) account and set Supabase **Site URL** to your domain in the Supabase dashboard (`Authentication → URL Configuration`)
-- [ ] Add your domain to Supabase **Redirect URLs** (include `http://localhost:3000/**` for local dev)
-- [ ] Generate VAPID keys and add to `.env`:
+- [x] Copy `.env.example` to `.env` and fill in all values
+- [x] Create a [Supabase](https://supabase.com/dashboard/organizations) account and set Supabase **Site URL** to your domain in the Supabase dashboard (`Authentication → URL Configuration`)
+- [x] Add your domain to Supabase **Redirect URLs** (include `http://localhost:3000/**` for local dev)
+- [x] Generate VAPID keys and add to `.env`:
 
   ```bash
   pnpm dlx web-push generate-vapid-keys
   ```
 
-- [ ] Create a [Resend](https://resend.com) account, generate an API key, and add `RESEND_API_KEY` to `.env` (`API Keys`)
-- [ ] Verify your sending domain in the Resend dashboard (`Domains`)
-- [ ] Add Resend DNS records to your domain provider
-- [ ] Set `VAPID_MAILTO` in `.env` to your app's contact email (e.g. `mailto:you@example.com`) — required for push notification delivery
-- [ ] Set `NEXT_PUBLIC_SENTRY_DSN` in `.env` to your [Sentry](https://sentry.io) project DSN (optional — error tracking is disabled when unset)
-- [ ] Set `KV_REST_API_URL` and `KV_REST_API_TOKEN` in `.env` for production rate limiting (optional — falls back to in-memory in dev)
+- [x] Create a [Resend](https://resend.com) account, generate an API key, and add `RESEND_API_KEY` to `.env` (`API Keys`)
+- [x] Verify your sending domain in the Resend dashboard (`Domains`)
+- [x] Add Resend DNS records to your domain provider
+- [x] Set `VAPID_MAILTO` in `.env` to your app's contact email (e.g. `mailto:you@example.com`) — required for push notification delivery
+- [x] Set `NEXT_PUBLIC_SENTRY_DSN` in `.env` to your [Sentry](https://sentry.io) project DSN (optional — error tracking is disabled when unset)
+- [x] Set `KV_REST_API_URL` and `KV_REST_API_TOKEN` in `.env` for production rate limiting (optional — falls back to in-memory in dev)
 
 ---
 
 ## 3. App Identity & Branding
 
-- [ ] **[`lib/config.ts`](lib/config.ts)** — update `name` and `description` in `siteConfig` (propagates to layout, manifest, OG image, sitemap, robots, hero, nav, and JSON-LD automatically)
-- [ ] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
-- [ ] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
-- [ ] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
-- [ ] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
-- [ ] **[`app/manifest.ts`](app/manifest.ts)** — update `background_color` and `theme_color` to match your brand
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — update `themeColor` in viewport export to match your brand
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — replace Geist with your preferred font (or keep it)
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — update `lang` attribute to match your app's primary locale
-- [ ] **[`app/layout.tsx`](app/layout.tsx)** — remove `<Analytics />` and `<SpeedInsights />` if not deploying to Vercel
-- [ ] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
-- [ ] **[`app/opengraph-image.tsx`](app/opengraph-image.tsx)** — update `backgroundColor` and styling to match your brand (text pulls from `siteConfig` automatically)
-- [ ] **[`app/error.tsx`](app/error.tsx)** — customize the error page copy and styling to match your brand
-- [ ] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
+- [x] **[`lib/config.ts`](lib/config.ts)** — update `name` and `description` in `siteConfig` (propagates to layout, manifest, OG image, sitemap, robots, hero, nav, and JSON-LD automatically)
+- [x] **[`app/globals.css`](app/globals.css)** — update theme colors (`--primary`, `--background`, etc.) to match your brand (use [Color Hunt](https://colorhunt.co/) for palette inspiration)
+- [x] **[`public/icons/`](public/icons/)** — replace `apple-icon-180.png`, `icon-192x192.png` and `icon-512x512.png` with your own app icons
+- [x] **[`public/splash/`](public/splash/)** — replace placeholder Apple splash screen images with your own branded images (all device sizes)
+- [x] **[`package.json`](package.json)** — update `name` from `"full-stack boilerplate"` to your project name
+- [x] **[`app/manifest.ts`](app/manifest.ts)** — update `background_color` and `theme_color` to match your brand
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — update `themeColor` in viewport export to match your brand
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — replace Geist with your preferred font (or keep it)
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — update `lang` attribute to match your app's primary locale
+- [x] **[`app/layout.tsx`](app/layout.tsx)** — remove `<Analytics />` if not deploying to Vercel
+- [x] **[`app/favicon.ico`](app/favicon.ico)** — replace with your own favicon
+- [x] **[`app/error.tsx`](app/error.tsx)** — customize the error page copy and styling to match your brand
+- [x] **[`app/not-found.tsx`](app/not-found.tsx)** — customize the 404 page copy and styling to match your brand
 
 ---
 
@@ -69,8 +68,8 @@ See [docs/environment.md](docs/environment.md) for full details on every variabl
 
 See [docs/email.md](docs/email.md) for full details.
 
-- [ ] **[`emails/welcome.tsx`](emails/welcome.tsx)** — update the default `appName` prop to match your app (or pass it from `siteConfig.name` when calling `sendEmail`)
-- [ ] Set `EMAIL_FROM` in `.env` to your verified domain address (e.g. `"My App <noreply@yourdomain.com>"`) — required for `sendEmail()` calls
+- [x] **[`emails/welcome.tsx`](emails/welcome.tsx)** — update email text to reference your app's messaging
+- [x] Set `EMAIL_FROM` in `.env` to your verified domain address (e.g. `"My App <noreply@yourdomain.com>"`) — required for `sendEmail()` calls
 
 ---
 
@@ -78,11 +77,10 @@ See [docs/email.md](docs/email.md) for full details.
 
 See [docs/database-patterns.md](docs/database-patterns.md) for full details.
 
-- [ ] **[`lib/db/schema/users.ts`](lib/db/schema/users.ts)** — review and update the `user_role` enum values if your app uses different roles
-- [ ] **[`lib/db/seed.ts`](lib/db/seed.ts)** — replace the placeholder seed data with data relevant to your app
+- [x] **[`lib/db/seed.ts`](lib/db/seed.ts)** — replace the placeholder seed data with data relevant to your app
 - [ ] Run `pnpm db:push` (or `pnpm db:generate && pnpm db:migrate`) to apply the schema to your database
 - [ ] Run `pnpm db:seed` to seed the database with your initial data (requires `POSTGRES_URL_NON_POOLING` to be set)
-- [ ] If using file uploads: create an `uploads` bucket in Supabase Storage (`Storage → Files`) (the `lib/storage/` helpers expect this bucket to exist)
+- [x] If using file uploads: create an `exercise-images` bucket in Supabase Storage (`Storage → Files`) (the `lib/storage/` helpers expect this bucket to exist)
 
 ---
 
@@ -90,20 +88,19 @@ See [docs/database-patterns.md](docs/database-patterns.md) for full details.
 
 See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 
-- [ ] **[`lib/supabase/proxy.ts`](lib/supabase/proxy.ts)** — update the route protection condition to match your app's public vs. protected routes
-- [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
+- [x] **[`lib/supabase/proxy.ts`](lib/supabase/proxy.ts)** — update the route protection condition to match your app's public vs. protected routes
 - [ ] **[`components/login-form.tsx`](components/login-form.tsx)** — uncomment OTP sign-in handler and buttons if you want OTP support (or remove the TODOs)
-- [ ] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
-- [ ] **[`components/forgot-password-form.tsx`](components/forgot-password-form.tsx)** — ensure the redirect URL is configured in Supabase dashboard redirect URLs
-- [ ] **[`components/update-password-form.tsx`](components/update-password-form.tsx)** — update redirect route to an authenticated route
-- [ ] **[`app/auth/confirm/route.ts`](app/auth/confirm/route.ts)** — update the default redirect (`"/"`) to your app's main authenticated route
-- [ ] Decide if you need email confirmation enabled or disabled in the Supabase Auth settings (`Authentication → Sign In / Providers → Email`)
-- [ ] In Resend, (`Settings → SMTP`) copy the SMTP credentials:
+- [x] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
+- [x] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
+- [x] **[`components/update-password-form.tsx`](components/update-password-form.tsx)** — update redirect route to an authenticated route
+- [x] **[`app/(auth)/confirm/route.ts`](<app/(auth)/confirm/route.ts>)** — update the default redirect (`"/"`) to your app's main authenticated route
+- [x] Decide if you need email confirmation enabled or disabled in the Supabase Auth settings (`Authentication → Sign In / Providers → Email`)
+- [x] In Resend, (`Settings → SMTP`) copy the SMTP credentials:
   - Host: `smtp.resend.com`
   - Port: `465`
   - Username: `resend`
   - Password: your Resend API key
-- [ ] In Supabase (`Authentication → Email → Set up SMTP`) fill in the SMTP credentials:
+- [x] In Supabase (`Authentication → Email → Set up SMTP`) fill in the SMTP credentials:
   - Sender email address: your verified domain address (e.g. `noreply@yourdomain.com`)
   - Sender name: your app name
   - Host: `smtp.resend.com`
@@ -118,24 +115,24 @@ See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 See [docs/pwa.md](docs/pwa.md) for full details.
 
 - [ ] **[`app/sw.ts`](app/sw.ts)** — add custom `urlPattern` entries to the `appCaching` array for your app's API routes or CDN assets if needed
-- [ ] **[`app/sw.ts`](app/sw.ts)** — update default notification icon/badge paths in the push event handler if you've changed icon filenames
-- [ ] Verify the offline fallback page ([`app/~offline/page.tsx`](app/~offline/page.tsx)) looks appropriate for your app
+- [x] **[`app/sw.ts`](app/sw.ts)** — update default notification icon/badge paths in the push event handler if you've changed icon filenames
+- [x] Verify the offline fallback page ([`app/~offline/page.tsx`](app/~offline/page.tsx)) looks appropriate for your app
 
 ---
 
 ## 8. Demo & Boilerplate Content
 
 - [ ] **[`app/protected/page.tsx`](app/protected/page.tsx)** — replace the demo content with your actual protected page
-- [ ] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove `<DeployButton />` (boilerplate helper only) and replace the placeholder nav with your app's navigation
+- [x] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove `<DeployButton />` (boilerplate helper only) and replace the placeholder nav with your app's navigation
 - [ ] **[`app/page.tsx`](app/page.tsx)** — replace the landing page content with your own
 - [ ] **[`app/page.tsx`](app/page.tsx)** — remove `DeployButton` and `Hero` imports/usage (boilerplate demos)
 - [ ] **[`app/protected/page.tsx`](app/protected/page.tsx)** — remove `ExampleCounter` (Zustand demo)
-- [ ] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove Users link (pagination demo)
+- [x] **[`app/protected/layout.tsx`](app/protected/layout.tsx)** — remove Users link (pagination demo)
 - [ ] **[`app/protected/users/page.tsx`](app/protected/users/page.tsx)** — replace demo page with your app's actual paginated data
 - [ ] **[`app/protected/profile/page.tsx`](app/protected/profile/page.tsx)** — replace demo page with your app's actual profile page
 - [ ] **[`app/protected/profile/actions.ts`](app/protected/profile/actions.ts)** — update profile schema to match your app's user fields
 - [ ] **[`app/protected/profile/profile-form.tsx`](app/protected/profile/profile-form.tsx)** — replace demo form with your app's actual profile form
-- [ ] **[`components/deploy-button.tsx`](components/deploy-button.tsx)** — delete this component (boilerplate only)
+- [x] **`components/deploy-button.tsx`** — delete this component (boilerplate only)
 - [ ] **[`components/hero.tsx`](components/hero.tsx)** — replace with your app's title and description, or delete
 - [ ] **[`components/example-counter.tsx`](components/example-counter.tsx)** — replace demo with your app's actual Zustand-powered component, or delete
 - [ ] **[`components/example-counter.test.tsx`](components/example-counter.test.tsx)** — replace with tests for your own components
@@ -152,12 +149,14 @@ See [docs/pwa.md](docs/pwa.md) for full details.
 
 See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
-- [ ] Add required secrets to your GitHub repository (`Settings → Secrets and variables → Actions`):
+- [x] Add required secrets to your GitHub repository (`Settings → Secrets and variables → Actions`):
   - `NEXT_PUBLIC_SUPABASE_URL`
   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+  - `POSTGRES_URL`
+  - `POSTGRES_URL_NON_POOLING`
   - Any other env vars needed for your test suite
 - [ ] Review `.github/workflows/` and remove or adjust any workflows not relevant to your project
-- [ ] Connect the repo to Vercel (or your chosen host) and configure env vars there (`Settings → Environment Variables`)
+- [x] Connect the repo to Vercel (or your chosen host) and configure env vars there (`Settings → Environment Variables`)
 
 ---
 
@@ -165,25 +164,23 @@ See [docs/ci-cd.md](docs/ci-cd.md) for full details.
 
 - [ ] **[`app/sitemap.ts`](app/sitemap.ts)** — add your app's public routes (dynamic routes can be fetched from the database)
 - [ ] **[`app/robots.ts`](app/robots.ts)** — update disallow rules to match your app's private routes
-- [ ] **[`app/page.tsx`](app/page.tsx)** — review the JSON-LD structured data `@type` (defaults to `"WebSite"`) and update if your app is a different schema type
+- [x] **[`app/page.tsx`](app/page.tsx)** — review the JSON-LD structured data `@type` (defaults to `"WebSite"`) and update if your app is a different schema type
 
 ---
 
 ## 11. Security & Infrastructure
 
 - [ ] **[`next.config.ts`](next.config.ts)** — update the Content-Security-Policy if you add external scripts, fonts, or APIs (and remove Vercel Analytics / Sentry domains if you remove those services)
-- [ ] **[`next.config.ts`](next.config.ts)** — review security headers (`X-Frame-Options`, `Referrer-Policy`, etc.) and adjust if your app needs to be embedded in iframes or has different referrer requirements
-- [x] **[`lib/push/index.ts`](lib/push/index.ts)** — now throws if `VAPID_MAILTO` is not set (hardcoded fallback removed)
+- [x] **[`next.config.ts`](next.config.ts)** — review security headers (`X-Frame-Options`, `Referrer-Policy`, etc.) and adjust if your app needs to be embedded in iframes or has different referrer requirements
 
 ---
 
 ## 12. Service Worker & Misc
 
-- [ ] **[`app/sw.ts`](app/sw.ts)** — adjust the default background sync delay (ms) to match your app's UX expectations
-- [ ] **[`lib/push/index.ts`](lib/push/index.ts)** — set `VAPID_MAILTO` in `.env` to your app's contact email
-- [ ] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `uploads` bucket in Supabase before using storage helpers
+- [x] **[`app/sw.ts`](app/sw.ts)** — adjust the default background sync delay (ms) to match your app's UX expectations
+- [x] **[`lib/storage/index.ts`](lib/storage/index.ts)** — create an `exercise-images` bucket in Supabase before using storage helpers
 - [ ] **[`lib/db/ensure-user.test.ts`](lib/db/ensure-user.test.ts)** — mock the db module and finish the test
-- [ ] Add a `LICENSE` file to the project root if open-sourcing
+- [x] Add a `LICENSE` file to the project root if open-sourcing
 
 ---
 

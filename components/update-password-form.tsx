@@ -32,8 +32,7 @@ export function UpdatePasswordForm({ className, ...props }: ComponentPropsWithou
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
-      // TODO: update this route to redirect to an authenticated route.
-      router.push("/protected");
+      router.push("/dashboard");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

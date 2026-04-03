@@ -55,8 +55,7 @@ export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"di
         email,
         password,
         options: {
-          // TODO: update emailRedirectTo to your app's post-signup destination
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL ?? location.origin}/protected`,
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL ?? location.origin}/dashboard`,
         },
       });
       if (error) throw error;
