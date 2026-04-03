@@ -59,15 +59,15 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### Auth Guards (in `proxy.ts`)
 
-- [ ] After the route group rename, update the protection logic in `lib/supabase/proxy.ts`. Since `(auth)` does not appear in the URL, the proxy must check individual auth paths (e.g. `/login`, `/sign-up`) rather than a single `/auth/` prefix.
-- [ ] Verify `proxy.ts` redirects unauthenticated users away from protected routes
-- [ ] Verify `proxy.ts` redirects authenticated users away from auth pages (e.g. paths starting with `/login`, `/sign-up`, etc.)
-- [ ] The boilerplate already has `LogoutButton` component. Verify it calls `supabase.auth.signOut()` and redirects to `/login`.
+- [x] After the route group rename, update the protection logic in `lib/supabase/proxy.ts`. Since `(auth)` does not appear in the URL, the proxy must check individual auth paths (e.g. `/login`, `/sign-up`) rather than a single `/auth/` prefix.
+- [x] Verify `proxy.ts` redirects unauthenticated users away from protected routes
+- [x] Verify `proxy.ts` redirects authenticated users away from auth pages (e.g. paths starting with `/login`, `/sign-up`, etc.)
+- [x] The boilerplate already has `LogoutButton` component. Verify it calls `supabase.auth.signOut()` and redirects to `/login`.
 
 ### TanStack Query Provider
 
-- [ ] Create `components/query-provider.tsx` — a `"use client"` component that wraps children in `QueryClientProvider` from `@tanstack/react-query`
-- [ ] Add `QueryProvider` to the root layout (`app/layout.tsx`) wrapping the page content, alongside the existing ThemeProvider, Toaster, and NuqsAdapter
+- [x] Create `components/query-provider.tsx` — a `"use client"` component that wraps children in `QueryClientProvider` from `@tanstack/react-query`
+- [x] Add `QueryProvider` to the root layout (`app/layout.tsx`) wrapping the page content, alongside the existing ThemeProvider, Toaster, and NuqsAdapter
 
 ### Base Layout
 
