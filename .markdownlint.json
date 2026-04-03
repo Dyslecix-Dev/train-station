@@ -4,7 +4,5 @@
     "siblings_only": true
   },
   "MD029": false,
-  "MD060": {
-    "style": "any"
-  }
+  "MD060": false
 }

@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 1a outputs exist: `lib/db/schema/index.ts` exports all tables, `pnpm db:migrate` ran successfully, all tables visible in Supabase dashboard.
+Before starting, verify Phase 2a outputs exist: `lib/db/schema/index.ts` exports all tables, `pnpm db:migrate` ran successfully, all tables visible in Supabase dashboard.
 
 ## Context for Claude Code
 

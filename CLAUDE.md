@@ -1,6 +1,6 @@
-# Project: Full-Stack Boilerplate
+# Project: Train Station
 
-An opinionated full-stack Next.js boilerplate with Supabase, Drizzle ORM, shadcn/ui, and PWA support.
+A fitness tracking PWA (workouts, nutrition, sleep, mental health) built with Next.js 16, Supabase, Drizzle ORM, shadcn/ui, and Serwist for offline support.
 
 ## Tech Stack
 
@@ -37,13 +37,13 @@ pnpm email:dev        # Preview email templates (port 3001)
 
 ```text
 app/
-  layout.tsx          # Root layout (providers: Theme, Serwist, Nuqs, Toaster)
+  layout.tsx          # Root layout (providers: Theme, Serwist, Nuqs, TanStack Query, Toaster)
   page.tsx            # Landing page
   globals.css         # Tailwind v4 theme (CSS variables, @theme inline)
   manifest.ts         # PWA manifest
   sw.ts               # Service worker (Serwist)
-  auth/               # Auth routes (login, sign-up, confirm, etc.)
-  protected/          # Auth-guarded routes
+  (auth)/           # Auth routes (login, sign-up, confirm, etc.)
+  (protected)/        # Auth-guarded routes (dashboard, workouts, nutrition, sleep, mental-health, settings)
   ~offline/           # PWA offline fallback
 emails/               # React Email templates (welcome, reset-password, otp)
 components/
@@ -55,6 +55,14 @@ lib/
   email/              # Resend client + sendEmail helper
   storage/            # Supabase Storage helpers + upload action
   supabase/           # Supabase clients (server, browser, proxy)
+  stores/             # Zustand stores (active-workout, etc.)
+  hooks/              # Shared hooks (use-date-param, etc.)
+  tdee.ts             # BMR / TDEE / macro target calculations (Mifflin-St Jeor)
+  units.ts            # Unit conversion utilities (kg↔lb, km↔mi, formatters)
+  streak.ts           # Streak update utility (called from every logging action)
+  usda.ts             # USDA FoodData Central API integration
+  workout-constants.ts # SECTION_LABELS, EXERCISE_CATEGORIES, MUSCLE_GROUPS, PROGRESS_METRIC_MAP
+  nutrition-constants.ts # MEAL_TYPES, SERVING_UNITS
   logger.ts           # Structured logger (JSON in prod, readable in dev)
   utils.ts            # cn() utility + helpers
 proxy.ts              # Next.js 16 proxy (was middleware.ts in Next.js 15)

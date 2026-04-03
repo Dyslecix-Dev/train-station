@@ -2,13 +2,13 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 0 outputs exist: `components/bottom-nav.tsx` exists, `components/query-provider.tsx` exists, `pnpm build` succeeds.
+Before starting, verify Phase 1 outputs exist: `components/bottom-nav.tsx` exists, `components/query-provider.tsx` exists, `pnpm build` succeeds.
 
 ## Context for Claude Code
 
-We use Drizzle ORM with a schema-first approach. All tables are defined in `lib/db/schema/` as TypeScript files, then migrated via `drizzle-kit`. The driver is `postgres.js` (pooled connection for runtime via `POSTGRES_URL`, direct connection for migrations via `POSTGRES_URL_NON_POOLING`). Supabase Auth manages the `auth.users` table — our `user_profiles` table references it. All tables must have RLS policies in Supabase (covered in Phase 1b). Store all measurements in metric internally (kg, km, seconds). Convert on display using the user's `units_preference`.
+We use Drizzle ORM with a schema-first approach. All tables are defined in `lib/db/schema/` as TypeScript files, then migrated via `drizzle-kit`. The driver is `postgres.js` (pooled connection for runtime via `POSTGRES_URL`, direct connection for migrations via `POSTGRES_URL_NON_POOLING`). Supabase Auth manages the `auth.users` table — our `user_profiles` table references it. All tables must have RLS policies in Supabase (covered in Phase 2b). Store all measurements in metric internally (kg, km, seconds). Convert on display using the user's `units_preference`.
 
-**This phase covers schema definitions, triggers, and migration only. RLS policies, Drizzle relations, and helper utilities are in Phase 1b.**
+**This phase covers schema definitions, triggers, and migration only. RLS policies, Drizzle relations, and helper utilities are in Phase 2b.**
 
 If this phase is too large for one Claude Code session, split at the "Migration" heading — do schema files first, then migration.
 

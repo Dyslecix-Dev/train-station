@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 3 outputs exist: `exercises` table has seed data (`pnpm db:seed` ran), exercise list page renders at `/exercises`.
+Before starting, verify Phase 4 outputs exist: `exercises` table has seed data (`pnpm db:seed` ran), exercise list page renders at `/exercises`.
 
 ## Context for Claude Code
 

@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 1b outputs exist: RLS policies are enabled on all tables (test with non-service-role client), `lib/db/index.ts` exports drizzle client, `lib/db/utils.ts` has `getCurrentUserProfile`.
+Before starting, verify Phase 2b outputs exist: RLS policies are enabled on all tables (test with non-service-role client), `lib/db/index.ts` exports drizzle client, `lib/db/utils.ts` has `getCurrentUserProfile`.
 
 ## Context for Claude Code
 

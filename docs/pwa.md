@@ -50,14 +50,18 @@ The `SerwistProvider` is a client component that registers the service worker. I
 The web app manifest defines how the app appears when installed:
 
 ```ts
+import { siteConfig } from "@/lib/config";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "My App",
-    short_name: "MyApp",
+    name: siteConfig.name,
+    short_name: siteConfig.name,
+    description: siteConfig.description,
     display: "standalone",
-    start_url: "/",
+    start_url: "/dashboard",
     background_color: "#ffffff",
     theme_color: "#000000",
+    categories: ["fitness", "health"],
     icons: [
       { src: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
       { src: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },

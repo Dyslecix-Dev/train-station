@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 1b outputs exist: `sleep_logs` table exists with RLS policies enabled.
+Before starting, verify Phase 2b outputs exist: `sleep_logs` table exists with RLS policies enabled.
 
 ## Context for Claude Code
 

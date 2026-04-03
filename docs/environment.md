@@ -15,15 +15,19 @@ These variables are checked by the Zod schema in `next.config.ts` at build and d
 | -------------------------------------- | ----------------------------------------------- | :-------: |
 | `NEXT_PUBLIC_SUPABASE_URL`             | Supabase project URL                            |    Yes    |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable key                        |    Yes    |
+| `SUPABASE_SERVICE_ROLE_KEY`            | Supabase service role key (bypasses RLS)        |    Yes    |
 | `POSTGRES_URL`                         | Pooled connection string (used at runtime)      |    Yes    |
 | `POSTGRES_URL_NON_POOLING`             | Direct connection string (used for migrations)  |    Yes    |
+| `USDA_API_KEY`                         | USDA FoodData Central API key (food search)     |    Yes    |
 | `NEXT_PUBLIC_APP_URL`                  | Canonical app URL for email redirects           | Optional  |
 | `RESEND_API_KEY`                       | Resend API key for sending email                | Optional  |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY`         | VAPID public key (sent to browser for push sub) | Optional  |
 | `VAPID_PRIVATE_KEY`                    | VAPID private key (server-side, keep secret)    | Optional  |
 | `VAPID_MAILTO`                         | VAPID contact email (`mailto:…`)                | Optional  |
 
-> **Minimum to run `pnpm dev`:** Set the 4 required variables (Supabase URL, publishable key, and both Postgres URLs). Email and push features will throw at runtime if used without their keys, but the app will start and all other features work.
+> **`USDA_API_KEY`**: Register for a free key at [USDA FoodData Central](https://fdc.nal.usda.gov/api-key-signup). Never use the shared `DEMO_KEY` — it is rate-limited to ~30 requests/IP/hour and will fail in production.
+>
+> **Minimum to run `pnpm dev`:** Set the required variables (Supabase URL + keys, both Postgres URLs, and `USDA_API_KEY`). Email and push features will throw at runtime if used without their keys, but the app will start and other features work.
 
 Generate VAPID keys with:
 

@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 1b outputs exist: `mood_logs` table exists with RLS policies enabled, `ALLOWED_EMOTIONS` is exported from `lib/db/schema/mental-health.ts`.
+Before starting, verify Phase 2b outputs exist: `mood_logs` table exists with RLS policies enabled, `ALLOWED_EMOTIONS` is exported from `lib/db/schema/mental-health.ts`.
 
 ## Context for Claude Code
 

@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 5a outputs exist: active workout Zustand store exists at `lib/stores/active-workout.ts`, exercise list renders on the active workout page, starting a workout from a template creates the correct DB rows.
+Before starting, verify Phase 6a outputs exist: active workout Zustand store exists at `lib/stores/active-workout.ts`, exercise list renders on the active workout page, starting a workout from a template creates the correct DB rows.
 
 ## Context for Claude Code
 
@@ -74,7 +74,7 @@ This is part 2 of 3 for workout tracking. This phase adds set logging (the core 
   - Final save of all exercises/sets (same upsert as auto-save)
   - Set `status = completed`, `completed_at = now()`
   - Calculate `duration_seconds = EXTRACT(EPOCH FROM (now() - started_at))` — this is the server-derived duration, not the client timer
-  - **Update streak**: get the user's timezone from `user_profiles.timezone`, resolve "today" in that timezone, call `updateStreak(userId, today)` (see Phase 9 for the streak utility)
+  - **Update streak**: get the user's timezone from `user_profiles.timezone`, resolve "today" in that timezone, call `updateStreak(userId, today)` (see Phase 10 for the streak utility)
   - Call `revalidatePath("/workouts")`
 - [ ] Show success toast, redirect to workout detail page (`/workouts/${workoutId}`)
 

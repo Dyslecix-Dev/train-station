@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 5b outputs exist: auto-save works (sets appear in DB after 30s), complete workout flow works end-to-end (workout status changes to `completed`, `duration_seconds` is calculated).
+Before starting, verify Phase 6b outputs exist: auto-save works (sets appear in DB after 30s), complete workout flow works end-to-end (workout status changes to `completed`, `duration_seconds` is calculated).
 
 ## Context for Claude Code
 
@@ -61,13 +61,13 @@ This is part 3 of 3 for workout tracking. This phase adds the workout history li
 
 All in `app/(protected)/workouts/actions.ts`:
 
-- [ ] `startWorkoutFromTemplate(templateId)` — (from Phase 5a)
-- [ ] `startFreeWorkout(name)` — (from Phase 5a)
-- [ ] `addExerciseToWorkout(workoutId, exerciseId, section, sortOrder)` — (from Phase 5a)
-- [ ] `removeExerciseFromWorkout(workoutExerciseId)` — (from Phase 5a)
-- [ ] `saveWorkoutProgress(workoutId, data)` — (from Phase 5b)
-- [ ] `completeWorkout(workoutId)` — (from Phase 5b)
-- [ ] `cancelWorkout(workoutId)` — (from Phase 5b)
+- [ ] `startWorkoutFromTemplate(templateId)` — (from Phase 6a)
+- [ ] `startFreeWorkout(name)` — (from Phase 6a)
+- [ ] `addExerciseToWorkout(workoutId, exerciseId, section, sortOrder)` — (from Phase 6a)
+- [ ] `removeExerciseFromWorkout(workoutExerciseId)` — (from Phase 6a)
+- [ ] `saveWorkoutProgress(workoutId, data)` — (from Phase 6b)
+- [ ] `completeWorkout(workoutId)` — (from Phase 6b)
+- [ ] `cancelWorkout(workoutId)` — (from Phase 6b)
 - [ ] `reorderWorkoutExercises(workoutId, exerciseOrdering[])` — new in this phase
 - [ ] `deleteWorkout(workoutId)` — new in this phase
 - [ ] `repeatWorkout(workoutId)` — start a new workout copying the exercise list from a past workout

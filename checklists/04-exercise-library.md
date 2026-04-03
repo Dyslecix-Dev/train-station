@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 2 outputs exist: `user_profiles` table has `onboarding_completed` column, `lib/tdee.ts` exists with `calculateBMR`, `calculateTDEE`, `calculateTargets` functions.
+Before starting, verify Phase 3 outputs exist: `user_profiles` table has `onboarding_completed` column, `lib/tdee.ts` exists with `calculateBMR`, `calculateTDEE`, `calculateTargets` functions.
 
 ## Context for Claude Code
 

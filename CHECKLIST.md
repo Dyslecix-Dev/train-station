@@ -93,7 +93,7 @@ See [docs/auth-patterns.md](docs/auth-patterns.md) for full details.
 - [x] **[`components/login-form.tsx`](components/login-form.tsx)** — update the fallback redirect route to your app's main authenticated route
 - [x] **[`components/sign-up-form.tsx`](components/sign-up-form.tsx)** — update `emailRedirectTo` to your app's post-signup destination
 - [x] **[`components/update-password-form.tsx`](components/update-password-form.tsx)** — update redirect route to an authenticated route
-- [x] **[`app/auth/confirm/route.ts`](app/auth/confirm/route.ts)** — update the default redirect (`"/"`) to your app's main authenticated route
+- [x] **[`app/(auth)/confirm/route.ts`](<app/(auth)/confirm/route.ts>)** — update the default redirect (`"/"`) to your app's main authenticated route
 - [x] Decide if you need email confirmation enabled or disabled in the Supabase Auth settings (`Authentication → Sign In / Providers → Email`)
 - [x] In Resend, (`Settings → SMTP`) copy the SMTP credentials:
   - Host: `smtp.resend.com`

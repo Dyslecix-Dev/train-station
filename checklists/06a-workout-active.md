@@ -2,11 +2,11 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 4 outputs exist: at least one workout template exists (create one manually if needed for testing), template detail page has a "Start Workout" button.
+Before starting, verify Phase 5 outputs exist: at least one workout template exists (create one manually if needed for testing), template detail page has a "Start Workout" button.
 
 ## Context for Claude Code
 
-This is part 1 of 3 for workout tracking. An active workout is a live session where the user performs exercises, logs sets, and uses rest timers. It can be started from a template (snapshot-on-use) or freestyle (empty, add exercises on the fly). The active workout state lives in Zustand (client-side). This phase covers the Zustand store, starting a workout, and the exercise list UI. Set logging, timers, and auto-save are in Phase 5b. History and detail pages are in Phase 5c.
+This is part 1 of 3 for workout tracking. An active workout is a live session where the user performs exercises, logs sets, and uses rest timers. It can be started from a template (snapshot-on-use) or freestyle (empty, add exercises on the fly). The active workout state lives in Zustand (client-side). This phase covers the Zustand store, starting a workout, and the exercise list UI. Set logging, timers, and auto-save are in Phase 6b. History and detail pages are in Phase 6c.
 
 **Important:** New sets and exercises created during a workout get their IDs via `crypto.randomUUID()` on the client. These same IDs are used as the DB primary key when auto-save persists them. This avoids insert-vs-update ambiguity.
 

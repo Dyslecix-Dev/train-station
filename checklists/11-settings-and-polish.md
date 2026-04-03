@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 9 outputs exist: dashboard renders at `/dashboard` with data from all four pillars, streak counter displays correctly.
+Before starting, verify Phase 10 outputs exist: dashboard renders at `/dashboard` with data from all four pillars, streak counter displays correctly.
 
 ## Context for Claude Code
 
@@ -87,7 +87,7 @@ Settings page covers profile editing, unit preferences, recalculating nutrition 
   - Delete the `user_profiles` row (cascades to all related data due to foreign keys)
   - Call `supabase.auth.admin.deleteUser(userId)` using the service role key to delete the auth user
   - Sign out the session
-  - Redirect to `/auth/login`
+  - Redirect to `/login`
 - [ ] Show a warning: "This will permanently delete all your data including workouts, nutrition logs, and settings. This cannot be undone."
 
 ### Quick Log Flows

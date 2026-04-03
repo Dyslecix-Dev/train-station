@@ -17,22 +17,22 @@ Feed **one phase at a time** to Claude Code. Each checklist is self-contained wi
 
 | Phase | File                         | Description                                                 | Depends On     |
 | ----- | ---------------------------- | ----------------------------------------------------------- | -------------- |
-| 0     | `01-project-setup.md`        | Supabase, auth, base layout, theme                          | —              |
-| 1a    | `02-database-schema.md`      | All Drizzle schemas, triggers, migrations                   | Phase 0        |
-| 1b    | `02b-database-rls-utils.md`  | RLS policies, Drizzle relations, helpers                    | Phase 1a       |
-| 2     | `03-onboarding.md`           | Wizard, TDEE calc, user profile                             | Phase 1b       |
-| 3     | `04-exercise-library.md`     | Exercise CRUD, categories, custom exercises                 | Phase 1b       |
-| 4     | `05-workout-templates.md`    | Template CRUD, sections, exercise config                    | Phase 3        |
-| 5a    | `06a-workout-active.md`      | Zustand store, start workout, active page, exercise list UI | Phase 4        |
-| 5b    | `06b-workout-sets-timers.md` | Set logging UI, rest timer, auto-save, complete/cancel      | Phase 5a       |
-| 5c    | `06c-workout-history.md`     | Workout history, detail page, unit conversions              | Phase 5b       |
-| 6     | `07-nutrition.md`            | USDA integration, meal logging, macros, targets, body stats | Phase 2        |
-| 7     | `08-sleep-tracking.md`       | Sleep log with bedtime, wake time, quality                  | Phase 1b       |
-| 8     | `09-mental-health.md`        | Mood, emotion tags, journal                                 | Phase 1b       |
-| 9     | `10-dashboard.md`            | Today summary, weekly trends, streaks                       | Phases 5c, 6–8 |
-| 10    | `11-settings-and-polish.md`  | Profile editing, units, export, account deletion, quick log | Phase 2        |
-| 11    | `12-pwa-offline.md`          | Service worker, offline workout, background sync            | Phase 5c       |
-| 12    | `13-testing-ci-cd.md`        | Vitest, Playwright, Lighthouse, GitHub Actions              | All phases     |
+| 1     | `01-project-setup.md`        | Supabase, auth, base layout, theme                          | —              |
+| 2a    | `02a-database-schema.md`     | All Drizzle schemas, triggers, migrations                   | Phase 1        |
+| 2b    | `02b-database-rls-utils.md`  | RLS policies, Drizzle relations, helpers                    | Phase 2a       |
+| 3     | `03-onboarding.md`           | Wizard, TDEE calc, user profile                             | Phase 2b       |
+| 4     | `04-exercise-library.md`     | Exercise CRUD, categories, custom exercises                 | Phase 3        |
+| 5     | `05-workout-templates.md`    | Template CRUD, sections, exercise config                    | Phase 4        |
+| 6a    | `06a-workout-active.md`      | Zustand store, start workout, active page, exercise list UI | Phase 5        |
+| 6b    | `06b-workout-sets-timers.md` | Set logging UI, rest timer, auto-save, complete/cancel      | Phase 6a       |
+| 6c    | `06c-workout-history.md`     | Workout history, detail page, unit conversions              | Phase 6b       |
+| 7     | `07-nutrition.md`            | USDA integration, meal logging, macros, targets, body stats | Phase 6c       |
+| 8     | `08-sleep-tracking.md`       | Sleep log with bedtime, wake time, quality                  | Phase 2b       |
+| 9     | `09-mental-health.md`        | Mood, emotion tags, journal                                 | Phase 2b       |
+| 10    | `10-dashboard.md`            | Today summary, weekly trends, streaks                       | Phases 6c, 7–9 |
+| 11    | `11-settings-and-polish.md`  | Profile editing, units, export, account deletion, quick log | Phase 10       |
+| 12    | `12-pwa-offline.md`          | Service worker, offline workout, background sync            | Phase 6c       |
+| 13    | `13-testing-ci-cd.md`        | Vitest, Playwright, Lighthouse, GitHub Actions              | All phases     |
 
 ---
 
@@ -47,8 +47,8 @@ These are common mistakes that will break the build. Claude Code must follow the
 - **`revalidatePath` after mutations**: All server actions that mutate data must call `revalidatePath()` for the affected page(s). Server-rendered pages won't reflect changes without this. Use in addition to TanStack Query invalidation for client-side caches.
 - **File paths use `lib/db/schema/`**: The boilerplate puts database schemas in `lib/db/schema/`, not `db/schema/`. Follow the boilerplate's structure.
 - **Env var names follow Vercel-Supabase convention**: `POSTGRES_URL` (pooled, runtime), `POSTGRES_URL_NON_POOLING` (direct, migrations). Not `DATABASE_URL` / `DIRECT_URL`. The Supabase anon key is `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (not `ANON_KEY`). Also ensure `SUPABASE_JWT_SECRET` is set for JWT verification.
-- **Route groups**: Auth routes are under `app/(auth)/`, protected routes under `app/(protected)/`. The boilerplate ships with `app/auth/` and `app/protected/` (no parens). Phase 0 converts these to route groups. The proxy route-protection logic must be updated to match the new structure.
-- **Auth route paths**: The boilerplate uses `/auth/login` (not `/auth/sign-in`). Do not rename existing auth pages. The existing components are `LoginForm`, `SignUpForm`, `ForgotPasswordForm`, `UpdatePasswordForm`, `AuthButton`, `LogoutButton`.
+- **Route groups**: Auth routes are under `app/(auth)/`, protected routes under `app/(protected)/`. The boilerplate ships with `app/auth/` and `app/protected/` (no parens). Phase 1 converts both to route groups. Because `(auth)` is a route group, the `auth/` segment is removed from URLs (e.g. `/auth/login` → `/login`). The proxy route-protection logic must be updated to check individual auth paths rather than a `/auth/` prefix.
+- **Auth route paths**: The boilerplate uses `/auth/login` — after converting to `app/(auth)/`, these become `/login`, `/sign-up`, `/forgot-password`, etc. The existing components are `LoginForm`, `SignUpForm`, `ForgotPasswordForm`, `UpdatePasswordForm`, `AuthButton`, `LogoutButton`.
 - **`getClaims()` over `getUser()` for identity**: The boilerplate's `supabase.auth.getClaims()` reads the JWT locally with no network call. Use it in layouts and server components for identity checks. Reserve `getUser()` (which round-trips to Supabase) for sensitive server actions where you need guaranteed-current data.
 - **`lib/config.ts` is the single source of truth for app identity**: Import the app name, description, and URL from `lib/config.ts`. Never hardcode the app name in page metadata, the PWA manifest, greetings, or email templates.
 - **Use existing boilerplate utilities**: The boilerplate ships with `lib/storage/` (file upload/delete/URL helpers + `uploadFileAction` server action), `lib/db/paginate` (offset pagination), `lib/email/` (Resend + `sendEmail()` helper), and React Email templates in `emails/`. Use these instead of building from scratch.
@@ -61,29 +61,29 @@ Before starting each phase, verify the previous phase's outputs exist. If they d
 
 | Phase | Verify Before Starting                                                                       |
 | ----- | -------------------------------------------------------------------------------------------- |
-| 1a    | `lib/supabase/proxy.ts` exists, `pnpm build` succeeds, bottom nav component exists           |
-| 1b    | `lib/db/schema/index.ts` exports all tables, `pnpm db:migrate` ran successfully              |
-| 2     | RLS policies are enabled on all tables, `lib/db/index.ts` exports drizzle client             |
-| 3     | `user_profiles` table exists with `onboarding_completed` column, TDEE utils in `lib/tdee.ts` |
-| 4     | `exercises` table has seed data, exercise list page renders at `/exercises`                  |
-| 5a    | At least one workout template exists, template detail page has "Start Workout" button        |
-| 5b    | Active workout Zustand store exists at `lib/stores/active-workout.ts`, exercise list renders |
-| 5c    | Auto-save works, complete/cancel workout flows work end-to-end                               |
-| 6     | `lib/units.ts` exists with conversion functions, workout history page renders                |
-| 7     | `foods` table exists, `USDA_API_KEY` env var is set                                          |
-| 8     | `sleep_logs` table exists                                                                    |
-| 9     | All four pillars (workout, nutrition, sleep, mood) have working log flows                    |
-| 10    | Dashboard renders with data from all four pillars                                            |
-| 11    | Settings page exists with profile editing, all features from previous phases work            |
-| 12    | Service worker activates, offline workout flow works                                         |
+| 2a    | `lib/supabase/proxy.ts` exists, `pnpm build` succeeds, bottom nav component exists           |
+| 2b    | `lib/db/schema/index.ts` exports all tables, `pnpm db:migrate` ran successfully              |
+| 3     | RLS policies are enabled on all tables, `lib/db/index.ts` exports drizzle client             |
+| 4     | `user_profiles` table exists with `onboarding_completed` column, TDEE utils in `lib/tdee.ts` |
+| 5     | `exercises` table has seed data, exercise list page renders at `/exercises`                  |
+| 6a    | At least one workout template exists, template detail page has "Start Workout" button        |
+| 6b    | Active workout Zustand store exists at `lib/stores/active-workout.ts`, exercise list renders |
+| 6c    | Auto-save works, complete/cancel workout flows work end-to-end                               |
+| 7     | `lib/units.ts` exists with conversion functions, workout history page renders                |
+| 8     | `foods` table exists, `USDA_API_KEY` env var is set                                          |
+| 9     | `sleep_logs` table exists                                                                    |
+| 10    | All four pillars (workout, nutrition, sleep, mood) have working log flows                    |
+| 11    | Dashboard renders with data from all four pillars                                            |
+| 12    | Settings page exists with profile editing, all features from previous phases work            |
+| 13    | Service worker activates, offline workout flow works                                         |
 
 ---
 
 ## Key Decisions (Reference for All Phases)
 
 - **Units:** Imperial default (lb, mi). Global toggle in user profile. All values stored in metric internally, converted on display.
-- **Offline:** v1 supports offline workout tracking only. Nutrition/sleep/mood are online-only for v1. Offline sync uses client-side reconnect (no Background Sync API) — see Phase 11.
-- **Food data:** USDA FoodData Central API. `USDA_API_KEY` is a **required** environment variable — register free at https://fdc.nal.usda.gov/api-key-signup. `DEMO_KEY` must never be used (shared rate limit, will fail in production).
+- **Offline:** v1 supports offline workout tracking only. Nutrition/sleep/mood are online-only for v1. Offline sync uses client-side reconnect (no Background Sync API) — see Phase 12.
+- **Food data:** USDA FoodData Central API. `USDA_API_KEY` is a **required** environment variable — register free at [USDA](https://fdc.nal.usda.gov/api-key-signup). `DEMO_KEY` must never be used (shared rate limit, will fail in production).
 - **Progress metrics:** Per exercise category — 1RM (strength), pace (cardio), max reps/duration (bodyweight), hold duration (flexibility).
 - **Template versioning:** Snapshot-on-use. Starting a workout deep-copies the template into `template_snapshot` JSONB. Editing a template never affects past workouts.
 - **Nutrition scope (v1):** Calories + macros (protein, carbs, fat, fiber). Micronutrients deferred to v2.
@@ -105,6 +105,6 @@ Before starting each phase, verify the previous phase's outputs exist. If they d
 - **URL date param:** All date-navigable pages (nutrition, sleep, mental health) use `?date=YYYY-MM-DD` as the nuqs param. Consistent naming means navigating between pages preserves the selected date.
 - **Set rows are not pre-inserted:** When starting a workout from a template, `workout_exercises` rows are created but `workout_sets` rows are not. Set rows are only written to the DB on auto-save or set completion. Local Zustand state tracks empty sets before they are persisted. New sets get a `crypto.randomUUID()` client-side ID.
 - **Favorites tab deferred:** No Favorites tab in the food search dialog for v1. The "Recent" tab covers the fast re-log use case.
-- **Shared constants early:** `lib/workout-constants.ts` and `lib/nutrition-constants.ts` are created during Phase 0 alongside the schema files, not deferred to later phases. All enums, constants, and shared types are exported from their schema files so later phases can import them directly.
+- **Shared constants early:** `lib/workout-constants.ts` and `lib/nutrition-constants.ts` are created during Phase 1 alongside the schema files, not deferred to later phases. All enums, constants, and shared types are exported from their schema files so later phases can import them directly.
 - **Optimistic updates:** Use TanStack Query optimistic updates for high-frequency UI actions: set completion, water log add/remove, meal log remove. This makes the UI feel instant.
 - **Sanity clamping:** After calculating TDEE-based nutrition targets, clamp values to safe ranges: calories 1200–6000, protein 40–400g, carbs 50–800g, fat 20–300g, fiber 10–100g.

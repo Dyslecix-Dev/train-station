@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify all four pillars work: a workout can be completed (Phase 5c), a meal can be logged (Phase 6), a sleep entry can be logged (Phase 7), a mood entry can be logged (Phase 8).
+Before starting, verify all four pillars work: a workout can be completed (Phase 6c), a meal can be logged (Phase 7), a sleep entry can be logged (Phase 8), a mood entry can be logged (Phase 9).
 
 ## Context for Claude Code
 

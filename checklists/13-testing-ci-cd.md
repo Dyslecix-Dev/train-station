@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify all previous phases are complete: service worker activates (Phase 11), offline workout flow works, all features are functional.
+Before starting, verify all previous phases are complete: service worker activates (Phase 12), offline workout flow works, all features are functional.
 
 ## Context for Claude Code
 
@@ -120,7 +120,7 @@ The boilerplate already has Vitest, Testing Library, Playwright, Lighthouse CI, 
 
 #### Critical Flows
 
-- [ ] **Onboarding flow**: Sign up (via `/auth/sign-up`) → complete 4-step onboarding → verify timezone was detected → verify welcome email sent (check Resend test inbox or mock) → land on dashboard with targets set
+- [ ] **Onboarding flow**: Sign up (via `/sign-up`) → complete 4-step onboarding → verify timezone was detected → verify welcome email sent (check Resend test inbox or mock) → land on dashboard with targets set
 - [ ] **Workout from template**: Create template → add exercises → start workout → log sets → complete → verify in history
 - [ ] **Freestyle workout**: Start empty workout → add exercises → log sets → complete → verify in history
 - [ ] **Meal logging**: Search food → add to lunch → verify calorie count updates (from snapshots) → delete entry → verify count decreases
@@ -134,7 +134,7 @@ The boilerplate already has Vitest, Testing Library, Playwright, Lighthouse CI, 
 - [ ] **Unit switching**: Change units preference in settings → verify all displayed values change (weight in workouts, food servings, body stats)
 - [ ] **Soft-delete exercise**: Create custom exercise → use in a workout → complete workout → delete exercise → verify exercise shows "deleted" but workout history still shows the exercise name
 - [ ] **Soft-delete food**: Create custom food → log a meal with it → delete food → verify meal log still shows correct nutrition
-- [ ] **Account deletion**: Delete account → verify redirect to `/auth/login` → verify cannot log back in
+- [ ] **Account deletion**: Delete account → verify redirect to `/login` → verify cannot log back in
 
 #### Responsive
 

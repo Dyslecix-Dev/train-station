@@ -2,11 +2,11 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 5c outputs exist: completing a workout end-to-end works, workout history page renders, `lib/units.ts` exists.
+Before starting, verify Phase 6c outputs exist: completing a workout end-to-end works, workout history page renders, `lib/units.ts` exists.
 
 ## Context for Claude Code
 
-The boilerplate already has Serwist configured for service worker and PWA support. This phase focuses on making the active workout flow work offline (gyms have bad signal), configuring runtime caching strategies, and ensuring the PWA install experience is polished. We use Serwist (built on Workbox) for the service worker, IndexedDB (via the `idb` library installed in Phase 0) for offline data queuing, and client-side reconnect sync to push data when connectivity returns. Only the workout flow is offline-capable for v1. Nutrition, sleep, and mood require connectivity.
+The boilerplate already has Serwist configured for service worker and PWA support. This phase focuses on making the active workout flow work offline (gyms have bad signal), configuring runtime caching strategies, and ensuring the PWA install experience is polished. We use Serwist (built on Workbox) for the service worker, IndexedDB (via the `idb` library installed in Phase 1) for offline data queuing, and client-side reconnect sync to push data when connectivity returns. Only the workout flow is offline-capable for v1. Nutrition, sleep, and mood require connectivity.
 
 ---
 

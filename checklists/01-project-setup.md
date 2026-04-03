@@ -2,7 +2,7 @@
 
 ## Context for Claude Code
 
-We are building a fitness tracking PWA using Next.js 16 (App Router), React 19, TypeScript 5.9 (strict), Supabase (Postgres + Auth + Storage), Drizzle ORM, shadcn/ui (New York style), Tailwind CSS v4, and pnpm. The boilerplate is already scaffolded at https://github.com/Dyslecix-Dev/full-stack-boilerplate. This phase ensures the foundation is wired up correctly before building features.
+We are building a fitness tracking PWA using Next.js 16 (App Router), React 19, TypeScript 5.9 (strict), Supabase (Postgres + Auth + Storage), Drizzle ORM, shadcn/ui (New York style), Tailwind CSS v4, and pnpm. The boilerplate is already scaffolded at [full-stack-boilerplate](https://github.com/Dyslecix-Dev/full-stack-boilerplate). This phase ensures the foundation is wired up correctly before building features.
 
 **Critical — read before starting:**
 
@@ -47,23 +47,22 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 - [ ] Verify `.env.local` has `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never exposed to client)
 - [ ] Verify `.env.local` has `SUPABASE_JWT_SECRET` (used for JWT verification in the proxy)
 - [ ] Verify `POSTGRES_URL` (pooled, for runtime) and `POSTGRES_URL_NON_POOLING` (direct, for migrations) are set — these are the Vercel-Supabase integration names. Do NOT use `DATABASE_URL` / `DIRECT_URL`.
-- [ ] Verify `USDA_API_KEY` is set — required, not optional. Register for a free key at https://fdc.nal.usda.gov/api-key-signup. Do NOT default to `DEMO_KEY`; it is shared across the internet and rate-limited to ~30 requests/IP/hour.
+- [ ] Verify `USDA_API_KEY` is set — required, not optional. Register for a free key at [USDA](https://fdc.nal.usda.gov/api-key-signup). Do NOT default to `DEMO_KEY`; it is shared across the internet and rate-limited to ~30 requests/IP/hour.
 - [ ] Verify `drizzle.config.ts` references `POSTGRES_URL` and `POSTGRES_URL_NON_POOLING` (not `DATABASE_URL` / `DIRECT_URL`)
 
 ### Route Group Restructure
 
 - [ ] The boilerplate ships with `app/auth/` and `app/protected/` (flat directories). Convert these to **route groups**: rename to `app/(auth)/` and `app/(protected)/`. Route groups prevent the folder name from appearing in the URL while allowing shared layouts.
-- [ ] **Do NOT rename auth page paths.** Keep the boilerplate's existing routes: `/auth/login`, `/auth/sign-up`, `/auth/sign-up-success`, `/auth/forgot-password`, `/auth/update-password`, `/auth/confirm`, `/auth/error`. The existing components (`LoginForm`, `SignUpForm`, etc.) already reference these paths.
-- [ ] Verify all internal links, redirects, and `emailRedirectTo` values in auth forms still work after the route group rename
-- [ ] Verify password reset flow exists: `/auth/forgot-password` + `/auth/update-password`
+- [ ] After converting to `app/(auth)/`, update all internal links, redirects, and `emailRedirectTo` values in auth forms — the `auth/` segment is removed from URLs (e.g. `/auth/login` → `/login`).
+- [ ] Verify password reset flow exists: `/forgot-password` + `/update-password`
 - [ ] Verify email confirmation callback route exists at `app/(auth)/confirm/route.ts`
 
 ### Auth Guards (in `proxy.ts`)
 
-- [ ] After the route group rename, update the protection logic in `lib/supabase/proxy.ts`. Route groups with parentheses (`(auth)`, `(protected)`) do NOT appear in the URL path, so the proxy must still check for `/auth/` and non-auth paths in the URL, not `/(protected)/` in the filesystem. The URL structure is unchanged — only the filesystem changed.
+- [ ] After the route group rename, update the protection logic in `lib/supabase/proxy.ts`. Since `(auth)` does not appear in the URL, the proxy must check individual auth paths (e.g. `/login`, `/sign-up`) rather than a single `/auth/` prefix.
 - [ ] Verify `proxy.ts` redirects unauthenticated users away from protected routes
-- [ ] Verify `proxy.ts` redirects authenticated users away from auth pages (paths starting with `/auth/`)
-- [ ] The boilerplate already has `LogoutButton` component. Verify it calls `supabase.auth.signOut()` and redirects to `/auth/login`.
+- [ ] Verify `proxy.ts` redirects authenticated users away from auth pages (e.g. paths starting with `/login`, `/sign-up`, etc.)
+- [ ] The boilerplate already has `LogoutButton` component. Verify it calls `supabase.auth.signOut()` and redirects to `/login`.
 
 ### TanStack Query Provider
 
@@ -105,7 +104,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### `idb` Dependency
 
-- [ ] Verify `idb` is installed (`pnpm add idb`). This is used in Phase 11 for the offline workout queue. Installing it now avoids a mid-build surprise.
+- [ ] Verify `idb` is installed (`pnpm add idb`). This is used in Phase 12 for the offline workout queue. Installing it now avoids a mid-build surprise.
 
 ### Verification
 

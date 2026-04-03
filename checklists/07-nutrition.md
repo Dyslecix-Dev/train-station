@@ -2,7 +2,7 @@
 
 ## Done-State Check
 
-Before starting, verify Phase 5c outputs exist: `lib/units.ts` exists with conversion functions, workout history page renders at `/workouts`.
+Before starting, verify Phase 6c outputs exist: `lib/units.ts` exists with conversion functions, workout history page renders at `/workouts`.
 
 ## Context for Claude Code
 
