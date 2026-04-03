@@ -85,7 +85,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### Shared UI Components
 
-- [ ] Verify shadcn/ui is installed with New York style and these components are available: Button, Input, Label, Card, Dialog, Sheet, Select, Tabs, Progress, Badge, Separator, Skeleton, DropdownMenu. Add any missing via `pnpm dlx shadcn@latest add <name>`. Do NOT add the shadcn Form component — we use Conform for forms.
+- [x] Verify shadcn/ui is installed with New York style and these components are available: Button, Input, Label, Card, Dialog, Sheet, Select, Tabs, Progress, Badge, Separator, Skeleton, DropdownMenu. Add any missing via `pnpm dlx shadcn@latest add <name>`. Do NOT add the shadcn Form component — we use Conform for forms.
 - [ ] Create `components/page-header.tsx` — reusable `PageHeader` (title + optional subtitle + optional action button)
 - [ ] Create `components/empty-state.tsx` — reusable `EmptyState` (icon + message + optional CTA)
 - [ ] Create `components/loading-skeleton.tsx` — reusable `LoadingSkeleton` that accepts a variant (card, list, detail)
