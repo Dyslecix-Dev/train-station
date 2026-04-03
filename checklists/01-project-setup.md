@@ -71,7 +71,7 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### Base Layout
 
-- [ ] Create a protected layout at `app/(protected)/layout.tsx` that:
+- [x] Create a protected layout at `app/(protected)/layout.tsx` that:
   - Calls `supabase.auth.getClaims()` (fast, local JWT read — no network call) to get the user identity
   - Uses the `sub` (user ID) from claims to fetch the `user_profiles` row from the database
   - If no profile exists yet (first login), creates a bare `user_profiles` row with `auth_user_id = claims.sub`

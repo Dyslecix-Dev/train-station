@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -5,13 +6,14 @@ import { Suspense } from "react";
 import { ActivityTracker } from "@/components/activity-tracker";
 import { AuthButton } from "@/components/auth-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { UserProfileProvider } from "@/components/user-profile-provider";
 import { siteConfig } from "@/lib/config";
+import { db } from "@/lib/db";
 import { createOrGetUser } from "@/lib/db/ensure-user";
+import { userProfiles } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
-  // NOTE: sync Supabase Auth user → Drizzle users table on every protected page load.
-  // The first visit creates the row; subsequent visits are a cheap SELECT.
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();
 
@@ -19,7 +21,26 @@ export default async function ProtectedLayout({ children }: { children: React.Re
     redirect("/login");
   }
 
-  await createOrGetUser({ id: data.claims.sub as string, email: data.claims.email as string });
+  const authUserId = data.claims.sub as string;
+
+  await createOrGetUser({ id: authUserId, email: data.claims.email as string });
+
+  let profile = await db.query.userProfiles.findFirst({
+    where: eq(userProfiles.authUserId, authUserId),
+  });
+
+  if (!profile) {
+    const [created] = await db.insert(userProfiles).values({ authUserId }).onConflictDoNothing().returning();
+    profile = created ?? (await db.query.userProfiles.findFirst({ where: eq(userProfiles.authUserId, authUserId) }));
+  }
+
+  if (!profile) {
+    redirect("/login");
+  }
+
+  if (!profile.onboardingCompleted) {
+    redirect("/onboarding");
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center">
@@ -38,7 +59,9 @@ export default async function ProtectedLayout({ children }: { children: React.Re
             </Suspense>
           </div>
         </nav>
-        <div className="flex max-w-5xl flex-1 flex-col gap-20 p-5">{children}</div>
+        <div className="flex max-w-5xl flex-1 flex-col gap-20 p-5">
+          <UserProfileProvider profile={profile}>{children}</UserProfileProvider>
+        </div>
         <footer className="mx-auto flex w-full items-center justify-center gap-8 border-t py-16 text-center text-xs">
           <ThemeSwitcher />
         </footer>
