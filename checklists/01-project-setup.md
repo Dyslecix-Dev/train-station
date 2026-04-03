@@ -104,9 +104,9 @@ The boilerplate ships with these — **do not recreate them**. Only modify if a 
 
 ### `idb` Dependency
 
-- [ ] Verify `idb` is installed (`pnpm add idb`). This is used in Phase 12 for the offline workout queue. Installing it now avoids a mid-build surprise.
+- [x] Verify `idb` is installed (`pnpm add idb`). This is used in Phase 12 for the offline workout queue. Installing it now avoids a mid-build surprise.
 
 ### Verification
 
-- [ ] Run `pnpm lint` — no errors
-- [ ] Run `pnpm build` — builds successfully
+- [x] Run `pnpm lint` — no errors
+- [x] Run `pnpm build` — builds successfully
