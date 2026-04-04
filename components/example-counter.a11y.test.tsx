@@ -23,7 +23,7 @@ declare module "vitest" {
   }
 }
 
-import { ExampleCounter } from "./example-counter";
+import { ExampleCounter } from "@/components/example-counter";
 
 describe("ExampleCounter a11y", () => {
   it("has no accessibility violations in default state", async () => {

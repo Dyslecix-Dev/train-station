@@ -40,7 +40,8 @@ vi.mock("drizzle-orm", () => ({
 }));
 
 import { beforeEach } from "vitest";
-import { createOrGetUser } from "./ensure-user";
+
+import { createOrGetUser } from "@/lib/db/ensure-user";
 
 describe("createOrGetUser", () => {
   beforeEach(() => {
