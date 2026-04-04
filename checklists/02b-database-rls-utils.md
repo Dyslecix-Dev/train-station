@@ -60,12 +60,12 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
 
 ### Drizzle Client
 
-- [ ] Verify `lib/db/index.ts` exists with a drizzle client instance using pooled `POSTGRES_URL`
-- [ ] Ensure it uses `prepare: false` and `max: 1` for Supabase pooled connections (this matches the boilerplate's existing config)
+- [x] Verify `lib/db/index.ts` exists with a drizzle client instance using pooled `POSTGRES_URL`
+- [x] Ensure it uses `prepare: false` and `max: 1` for Supabase pooled connections (this matches the boilerplate's existing config)
 
 ### Database Utilities
 
-- [ ] Create `lib/db/utils.ts` with a `getCurrentUserProfile(supabase)` helper:
+- [x] Create `lib/db/utils.ts` with a `getCurrentUserProfile(supabase)` helper:
   - Gets the auth user via `supabase.auth.getUser()` (async) — this is correct for server actions where you need guaranteed-current auth data. The protected layout uses `getClaims()` (fast, local) for rendering; this utility uses `getUser()` (network call, authoritative) for mutations.
   - Fetches the `user_profiles` row by `auth_user_id`
   - Returns the profile or throws if not found
