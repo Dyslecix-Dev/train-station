@@ -22,10 +22,10 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
 ### Step 1: Basic Stats
 
-- [ ] Fields: display name (text, required), age (number, required, 13–120), height (number, required — show in ft/in or cm based on a toggle, convert to cm before saving), weight (number, required — show in lb or kg based on toggle, convert to kg before saving), sex (select: male, female, other, prefer not to say)
-- [ ] Include a units toggle (imperial/metric) that controls how height and weight inputs are displayed
-- [ ] Validate with Zod schema (in `lib/validations/onboarding.ts`): all fields required, age 13–120, height 50–300 cm, weight 20–500 kg
-- [ ] Display progress indicator showing step 1 of 4
+- [x] Fields: display name (text, required), age (number, required, 13–120), height (number, required — show in ft/in or cm based on a toggle, convert to cm before saving), weight (number, required — show in lb or kg based on toggle, convert to kg before saving), sex (select: male, female, other, prefer not to say)
+- [x] Include a units toggle (imperial/metric) that controls how height and weight inputs are displayed
+- [x] Validate with Zod schema (in `lib/validations/onboarding.ts`): all fields required, age 13–120, height 50–300 cm, weight 20–500 kg
+- [x] Display progress indicator showing step 1 of 4
 
 ### Step 2: Activity Level
 

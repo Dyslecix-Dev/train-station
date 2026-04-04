@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { userProfiles } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
+import { OnboardingWizard } from "./onboarding-wizard";
+
 export default async function OnboardingPage() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();
@@ -22,9 +24,12 @@ export default async function OnboardingPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-      <h1 className="text-2xl font-semibold">Welcome! Let&apos;s get you set up.</h1>
-      <p className="text-muted-foreground mt-2 text-sm">The onboarding wizard will be implemented here.</p>
+    <div className="flex flex-col items-center justify-center px-4 py-12">
+      <div className="mb-8 text-center">
+        <h1 className="text-2xl font-semibold">Welcome! Let&apos;s get you set up.</h1>
+        <p className="text-muted-foreground mt-2 text-sm">Just a few quick questions to personalize your experience.</p>
+      </div>
+      <OnboardingWizard />
     </div>
   );
 }
