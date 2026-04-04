@@ -4,7 +4,7 @@
 
 Before starting, verify Phase 2a outputs exist: `lib/db/schema/index.ts` exports all tables, `pnpm db:migrate` ran successfully, all tables visible in Supabase dashboard.
 
-## Context for Claude Code
+## Context for Claude Co[de
 
 This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle relation mappings for type-safe joins, and creates shared database utility functions. RLS is critical — without it, any authenticated user can read/write any row.
 
@@ -32,7 +32,7 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
 
 ### Drizzle Relations
 
-- [ ] In each schema file, define Drizzle `relations()` for type-safe joins:
+- [x] In each schema file, define Drizzle `relations()` for type-safe joins:
   - `user_profiles` → has many `exercises`, `workout_templates`, `workouts`, `meal_logs`, `water_logs`, `body_stats_logs`, `sleep_logs`, `mood_logs`
   - `exercises` → belongs to `user_profiles` (via `created_by`), has many `workout_template_exercises`, `workout_exercises`
   - `workout_templates` → belongs to `user_profiles`, has many `workout_template_exercises`
@@ -77,5 +77,5 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
 
 ### URL State Convention
 
-- [ ] All date-navigable pages (nutrition, sleep, mental health) must use the **same `nuqs` parameter name** for the selected date: `date` (e.g., `?date=2025-03-15`). This ensures that if a user navigates from the nutrition page to the sleep page, the date they were viewing is preserved in the URL.
-- [ ] Create a shared nuqs hook at `lib/hooks/use-date-param.ts` that encapsulates this convention
+- [x] All date-navigable pages (nutrition, sleep, mental health) must use the **same `nuqs` parameter name** for the selected date: `date` (e.g., `?date=2025-03-15`). This ensures that if a user navigates from the nutrition page to the sleep page, the date they were viewing is preserved in the URL.
+- [x] Create a shared nuqs hook at `lib/hooks/use-date-param.ts` that encapsulates this convention
