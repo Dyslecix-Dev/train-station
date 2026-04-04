@@ -5,11 +5,11 @@ import { parseWithZod } from "@conform-to/zod/v4";
 import { useActionState, useOptimistic } from "react";
 import { toast } from "sonner";
 
+import { profileSchema, updateProfile } from "@/app/(protected)/profile/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { profileSchema, updateProfile } from "./actions";
 
 // NOTE:example form using Conform + Zod for validation, a Server Action for submission, and useOptimistic for instant UI feedback.
 // This demonstrates the recommended pattern for forms in this full-stack boilerplate:

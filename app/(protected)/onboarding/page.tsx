@@ -1,11 +1,10 @@
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
+import { OnboardingWizard } from "@/app/(protected)/onboarding/onboarding-wizard";
 import { db } from "@/lib/db";
 import { userProfiles } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
-
-import { OnboardingWizard } from "./onboarding-wizard";
 
 export default async function OnboardingPage() {
   const supabase = await createClient();

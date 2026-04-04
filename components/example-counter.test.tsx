@@ -12,8 +12,8 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 
+import { ExampleCounter } from "@/components/example-counter";
 import { useExampleStore } from "@/lib/stores/example-store";
-import { ExampleCounter } from "./example-counter";
 
 describe("ExampleCounter", () => {
   afterEach(() => {

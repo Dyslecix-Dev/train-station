@@ -8,7 +8,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
-      "no-restricted-imports": ["error", { patterns: ["../*"] }],
+      "no-restricted-imports": ["error", { patterns: ["../*", "./*"] }],
     },
   },
   prettier,

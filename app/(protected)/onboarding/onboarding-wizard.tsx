@@ -3,7 +3,7 @@
 import { type BasicStatsValues } from "@/lib/validations/onboarding";
 import { useState } from "react";
 
-import { BasicStatsStep } from "./basic-stats-step";
+import { BasicStatsStep } from "@/app/(protected)/onboarding/basic-stats-step";
 
 type WizardState = {
   basicStats?: BasicStatsValues;
