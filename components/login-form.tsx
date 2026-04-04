@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type ComponentPropsWithoutRef, useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,7 +36,9 @@ export function LoginForm({ className, ...props }: ComponentPropsWithoutRef<"div
       const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
       router.push(safeNext);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      const message = error instanceof Error ? error.message : "An error occurred";
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }

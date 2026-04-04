@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { type ComponentPropsWithoutRef, useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +23,9 @@ export function UpdatePasswordForm({ className, ...props }: ComponentPropsWithou
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      const message = "Passwords do not match";
+      setError(message);
+      toast.error(message);
       return;
     }
 
@@ -34,7 +37,9 @@ export function UpdatePasswordForm({ className, ...props }: ComponentPropsWithou
       if (error) throw error;
       router.push("/dashboard");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      const message = error instanceof Error ? error.message : "An error occurred";
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }

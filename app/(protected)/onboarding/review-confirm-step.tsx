@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 import { completeOnboarding } from "@/app/(protected)/onboarding/actions";
 import { Button } from "@/components/ui/button";
@@ -90,6 +91,7 @@ export function ReviewConfirmStep({ basicStats, activityLevel, primaryGoal, onBa
 
       if (result?.error) {
         setError(result.error);
+        toast.error(result.error);
       }
     });
   }

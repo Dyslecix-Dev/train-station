@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ComponentPropsWithoutRef, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,7 +46,9 @@ export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"di
     setError(null);
 
     if (password !== repeatPassword) {
-      setError("Passwords do not match");
+      const message = "Passwords do not match";
+      setError(message);
+      toast.error(message);
       setIsLoading(false);
       return;
     }
@@ -61,7 +64,9 @@ export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"di
       if (error) throw error;
       router.push("/sign-up-success");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      const message = error instanceof Error ? error.message : "An error occurred";
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
