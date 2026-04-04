@@ -4,11 +4,13 @@ import { useState } from "react";
 
 import { ActivityLevelStep } from "@/app/(protected)/onboarding/activity-level-step";
 import { BasicStatsStep } from "@/app/(protected)/onboarding/basic-stats-step";
-import { type ActivityLevelValues, type BasicStatsValues } from "@/lib/validations/onboarding";
+import { PrimaryGoalStep } from "@/app/(protected)/onboarding/primary-goal-step";
+import { type ActivityLevelValues, type BasicStatsValues, type PrimaryGoalValues } from "@/lib/validations/onboarding";
 
 type WizardState = {
   basicStats?: BasicStatsValues;
   activityLevel?: ActivityLevelValues;
+  primaryGoal?: PrimaryGoalValues;
 };
 
 export function OnboardingWizard() {
@@ -25,14 +27,20 @@ export function OnboardingWizard() {
     setStep(3);
   }
 
+  function handlePrimaryGoalNext(values: PrimaryGoalValues) {
+    setWizardState((prev) => ({ ...prev, primaryGoal: values }));
+    setStep(4);
+  }
+
   return (
     <div className="mx-auto w-full max-w-md">
       {step === 1 && <BasicStatsStep defaultValues={wizardState.basicStats} onNext={handleBasicStatsNext} />}
       {step === 2 && <ActivityLevelStep defaultValues={wizardState.activityLevel} onNext={handleActivityLevelNext} onBack={() => setStep(1)} />}
-      {step > 2 && (
+      {step === 3 && <PrimaryGoalStep defaultValues={wizardState.primaryGoal} onNext={handlePrimaryGoalNext} onBack={() => setStep(2)} />}
+      {step > 3 && (
         <div className="text-muted-foreground py-12 text-center text-sm">
           Step {step} coming soon.{" "}
-          <button className="text-foreground underline" onClick={() => setStep(2)}>
+          <button className="text-foreground underline" onClick={() => setStep(3)}>
             Go back
           </button>
         </div>

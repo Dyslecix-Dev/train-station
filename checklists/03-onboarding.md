@@ -40,14 +40,14 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
 ### Step 3: Primary Goal
 
-- [ ] Radio group with 5 options, each with a short description:
+- [x] Radio group with 5 options, each with a short description:
   - Lose fat (calorie deficit, high protein)
   - Build muscle (calorie surplus, high protein)
   - Maintain (calorie maintenance)
   - Improve endurance (balanced macros, moderate surplus)
   - General health (balanced approach)
-- [ ] Validate with Zod: required, must be one of the enum values
-- [ ] Display progress indicator showing step 3 of 4
+- [x] Validate with Zod: required, must be one of the enum values
+- [x] Display progress indicator showing step 3 of 4
 
 ### Step 4: Review & Confirm
 

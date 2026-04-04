@@ -23,3 +23,12 @@ export const activityLevelSchema = z.object({
 });
 
 export type ActivityLevelValues = z.infer<typeof activityLevelSchema>;
+
+export const primaryGoals = ["lose_fat", "build_muscle", "maintain", "improve_endurance", "general_health"] as const;
+export type PrimaryGoal = (typeof primaryGoals)[number];
+
+export const primaryGoalSchema = z.object({
+  primaryGoal: z.enum(primaryGoals, { error: "Please select a primary goal" }),
+});
+
+export type PrimaryGoalValues = z.infer<typeof primaryGoalSchema>;
