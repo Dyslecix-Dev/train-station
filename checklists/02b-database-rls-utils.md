@@ -49,7 +49,7 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
 
 ### Inferred Types
 
-- [ ] In each schema file, export inferred types:
+- [x] In each schema file, export inferred types:
 
   ```ts
   export type UserProfile = typeof userProfiles.$inferSelect;
