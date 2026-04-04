@@ -24,3 +24,12 @@ export async function getCurrentUserProfile(supabase: SupabaseClient): Promise<U
 
   return profile;
 }
+
+export async function getUserTimezone(userId: string): Promise<string> {
+  const profile = await db.query.userProfiles.findFirst({
+    where: eq(userProfiles.authUserId, userId),
+    columns: { timezone: true },
+  });
+
+  return profile?.timezone ?? "America/New_York";
+}

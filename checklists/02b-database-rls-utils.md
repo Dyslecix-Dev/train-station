@@ -70,7 +70,7 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
   - Fetches the `user_profiles` row by `auth_user_id`
   - Returns the profile or throws if not found
   - This is used by every server action to get the current user's profile ID
-- [ ] Create `lib/db/utils.ts` function `getUserTimezone(userId)`:
+- [x] Create `lib/db/utils.ts` function `getUserTimezone(userId)`:
   - Fetches the `timezone` field from `user_profiles`
   - Returns the IANA timezone string (e.g., `America/Los_Angeles`)
   - Used by streak logic and date comparisons
