@@ -14,3 +14,12 @@ export const basicStatsSchema = z.object({
 });
 
 export type BasicStatsValues = z.infer<typeof basicStatsSchema>;
+
+export const activityLevels = ["sedentary", "lightly_active", "moderately_active", "very_active", "extremely_active"] as const;
+export type ActivityLevel = (typeof activityLevels)[number];
+
+export const activityLevelSchema = z.object({
+  activityLevel: z.enum(activityLevels, { error: "Please select an activity level" }),
+});
+
+export type ActivityLevelValues = z.infer<typeof activityLevelSchema>;

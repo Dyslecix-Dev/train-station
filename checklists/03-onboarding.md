@@ -29,14 +29,14 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
 ### Step 2: Activity Level
 
-- [ ] Radio group with 5 options, each with a short description:
+- [x] Radio group with 5 options, each with a short description:
   - Sedentary (desk job, little exercise)
   - Lightly active (light exercise 1–3 days/week)
   - Moderately active (moderate exercise 3–5 days/week)
   - Very active (hard exercise 6–7 days/week)
   - Extremely active (very hard exercise, physical job)
-- [ ] Validate with Zod: required, must be one of the enum values
-- [ ] Display progress indicator showing step 2 of 4
+- [x] Validate with Zod: required, must be one of the enum values
+- [x] Display progress indicator showing step 2 of 4
 
 ### Step 3: Primary Goal
 
