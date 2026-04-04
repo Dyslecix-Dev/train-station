@@ -25,14 +25,14 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Exercise List Page
 
-- [ ] Create page at `app/(protected)/exercises/page.tsx` (server component)
-- [ ] Fetch all system exercises + current user's custom exercises (where `deleted_at IS NULL`)
-- [ ] Display exercises in a responsive grid (cards) or list view with toggle
-- [ ] Each card shows: name, category badge, muscle groups as small badges, thumbnail image (or placeholder icon if no image)
-- [ ] Add a search input (client-side filter via `nuqs` for URL state, param name `q`) that filters by name
-- [ ] Add category filter (dropdown or tabs: All, Strength, Cardio, Bodyweight, Flexibility, Other)
-- [ ] Add a "My Exercises" filter toggle that shows only user-created exercises
-- [ ] Show `EmptyState` component when no exercises match filters
+- [x] Create page at `app/(protected)/exercises/page.tsx` (server component)
+- [x] Fetch all system exercises + current user's custom exercises (where `deleted_at IS NULL`)
+- [x] Display exercises in a responsive grid (cards) or list view with toggle
+- [x] Each card shows: name, category badge, muscle groups as small badges, thumbnail image (or placeholder icon if no image)
+- [x] Add a search input (client-side filter via `nuqs` for URL state, param name `q`) that filters by name
+- [x] Add category filter (dropdown or tabs: All, Strength, Cardio, Bodyweight, Flexibility, Other)
+- [x] Add a "My Exercises" filter toggle that shows only user-created exercises
+- [x] Show `EmptyState` component when no exercises match filters
 
 ### Exercise Detail Page
 

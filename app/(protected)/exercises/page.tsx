@@ -31,7 +31,7 @@ export default async function ExercisesPage() {
         <h1 className="text-2xl font-bold tracking-tight">Exercise Library</h1>
         <ExerciseViewToggle />
       </div>
-      <ExerciseList exercises={allExercises} />
+      <ExerciseList exercises={allExercises} profileId={profile?.id} />
     </div>
   );
 }
