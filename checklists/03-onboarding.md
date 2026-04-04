@@ -86,7 +86,7 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
   Import the app name from `lib/config.ts` for the subject line. If the welcome template needs customization for the fitness app, update `emails/welcome.tsx`. Do not create a new template file.
 
 - [x] On success, call `revalidatePath("/")` and redirect to `/dashboard`
-- [ ] On error, return error via Conform and show toast. Email send failure should be logged but should NOT block the redirect — onboarding success is more important than the welcome email.
+- [x] On error, return error via Conform and show toast. Email send failure should be logged but should NOT block the redirect — onboarding success is more important than the welcome email.
 
 ### TDEE Utility
 
