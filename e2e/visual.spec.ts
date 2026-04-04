@@ -19,7 +19,7 @@ test.describe("visual regression", () => {
 
   test("home page", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "My App" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Train Station" })).toBeVisible();
     await expect(page).toHaveScreenshot("home.png", { fullPage: true });
   });
 
@@ -49,7 +49,7 @@ test.describe("visual regression", () => {
   test("home page - dark mode", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "My App" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Train Station" })).toBeVisible();
     await expect(page).toHaveScreenshot("home-dark.png", { fullPage: true });
   });
 

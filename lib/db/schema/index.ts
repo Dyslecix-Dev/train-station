@@ -2,6 +2,7 @@ export * from "@/lib/db/schema/exercises";
 export * from "@/lib/db/schema/mental-health";
 export * from "@/lib/db/schema/nutrition";
 export * from "@/lib/db/schema/push-subscriptions";
+export * from "@/lib/db/schema/relations";
 export * from "@/lib/db/schema/sleep";
 export * from "@/lib/db/schema/user-profiles";
 export * from "@/lib/db/schema/users";
