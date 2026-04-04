@@ -14,21 +14,21 @@ This phase adds Row Level Security (RLS) policies to all tables, defines Drizzle
 
 ### RLS Policies
 
-- [ ] In Supabase dashboard (or via SQL migration), enable RLS on **ALL** tables: `user_profiles`, `exercises`, `workout_templates`, `workout_template_exercises`, `workouts`, `workout_exercises`, `workout_sets`, `foods`, `meal_logs`, `water_logs`, `body_stats_logs`, `sleep_logs`, `mood_logs`
-- [ ] **`user_profiles`**: Users can SELECT, INSERT, UPDATE, DELETE only rows where `auth_user_id = auth.uid()`
-- [ ] **`exercises`**: Users can SELECT all rows where `is_system = true` OR `created_by` matches the user's profile ID. Users can INSERT, UPDATE, DELETE only their own rows (`created_by` = their profile ID).
-- [ ] **`foods`**: Same pattern as exercises — SELECT where `is_system = true` OR `created_by` matches user. INSERT, UPDATE, DELETE only own rows.
-- [ ] **`workout_templates`**: Users can only SELECT, INSERT, UPDATE, DELETE rows where `user_id` matches their profile ID
-- [ ] **`workout_template_exercises`**: Users can only access rows where the parent `template_id` belongs to a template they own (join through `workout_templates.user_id`)
-- [ ] **`workouts`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **`workout_exercises`**: Users can only access rows where the parent `workout_id` belongs to a workout they own
-- [ ] **`workout_sets`**: Users can only access rows where the parent `workout_exercise_id` belongs to a workout exercise they own (chain through `workout_exercises` → `workouts`)
-- [ ] **`meal_logs`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **`water_logs`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **`body_stats_logs`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **`sleep_logs`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **`mood_logs`**: Users can only access rows where `user_id` matches their profile ID
-- [ ] **Verify RLS** by testing with a non-service-role client: query a table as one user, confirm they cannot see another user's rows
+- [x] In Supabase dashboard (or via SQL migration), enable RLS on **ALL** tables: `user_profiles`, `exercises`, `workout_templates`, `workout_template_exercises`, `workouts`, `workout_exercises`, `workout_sets`, `foods`, `meal_logs`, `water_logs`, `body_stats_logs`, `sleep_logs`, `mood_logs`
+- [x] **`user_profiles`**: Users can SELECT, INSERT, UPDATE, DELETE only rows where `auth_user_id = auth.uid()`
+- [x] **`exercises`**: Users can SELECT all rows where `is_system = true` OR `created_by` matches the user's profile ID. Users can INSERT, UPDATE, DELETE only their own rows (`created_by` = their profile ID).
+- [x] **`foods`**: Same pattern as exercises — SELECT where `is_system = true` OR `created_by` matches user. INSERT, UPDATE, DELETE only own rows.
+- [x] **`workout_templates`**: Users can only SELECT, INSERT, UPDATE, DELETE rows where `user_id` matches their profile ID
+- [x] **`workout_template_exercises`**: Users can only access rows where the parent `template_id` belongs to a template they own (join through `workout_templates.user_id`)
+- [x] **`workouts`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **`workout_exercises`**: Users can only access rows where the parent `workout_id` belongs to a workout they own
+- [x] **`workout_sets`**: Users can only access rows where the parent `workout_exercise_id` belongs to a workout exercise they own (chain through `workout_exercises` → `workouts`)
+- [x] **`meal_logs`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **`water_logs`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **`body_stats_logs`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **`sleep_logs`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **`mood_logs`**: Users can only access rows where `user_id` matches their profile ID
+- [x] **Verify RLS** by testing with a non-service-role client: query a table as one user, confirm they cannot see another user's rows
 
 ### Drizzle Relations
 
