@@ -51,31 +51,31 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
 ### Step 4: Review & Confirm
 
-- [ ] Show a summary of all entered values
-- [ ] Show calculated TDEE using Mifflin-St Jeor formula (from `lib/tdee.ts`)
-- [ ] Show calculated calorie and macro targets
-- [ ] Display all calculated values with the option to manually override each one
-- [ ] Allow user to go back to any previous step and edit
-- [ ] Display progress indicator showing step 4 of 4
+- [x] Show a summary of all entered values
+- [x] Show calculated TDEE using Mifflin-St Jeor formula (from `lib/tdee.ts`)
+- [x] Show calculated calorie and macro targets
+- [x] Display all calculated values with the option to manually override each one
+- [x] Allow user to go back to any previous step and edit
+- [x] Display progress indicator showing step 4 of 4
 
 ### Timezone Detection
 
-- [ ] On the client side (in the onboarding page component), detect the user's timezone:
+- [x] On the client side (in the onboarding page component), detect the user's timezone:
 
   ```ts
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   ```
 
-- [ ] Include `timezone` in the form submission payload — it is sent alongside the profile data
-- [ ] The server action saves it to `user_profiles.timezone`
+- [x] Include `timezone` in the form submission payload — it is sent alongside the profile data
+- [x] The server action saves it to `user_profiles.timezone`
 
 ### Server Action
 
-- [ ] Create `app/(protected)/onboarding/actions.ts` with a `completeOnboarding` server action
-- [ ] Validate the full payload with a combined Zod schema (import from `lib/validations/onboarding.ts`)
-- [ ] Upsert the `user_profiles` row with all values including `timezone`, set `onboarding_completed = true`
-- [ ] Rate limit the action (5 calls per minute per user)
-- [ ] After successful upsert, send a welcome email using the boilerplate's existing email infrastructure:
+- [x] Create `app/(protected)/onboarding/actions.ts` with a `completeOnboarding` server action
+- [x] Validate the full payload with a combined Zod schema (import from `lib/validations/onboarding.ts`)
+- [x] Upsert the `user_profiles` row with all values including `timezone`, set `onboarding_completed = true`
+- [x] Rate limit the action (5 calls per minute per user)
+- [x] After successful upsert, send a welcome email using the boilerplate's existing email infrastructure:
 
   ```ts
   import { sendEmail } from "@/lib/email";
@@ -85,12 +85,12 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
   Import the app name from `lib/config.ts` for the subject line. If the welcome template needs customization for the fitness app, update `emails/welcome.tsx`. Do not create a new template file.
 
-- [ ] On success, call `revalidatePath("/")` and redirect to `/dashboard`
+- [x] On success, call `revalidatePath("/")` and redirect to `/dashboard`
 - [ ] On error, return error via Conform and show toast. Email send failure should be logged but should NOT block the redirect — onboarding success is more important than the welcome email.
 
 ### TDEE Utility
 
-- [ ] Create `lib/tdee.ts` with pure functions:
+- [x] Create `lib/tdee.ts` with pure functions:
   - `calculateBMR(weight_kg, height_cm, age, sex)` → number
     - Male: `(10 × weight_kg) + (6.25 × height_cm) − (5 × age) + 5`
     - Female: `(10 × weight_kg) + (6.25 × height_cm) − (5 × age) − 161`
@@ -109,12 +109,12 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
     - Carbs: 50–800g
     - Fat: 20–300g
     - Fiber: 10–100g
-- [ ] Export for use in both onboarding and settings (for recalculation)
-- [ ] Add JSDoc comments explaining formulas
+- [x] Export for use in both onboarding and settings (for recalculation)
+- [x] Add JSDoc comments explaining formulas
 
 ### UX Polish
 
-- [ ] Animate step transitions (slide or fade) using Motion (already installed in boilerplate)
-- [ ] Persist wizard state in local component state (if user navigates away, they restart — this is fine for onboarding)
-- [ ] Show a loading state on the final submit button while the server action runs
-- [ ] Handle back/forward browser navigation gracefully (prevent partial submissions)
+- [x] Animate step transitions (slide or fade) using Motion (already installed in boilerplate)
+- [x] Persist wizard state in local component state (if user navigates away, they restart — this is fine for onboarding)
+- [x] Show a loading state on the final submit button while the server action runs
+- [x] Handle back/forward browser navigation gracefully (prevent partial submissions)

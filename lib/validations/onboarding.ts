@@ -32,3 +32,17 @@ export const primaryGoalSchema = z.object({
 });
 
 export type PrimaryGoalValues = z.infer<typeof primaryGoalSchema>;
+
+export const completeOnboardingSchema = z.object({
+  ...basicStatsSchema.shape,
+  ...activityLevelSchema.shape,
+  ...primaryGoalSchema.shape,
+  timezone: z.string().min(1, "Timezone is required"),
+  calorieTarget: z.coerce.number().int().min(1200).max(6000),
+  proteinTargetG: z.coerce.number().int().min(40).max(400),
+  carbsTargetG: z.coerce.number().int().min(50).max(800),
+  fatTargetG: z.coerce.number().int().min(20).max(300),
+  fiberTargetG: z.coerce.number().int().min(10).max(100),
+});
+
+export type CompleteOnboardingValues = z.infer<typeof completeOnboardingSchema>;
