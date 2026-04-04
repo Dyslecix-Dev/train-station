@@ -6,6 +6,8 @@ on:
         description: "Branch to update snapshots on"
         required: false
         default: ""
+permissions:
+  contents: write
 jobs:
   update-snapshots:
     timeout-minutes: 60
