@@ -16,9 +16,9 @@ After a user signs up via Supabase Auth, they must complete onboarding before ac
 
 ### Routing & Guards
 
-- [ ] Create onboarding page at `app/(protected)/onboarding/page.tsx`
-- [ ] In the protected layout (`app/(protected)/layout.tsx`), check `user_profile.onboarding_completed` — if `false`, redirect to `/onboarding`
-- [ ] In the onboarding page, check `user_profile.onboarding_completed` — if `true`, redirect to `/dashboard`
+- [x] Create onboarding page at `app/(protected)/onboarding/page.tsx`
+- [x] In the protected layout (`app/(protected)/layout.tsx`), check `user_profile.onboarding_completed` — if `false`, redirect to `/onboarding`
+- [x] In the onboarding page, check `user_profile.onboarding_completed` — if `true`, redirect to `/dashboard`
 
 ### Step 1: Basic Stats
 

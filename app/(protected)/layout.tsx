@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -40,7 +41,11 @@ export default async function ProtectedLayout({ children }: { children: React.Re
     redirect("/login");
   }
 
-  if (!profile.onboardingCompleted) {
+  const headersList = await headers();
+  const nextUrl = headersList.get("next-url");
+  const pathname = nextUrl ? new URL(nextUrl).pathname : "";
+
+  if (!profile.onboardingCompleted && pathname !== "/onboarding") {
     redirect("/onboarding");
   }
 
