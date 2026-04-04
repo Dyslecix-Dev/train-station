@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +9,6 @@ import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { basicStatsSchema, type BasicStatsValues } from "@/lib/validations/onboarding";
-import { useState } from "react";
 
 type Props = {
   defaultValues?: Partial<BasicStatsValues>;
@@ -97,7 +98,7 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
     return "";
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     const payload = {

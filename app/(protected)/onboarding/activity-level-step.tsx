@@ -25,7 +25,7 @@ export function ActivityLevelStep({ defaultValues, onNext, onBack }: Props) {
   const [selected, setSelected] = useState<ActivityLevel | "">(defaultValues?.activityLevel ?? "");
   const [error, setError] = useState<string | undefined>(undefined);
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     const result = activityLevelSchema.safeParse({ activityLevel: selected });
