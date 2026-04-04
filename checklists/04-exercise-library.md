@@ -36,11 +36,11 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Exercise Detail Page
 
-- [ ] Create page at `app/(protected)/exercises/[id]/page.tsx` (server component)
-- [ ] Fetch the exercise by ID (respect RLS — system or user-owned)
-- [ ] Display: name, category, muscle groups, full description, image (large, or placeholder), video URL (as external link if present)
-- [ ] If user-owned: show Edit and Delete buttons
-- [ ] If system exercise: no edit/delete, just view
+- [x] Create page at `app/(protected)/exercises/[id]/page.tsx` (server component)
+- [x] Fetch the exercise by ID (respect RLS — system or user-owned)
+- [x] Display: name, category, muscle groups, full description, image (large, or placeholder), video URL (as external link if present)
+- [x] If user-owned: show Edit and Delete buttons
+- [x] If system exercise: no edit/delete, just view
 
 ### Exercise Progress Section (on Detail Page)
 
