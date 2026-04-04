@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
+import { OnboardingWizard } from "@/app/(protected)/onboarding/onboarding-wizard";
 import { ActivityTracker } from "@/components/activity-tracker";
 import { AuthButton } from "@/components/auth-button";
 import { BottomNav } from "@/components/bottom-nav";
@@ -41,12 +41,18 @@ export default async function ProtectedLayout({ children }: { children: React.Re
     redirect("/login");
   }
 
-  const headersList = await headers();
-  const nextUrl = headersList.get("next-url");
-  const pathname = nextUrl ? new URL(nextUrl).pathname : "";
-
-  if (!profile.onboardingCompleted && pathname !== "/onboarding") {
-    redirect("/onboarding");
+  // When onboarding is incomplete, render a minimal shell with the wizard
+  // instead of redirecting (which requires knowing the current pathname).
+  if (!profile.onboardingCompleted) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center px-4 py-12">
+        <div className="mb-8 text-center">
+          <h1 className="text-2xl font-semibold">Welcome! Let&apos;s get you set up.</h1>
+          <p className="text-muted-foreground mt-2 text-sm">Just a few quick questions to personalize your experience.</p>
+        </div>
+        <OnboardingWizard />
+      </div>
+    );
   }
 
   return (

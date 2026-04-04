@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { activityLevelSchema, type ActivityLevel, type ActivityLevelValues } from "@/lib/validations/onboarding";
 
@@ -41,15 +40,6 @@ export function ActivityLevelStep({ defaultValues, onNext, onBack }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Progress indicator */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Step 2 of 4</span>
-          <span className="font-medium">Activity Level</span>
-        </div>
-        <Progress value={50} className="h-2" />
-      </div>
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <fieldset className="flex flex-col gap-3">
           <legend className="text-base font-semibold">How active are you on a typical week?</legend>
