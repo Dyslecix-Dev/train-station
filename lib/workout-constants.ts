@@ -12,7 +12,9 @@ export const MUSCLE_GROUPS = ["chest", "back", "shoulders", "biceps", "triceps",
 
 export type MuscleGroup = (typeof MUSCLE_GROUPS)[number];
 
-export const PROGRESS_METRIC_MAP: Record<ExerciseCategory, string> = {
+export type ProgressMetricType = "estimated_1rm" | "best_pace" | "max_reps" | "max_duration" | "hold_duration";
+
+export const PROGRESS_METRIC_MAP: Record<ExerciseCategory, ProgressMetricType> = {
   strength: "estimated_1rm",
   cardio: "best_pace",
   bodyweight: "max_reps",

@@ -1,53 +1,13 @@
 import "dotenv/config";
+import { isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
 import * as schema from "@/lib/db/schema/index";
+import { systemExercises } from "@/lib/db/seed/exercises";
 
 const client = postgres(process.env.POSTGRES_URL_NON_POOLING!, { prepare: false });
 const db = drizzle({ client, schema });
-
-// System exercises — available to all users (is_system = true)
-const systemExercises = [
-  // Strength
-  { name: "Barbell Bench Press", category: "strength" as const, muscleGroups: ["chest", "triceps", "shoulders"], progressMetricType: "estimated_1rm" as const },
-  { name: "Barbell Back Squat", category: "strength" as const, muscleGroups: ["quadriceps", "glutes", "hamstrings"], progressMetricType: "estimated_1rm" as const },
-  { name: "Conventional Deadlift", category: "strength" as const, muscleGroups: ["hamstrings", "glutes", "back"], progressMetricType: "estimated_1rm" as const },
-  { name: "Overhead Press", category: "strength" as const, muscleGroups: ["shoulders", "triceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Barbell Row", category: "strength" as const, muscleGroups: ["back", "biceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Dumbbell Curl", category: "strength" as const, muscleGroups: ["biceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Tricep Pushdown", category: "strength" as const, muscleGroups: ["triceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Lateral Raise", category: "strength" as const, muscleGroups: ["shoulders"], progressMetricType: "estimated_1rm" as const },
-  { name: "Leg Press", category: "strength" as const, muscleGroups: ["quadriceps", "glutes"], progressMetricType: "estimated_1rm" as const },
-  { name: "Romanian Deadlift", category: "strength" as const, muscleGroups: ["hamstrings", "glutes"], progressMetricType: "estimated_1rm" as const },
-  { name: "Lat Pulldown", category: "strength" as const, muscleGroups: ["back", "biceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Cable Fly", category: "strength" as const, muscleGroups: ["chest"], progressMetricType: "estimated_1rm" as const },
-  { name: "Face Pull", category: "strength" as const, muscleGroups: ["shoulders", "back"], progressMetricType: "estimated_1rm" as const },
-  { name: "Leg Curl", category: "strength" as const, muscleGroups: ["hamstrings"], progressMetricType: "estimated_1rm" as const },
-  { name: "Leg Extension", category: "strength" as const, muscleGroups: ["quadriceps"], progressMetricType: "estimated_1rm" as const },
-  { name: "Calf Raise", category: "strength" as const, muscleGroups: ["calves"], progressMetricType: "estimated_1rm" as const },
-
-  // Cardio
-  { name: "Running", category: "cardio" as const, muscleGroups: ["quadriceps", "hamstrings", "calves"], progressMetricType: "best_pace" as const },
-  { name: "Cycling", category: "cardio" as const, muscleGroups: ["quadriceps", "hamstrings"], progressMetricType: "best_pace" as const },
-  { name: "Rowing Machine", category: "cardio" as const, muscleGroups: ["back", "arms", "legs"], progressMetricType: "best_pace" as const },
-  { name: "Jump Rope", category: "cardio" as const, muscleGroups: ["calves", "shoulders"], progressMetricType: "max_duration" as const },
-  { name: "Stair Climber", category: "cardio" as const, muscleGroups: ["quadriceps", "glutes", "calves"], progressMetricType: "max_duration" as const },
-
-  // Bodyweight
-  { name: "Push-up", category: "bodyweight" as const, muscleGroups: ["chest", "triceps", "shoulders"], progressMetricType: "max_reps" as const },
-  { name: "Pull-up", category: "bodyweight" as const, muscleGroups: ["back", "biceps"], progressMetricType: "max_reps" as const },
-  { name: "Dip", category: "bodyweight" as const, muscleGroups: ["chest", "triceps", "shoulders"], progressMetricType: "max_reps" as const },
-  { name: "Bodyweight Squat", category: "bodyweight" as const, muscleGroups: ["quadriceps", "glutes"], progressMetricType: "max_reps" as const },
-  { name: "Lunge", category: "bodyweight" as const, muscleGroups: ["quadriceps", "glutes", "hamstrings"], progressMetricType: "max_reps" as const },
-  { name: "Burpee", category: "bodyweight" as const, muscleGroups: ["chest", "quadriceps", "shoulders"], progressMetricType: "max_reps" as const },
-
-  // Flexibility
-  { name: "Plank", category: "flexibility" as const, muscleGroups: ["core"], progressMetricType: "hold_duration" as const },
-  { name: "Side Plank", category: "flexibility" as const, muscleGroups: ["core", "obliques"], progressMetricType: "hold_duration" as const },
-  { name: "Dead Hang", category: "flexibility" as const, muscleGroups: ["forearms", "shoulders"], progressMetricType: "hold_duration" as const },
-  { name: "Yoga Flow", category: "flexibility" as const, muscleGroups: ["full body"], progressMetricType: "max_duration" as const },
-] as const;
 
 // System foods — common staples with per-serving macros (is_system = true)
 const systemFoods = [
@@ -93,21 +53,26 @@ async function seed() {
 
   // System exercises
   if ("exercises" in schema) {
-    const exercises = (schema as Record<string, unknown>).exercises as Parameters<typeof db.insert>[0];
-    await db
-      .insert(exercises)
-      .values(
-        systemExercises.map((e) => ({
+    // onConflictDoNothing won't deduplicate system exercises because the unique
+    // constraint is (name, created_by) and Postgres treats two NULLs as distinct.
+    // Fetch existing names first and skip those rows instead.
+    const existing = await db.select({ name: schema.exercises.name }).from(schema.exercises).where(isNull(schema.exercises.createdBy));
+    const existingNames = new Set(existing.map((e) => e.name));
+    const toInsert = systemExercises.filter((e) => !existingNames.has(e.name));
+    if (toInsert.length > 0) {
+      await db.insert(schema.exercises).values(
+        toInsert.map((e) => ({
           name: e.name,
           category: e.category,
           muscleGroups: [...e.muscleGroups],
           progressMetricType: e.progressMetricType,
+          description: e.description,
           isSystem: true,
           createdBy: null,
         })),
-      )
-      .onConflictDoNothing();
-    console.log(`  ✓ ${systemExercises.length} system exercises`);
+      );
+    }
+    console.log(`  ✓ ${systemExercises.length} system exercises (${toInsert.length} inserted, ${existingNames.size} already present)`);
   } else {
     console.log("  ⏭ exercises table not yet in schema — skipping");
   }

@@ -14,14 +14,14 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Seed Data
 
-- [ ] Create `lib/db/seed/exercises.ts` with 15–20 common exercises across all categories. Ensure at least 3 per category. Example distribution:
+- [x] Create `lib/db/seed/exercises.ts` with 15–20 common exercises across all categories. Ensure at least 3 per category. Example distribution:
   - Strength: bench press, squat, deadlift, overhead press, barbell row, lat pulldown, bicep curl, tricep extension
   - Cardio: running, cycling, rowing, jump rope
   - Bodyweight: push-up, pull-up, plank, lunge
   - Flexibility: hamstring stretch, pigeon pose, child's pose
-- [ ] Each seed exercise: `is_system = true`, `created_by = null`, appropriate `category`, `progress_metric_type` (use `PROGRESS_METRIC_MAP` from `lib/workout-constants.ts`), `muscle_groups` array, 1–2 sentence `description` of proper form
-- [ ] Update the `pnpm db:seed` script (in `lib/db/seed.ts`) to call the exercise seeder. Must be idempotent — safe to run multiple times (upsert on name).
-- [ ] Use placeholder `image_url` values (null is fine for v1 — the UI should handle missing images gracefully with a placeholder icon)
+- [x] Each seed exercise: `is_system = true`, `created_by = null`, appropriate `category`, `progress_metric_type` (use `PROGRESS_METRIC_MAP` from `lib/workout-constants.ts`), `muscle_groups` array, 1–2 sentence `description` of proper form
+- [x] Update the `pnpm db:seed` script (in `lib/db/seed.ts`) to call the exercise seeder. Must be idempotent — safe to run multiple times (upsert on name).
+- [x] Use placeholder `image_url` values (null is fine for v1 — the UI should handle missing images gracefully with a placeholder icon)
 
 ### Exercise List Page
 
