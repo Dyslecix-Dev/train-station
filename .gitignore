@@ -1,6 +1,9 @@
 # claude code
 .claude/
 
+# MSW test artifact — not needed in production
+public/mockServiceWorker.js
+
 # debug
 npm-debug.log*
 yarn-debug.log*
