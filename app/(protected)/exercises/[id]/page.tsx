@@ -3,7 +3,10 @@ import { Dumbbell, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
+import { ExerciseProgressServer } from "@/app/(protected)/exercises/[id]/exercise-progress-server";
+import { LoadingSkeleton } from "@/components/loading-skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
@@ -38,6 +41,7 @@ export default async function ExerciseDetailPage({ params }: { params: Promise<{
   if (!exercise) notFound();
 
   const isOwned = !exercise.isSystem && exercise.createdBy === profile?.id;
+  const userId = profile?.id;
 
   return (
     <div className="flex flex-col gap-6">
@@ -100,6 +104,12 @@ export default async function ExerciseDetailPage({ params }: { params: Promise<{
           )}
         </div>
       </div>
+
+      {userId && (
+        <Suspense fallback={<LoadingSkeleton variant="chart" />}>
+          <ExerciseProgressServer exercise={exercise} userId={userId} />
+        </Suspense>
+      )}
     </div>
   );
 }

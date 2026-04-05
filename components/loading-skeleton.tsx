@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 interface LoadingSkeletonProps {
-  variant?: "card" | "list" | "detail";
+  variant?: "card" | "list" | "detail" | "chart";
   className?: string;
 }
 
@@ -53,8 +53,19 @@ function DetailSkeleton({ className }: { className?: string }) {
   );
 }
 
+function ChartSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn("flex flex-col gap-3 rounded-lg border p-4", className)}>
+      <Skeleton className="h-5 w-1/3" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="mt-2 h-48 w-full rounded-md" />
+    </div>
+  );
+}
+
 export function LoadingSkeleton({ variant = "card", className }: LoadingSkeletonProps) {
   if (variant === "list") return <ListSkeleton className={className} />;
   if (variant === "detail") return <DetailSkeleton className={className} />;
+  if (variant === "chart") return <ChartSkeleton className={className} />;
   return <CardSkeleton className={className} />;
 }
