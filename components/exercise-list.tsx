@@ -9,15 +9,7 @@ import { ExerciseCard } from "@/components/exercise-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Exercise } from "@/lib/db/schema/exercises";
-import { EXERCISE_CATEGORIES } from "@/lib/workout-constants";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  strength: "Strength",
-  cardio: "Cardio",
-  bodyweight: "Bodyweight",
-  flexibility: "Flexibility",
-  other: "Other",
-};
+import { CATEGORY_LABELS, EXERCISE_CATEGORIES } from "@/lib/workout-constants";
 
 interface ExerciseListProps {
   exercises: Exercise[];

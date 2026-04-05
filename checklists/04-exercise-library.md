@@ -74,11 +74,11 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Edit Custom Exercise
 
-- [ ] Edit dialog or page at `app/(protected)/exercises/[id]/edit/page.tsx`
-- [ ] Pre-populate form with current values
-- [ ] Only allow editing if `created_by` matches current user (check server-side)
-- [ ] Server action in `app/(protected)/exercises/actions.ts`: validate, update the row
-- [ ] On success: call `revalidatePath("/exercises")`, `revalidatePath(`/exercises/${id}`)`, show success toast
+- [x] Edit dialog or page at `app/(protected)/exercises/[id]/edit/page.tsx`
+- [x] Pre-populate form with current values
+- [x] Only allow editing if `created_by` matches current user (check server-side)
+- [x] Server action in `app/(protected)/exercises/actions.ts`: validate, update the row
+- [x] On success: call `revalidatePath("/exercises")`, `revalidatePath(`/exercises/${id}`)`, show success toast
 
 ### Delete Custom Exercise
 

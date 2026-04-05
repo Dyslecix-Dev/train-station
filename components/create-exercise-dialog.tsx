@@ -2,7 +2,7 @@
 
 import type { SubmissionResult } from "@conform-to/react";
 import { useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod";
+import { parseWithZod } from "@conform-to/zod/v4";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 import { useActionState, useRef, useState } from "react";
@@ -17,36 +17,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { createExerciseSchema } from "@/lib/validations/exercise";
-import { EXERCISE_CATEGORIES, MUSCLE_GROUPS } from "@/lib/workout-constants";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  strength: "Strength",
-  cardio: "Cardio",
-  bodyweight: "Bodyweight",
-  flexibility: "Flexibility",
-  other: "Other",
-};
-
-const MUSCLE_GROUP_LABELS: Record<string, string> = {
-  chest: "Chest",
-  back: "Back",
-  shoulders: "Shoulders",
-  biceps: "Biceps",
-  triceps: "Triceps",
-  core: "Core",
-  quadriceps: "Quadriceps",
-  hamstrings: "Hamstrings",
-  glutes: "Glutes",
-  calves: "Calves",
-  full_body: "Full Body",
-  other: "Other",
-};
+import { CATEGORY_LABELS, EXERCISE_CATEGORIES, MUSCLE_GROUP_LABELS, MUSCLE_GROUPS } from "@/lib/workout-constants";
 
 export function CreateExerciseDialog() {
   const [open, setOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // lastResult only holds Conform SubmissionResult — pre-validation errors are toasted separately
+  // NOTE: lastResult only holds Conform SubmissionResult — pre-validation errors are toasted separately
   const [lastResult, formAction, isPending] = useActionState(async (_prev: SubmissionResult<string[]> | null, formData: FormData): Promise<SubmissionResult<string[]> | null> => {
     const result = await createExercise(_prev, formData);
 
@@ -80,11 +57,10 @@ export function CreateExerciseDialog() {
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-    } else {
-      setImagePreview(null);
-    }
+    setImagePreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return file ? URL.createObjectURL(file) : null;
+    });
   }
 
   function toggleMuscleGroup(mg: string) {
@@ -96,6 +72,7 @@ export function CreateExerciseDialog() {
     if (!next) {
       setCategory("");
       setMuscleGroups([]);
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
       setImagePreview(null);
       formRef.current?.reset();
     }
@@ -119,8 +96,6 @@ export function CreateExerciseDialog() {
               {form.errors[0]}
             </p>
           )}
-
-          {/* Name */}
           <div className="grid gap-2">
             <Label htmlFor={fields.name.id}>Name</Label>
             <Input
@@ -138,8 +113,6 @@ export function CreateExerciseDialog() {
               </p>
             )}
           </div>
-
-          {/* Category */}
           <div className="grid gap-2">
             <Label htmlFor={fields.category.id}>Category</Label>
             <input type="hidden" name={fields.category.name} value={category} />
@@ -161,8 +134,6 @@ export function CreateExerciseDialog() {
               </p>
             )}
           </div>
-
-          {/* Muscle groups */}
           <div className="grid gap-2">
             <Label>Muscle Groups</Label>
             {muscleGroups.map((mg) => (
@@ -177,8 +148,6 @@ export function CreateExerciseDialog() {
               ))}
             </div>
           </div>
-
-          {/* Description */}
           <div className="grid gap-2">
             <Label htmlFor={fields.description.id}>
               Description <span className="text-muted-foreground font-normal">(optional)</span>
@@ -199,8 +168,6 @@ export function CreateExerciseDialog() {
               </p>
             )}
           </div>
-
-          {/* Image upload */}
           <div className="grid gap-2">
             <Label htmlFor="imageFile">
               Image <span className="text-muted-foreground font-normal">(optional)</span>
@@ -208,8 +175,6 @@ export function CreateExerciseDialog() {
             <Input id="imageFile" name="imageFile" type="file" accept="image/*" onChange={handleImageChange} />
             {imagePreview && <Image src={imagePreview} alt="Preview" className="mt-1 h-32 w-32 rounded-md object-cover" />}
           </div>
-
-          {/* Video URL */}
           <div className="grid gap-2">
             <Label htmlFor={fields.videoUrl.id}>
               Video URL <span className="text-muted-foreground font-normal">(optional)</span>

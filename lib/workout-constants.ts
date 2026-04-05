@@ -21,3 +21,26 @@ export const PROGRESS_METRIC_MAP: Record<ExerciseCategory, ProgressMetricType> =
   flexibility: "hold_duration",
   other: "max_duration",
 };
+
+export const CATEGORY_LABELS: Record<ExerciseCategory, string> = {
+  strength: "Strength",
+  cardio: "Cardio",
+  bodyweight: "Bodyweight",
+  flexibility: "Flexibility",
+  other: "Other",
+};
+
+export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
+  chest: "Chest",
+  back: "Back",
+  shoulders: "Shoulders",
+  biceps: "Biceps",
+  triceps: "Triceps",
+  core: "Core",
+  quadriceps: "Quadriceps",
+  hamstrings: "Hamstrings",
+  glutes: "Glutes",
+  calves: "Calves",
+  full_body: "Full Body",
+  other: "Other",
+};

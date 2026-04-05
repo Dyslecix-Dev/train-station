@@ -1,7 +1,7 @@
 "use server";
 
-import { parseWithZod } from "@conform-to/zod";
-import { eq } from "drizzle-orm";
+import { parseWithZod } from "@conform-to/zod/v4";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/db";
@@ -31,7 +31,14 @@ export async function createExercise(_prev: unknown, formData: FormData) {
     return { error: "You've created too many exercises. Please wait an hour and try again." };
   }
 
-  // Handle image upload before parsing the rest of the form
+  const profile = await db.query.userProfiles.findFirst({
+    where: eq(userProfiles.authUserId, user.id),
+  });
+
+  if (!profile) {
+    return { error: "Profile not found. Please complete onboarding first." };
+  }
+
   let imageUrl: string | undefined;
   const imageFile = formData.get("imageFile") as File | null;
   if (imageFile && imageFile.size > 0) {
@@ -51,7 +58,6 @@ export async function createExercise(_prev: unknown, formData: FormData) {
     }
   }
 
-  // Inject resolved imageUrl into formData so Conform can parse it
   if (imageUrl) {
     formData.set("imageUrl", imageUrl);
   }
@@ -62,14 +68,6 @@ export async function createExercise(_prev: unknown, formData: FormData) {
     return submission.reply();
   }
 
-  const profile = await db.query.userProfiles.findFirst({
-    where: eq(userProfiles.authUserId, user.id),
-  });
-
-  if (!profile) {
-    return submission.reply({ formErrors: ["Profile not found. Please complete onboarding first."] });
-  }
-
   const { name, category, muscleGroups, description, videoUrl } = submission.value;
 
   await db.insert(exercises).values({
@@ -77,7 +75,7 @@ export async function createExercise(_prev: unknown, formData: FormData) {
     category,
     muscleGroups: muscleGroups ?? [],
     description,
-    imageUrl: imageUrl ?? undefined,
+    imageUrl,
     videoUrl,
     progressMetricType: PROGRESS_METRIC_MAP[category],
     isSystem: false,
@@ -85,6 +83,83 @@ export async function createExercise(_prev: unknown, formData: FormData) {
   });
 
   revalidatePath("/exercises");
+
+  return submission.reply();
+}
+
+export async function updateExercise(id: string, _prev: unknown, formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "Not authenticated." };
+  }
+
+  const profile = await db.query.userProfiles.findFirst({
+    where: eq(userProfiles.authUserId, user.id),
+  });
+
+  if (!profile) {
+    return { error: "Profile not found. Please complete onboarding first." };
+  }
+
+  const existing = await db.query.exercises.findFirst({
+    where: and(eq(exercises.id, id), eq(exercises.createdBy, profile.id)),
+  });
+
+  if (!existing) {
+    return { error: "Exercise not found or you do not have permission to edit it." };
+  }
+
+  let imageUrl: string | undefined = existing.imageUrl ?? undefined;
+  const imageFile = formData.get("imageFile") as File | null;
+  if (imageFile && imageFile.size > 0) {
+    const MAX_SIZE = (Number(process.env.UPLOAD_MAX_SIZE_MB) || 5) * 1024 * 1024;
+    if (imageFile.size > MAX_SIZE) {
+      return { error: "Image too large (max 5 MB)" };
+    }
+    try {
+      const rawExt = imageFile.name.split(".").pop() ?? "bin";
+      const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "bin";
+      const path = `${user.id}/${Date.now()}.${ext}`;
+      const { path: storedPath } = await uploadFile("exercise-images", path, imageFile);
+      imageUrl = await getPublicUrl("exercise-images", storedPath);
+    } catch (err) {
+      logger.error("Failed to upload exercise image", { userId: user.id, error: err });
+      return { error: "Image upload failed. Please try again." };
+    }
+  }
+
+  if (imageUrl) {
+    formData.set("imageUrl", imageUrl);
+  }
+
+  const submission = parseWithZod(formData, { schema: createExerciseSchema });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const { name, category, muscleGroups, description, videoUrl } = submission.value;
+
+  await db
+    .update(exercises)
+    .set({
+      name,
+      category,
+      muscleGroups: muscleGroups ?? [],
+      description,
+      imageUrl,
+      videoUrl,
+      progressMetricType: PROGRESS_METRIC_MAP[category],
+      updatedAt: new Date(),
+    })
+    .where(and(eq(exercises.id, id), eq(exercises.createdBy, profile.id)));
+
+  revalidatePath("/exercises");
+  revalidatePath(`/exercises/${id}`);
 
   return submission.reply();
 }
