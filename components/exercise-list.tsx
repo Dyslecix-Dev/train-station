@@ -3,6 +3,7 @@
 import { Dumbbell } from "lucide-react";
 import { useQueryState } from "nuqs";
 
+import { CreateExerciseDialog } from "@/components/create-exercise-dialog";
 import { EmptyState } from "@/components/empty-state";
 import { ExerciseCard } from "@/components/exercise-card";
 import { Button } from "@/components/ui/button";
@@ -40,11 +41,14 @@ export function ExerciseList({ exercises, profileId }: ExerciseListProps) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Input placeholder="Search exercises…" value={q} onChange={(e) => setQ(e.target.value || null)} className="sm:max-w-64" aria-label="Search exercises" />
-        {profileId && (
-          <Button variant={mine === "true" ? "default" : "outline"} size="sm" onClick={() => setMine(mine === "true" ? null : "true")}>
-            My Exercises
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          {profileId && (
+            <Button variant={mine === "true" ? "default" : "outline"} size="sm" onClick={() => setMine(mine === "true" ? null : "true")}>
+              My Exercises
+            </Button>
+          )}
+          {profileId && <CreateExerciseDialog />}
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-1">

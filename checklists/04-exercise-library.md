@@ -44,33 +44,33 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Exercise Progress Section (on Detail Page)
 
-- [ ] Below the exercise details, show a "Progress" section
-- [ ] Wrap in a Suspense boundary with a `LoadingSkeleton` fallback (variant: chart)
-- [ ] Query completed workout sets for this exercise, grouped by workout date
-- [ ] Based on `progress_metric_type`:
+- [x] Below the exercise details, show a "Progress" section
+- [x] Wrap in a Suspense boundary with a `LoadingSkeleton` fallback (variant: chart)
+- [x] Query completed workout sets for this exercise, grouped by workout date
+- [x] Based on `progress_metric_type`:
   - `estimated_1rm`: Calculate Epley 1RM (`weight × (1 + reps / 30)`) for each set, show the best per workout. Line chart over time.
   - `best_pace`: Calculate pace (`duration_seconds ÷ distance_km`) for each set, show the best per workout. Line chart over time (lower is better).
   - `max_reps`: Show the max reps achieved per workout. Line chart over time.
   - `max_duration`: Show the max `duration_seconds` per workout. Line chart over time.
   - `hold_duration`: Same as `max_duration`.
-- [ ] Use Recharts for the line chart (already installed)
-- [ ] Show "No data yet" if the exercise has never been used in a completed workout
-- [ ] Show the latest value vs. the first recorded value as a summary (e.g., "+15 kg estimated 1RM since Oct 2024")
+- [x] Use Recharts for the line chart (already installed)
+- [x] Show "No data yet" if the exercise has never been used in a completed workout
+- [x] Show the latest value vs. the first recorded value as a summary (e.g., "+15 kg estimated 1RM since Oct 2024")
 
 ### Create Custom Exercise
 
-- [ ] Add a "Create Exercise" button on the exercise list page
-- [ ] Opens a dialog/sheet with a Conform form:
+- [x] Add a "Create Exercise" button on the exercise list page
+- [x] Opens a dialog/sheet with a Conform form:
   - Name (text, required)
   - Category (select, required — auto-sets `progress_metric_type` via `PROGRESS_METRIC_MAP`)
   - Muscle groups (multi-select from `MUSCLE_GROUPS` constant in `lib/workout-constants.ts`)
   - Description (textarea, optional)
   - Image upload (optional — upload to Supabase Storage, save URL)
   - Video URL (text input, optional — must be a valid URL if provided)
-- [ ] Zod schema in `lib/validations/exercise.ts`
-- [ ] Server action in `app/(protected)/exercises/actions.ts`: validate, set `is_system = false`, `created_by = current user`, auto-set `progress_metric_type` from category
-- [ ] On success: close dialog, call `revalidatePath("/exercises")`, invalidate TanStack Query cache, show success toast
-- [ ] Rate limit: 10 exercises created per hour per user
+- [x] Zod schema in `lib/validations/exercise.ts`
+- [x] Server action in `app/(protected)/exercises/actions.ts`: validate, set `is_system = false`, `created_by = current user`, auto-set `progress_metric_type` from category
+- [x] On success: close dialog, call `revalidatePath("/exercises")`, invalidate TanStack Query cache, show success toast
+- [x] Rate limit: 10 exercises created per hour per user
 
 ### Edit Custom Exercise
 
