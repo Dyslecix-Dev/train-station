@@ -1,8 +1,9 @@
 "use server";
 
 import { parseWithZod } from "@conform-to/zod/v4";
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 import { exercises } from "@/lib/db/schema";
@@ -162,4 +163,49 @@ export async function updateExercise(id: string, _prev: unknown, formData: FormD
   revalidatePath(`/exercises/${id}`);
 
   return submission.reply();
+}
+
+export async function deleteExercise(id: string): Promise<{ error: string } | never> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "Not authenticated." };
+  }
+
+  const profile = await db.query.userProfiles.findFirst({
+    where: eq(userProfiles.authUserId, user.id),
+  });
+
+  if (!profile) {
+    return { error: "Profile not found." };
+  }
+
+  const exercise = await db.query.exercises.findFirst({
+    where: and(eq(exercises.id, id), eq(exercises.createdBy, profile.id), isNull(exercises.deletedAt)),
+  });
+
+  if (!exercise) {
+    return { error: "Exercise not found or you do not have permission to delete it." };
+  }
+
+  try {
+    await db.delete(exercises).where(and(eq(exercises.id, id), eq(exercises.createdBy, profile.id)));
+  } catch (err: unknown) {
+    const pgError = err as { code?: string };
+    if (pgError?.code === "23503") {
+      await db
+        .update(exercises)
+        .set({ deletedAt: new Date() })
+        .where(and(eq(exercises.id, id), eq(exercises.createdBy, profile.id)));
+    } else {
+      logger.error("Failed to delete exercise", { userId: user.id, exerciseId: id, error: err });
+      return { error: "Failed to delete exercise. Please try again." };
+    }
+  }
+
+  revalidatePath("/exercises");
+  redirect("/exercises");
 }

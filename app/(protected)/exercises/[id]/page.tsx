@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { DeleteExerciseButton } from "@/app/(protected)/exercises/[id]/delete-exercise-button";
 import { ExerciseProgressServer } from "@/app/(protected)/exercises/[id]/exercise-progress-server";
 import { LoadingSkeleton } from "@/components/loading-skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -56,9 +57,7 @@ export default async function ExerciseDetailPage({ params }: { params: Promise<{
             <Button variant="outline" size="sm" asChild>
               <Link href={`/exercises/${id}/edit`}>Edit</Link>
             </Button>
-            <Button variant="destructive" size="sm" asChild>
-              <Link href={`/exercises/${id}/delete`}>Delete</Link>
-            </Button>
+            <DeleteExerciseButton id={id} />
           </div>
         )}
       </div>

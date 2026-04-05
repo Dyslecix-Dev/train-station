@@ -82,14 +82,14 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Delete Custom Exercise
 
-- [ ] `ConfirmDialog` before deletion
-- [ ] Server action in `app/(protected)/exercises/actions.ts`:
+- [x] `ConfirmDialog` before deletion
+- [x] Server action in `app/(protected)/exercises/actions.ts`:
   1. Verify ownership (`created_by` matches current user)
   2. Attempt hard delete with a try/catch
   3. If the delete throws a Postgres error with code `23503` (foreign key violation — the exercise is referenced by `workout_exercises`): **soft-delete** instead — set `deleted_at = now()`
   4. If the delete succeeds: done (exercise had no references)
-- [ ] The soft-deleted exercise disappears from the library and "add exercise" picker, but the FK reference in `workout_exercises` remains valid and historical workout detail pages still display the name
-- [ ] On success: call `revalidatePath("/exercises")`, redirect to exercise list, show success toast
+- [x] The soft-deleted exercise disappears from the library and "add exercise" picker, but the FK reference in `workout_exercises` remains valid and historical workout detail pages still display the name
+- [x] On success: call `revalidatePath("/exercises")`, redirect to exercise list, show success toast
 
 ### Image Upload
 
