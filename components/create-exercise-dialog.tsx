@@ -3,6 +3,7 @@
 import type { SubmissionResult } from "@conform-to/react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
+import imageCompression from "browser-image-compression";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 import { useActionState, useRef, useState } from "react";
@@ -55,11 +56,22 @@ export function CreateExerciseDialog() {
   const [muscleGroups, setMuscleGroups] = useState<string[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    if (!file) {
+      setImagePreview((prev) => {
+        if (prev) URL.revokeObjectURL(prev);
+        return null;
+      });
+      return;
+    }
+    const compressed = await imageCompression(file, { maxSizeMB: 0.2, maxWidthOrHeight: 800, useWebWorker: true });
+    const dt = new DataTransfer();
+    dt.items.add(new File([compressed], file.name, { type: compressed.type }));
+    e.target.files = dt.files;
     setImagePreview((prev) => {
       if (prev) URL.revokeObjectURL(prev);
-      return file ? URL.createObjectURL(file) : null;
+      return URL.createObjectURL(compressed);
     });
   }
 
@@ -173,7 +185,7 @@ export function CreateExerciseDialog() {
               Image <span className="text-muted-foreground font-normal">(optional)</span>
             </Label>
             <Input id="imageFile" name="imageFile" type="file" accept="image/*" onChange={handleImageChange} />
-            {imagePreview && <Image src={imagePreview} alt="Preview" className="mt-1 h-32 w-32 rounded-md object-cover" />}
+            {imagePreview && <Image src={imagePreview} alt="Preview" width={128} height={128} className="mt-1 h-32 w-32 rounded-md object-cover" />}
           </div>
           <div className="grid gap-2">
             <Label htmlFor={fields.videoUrl.id}>

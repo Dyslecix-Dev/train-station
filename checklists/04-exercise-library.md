@@ -93,12 +93,12 @@ The exercise library is a browsable, searchable list of exercises used when buil
 
 ### Image Upload
 
-- [ ] Create a Supabase Storage bucket `exercise-images` (public read, authenticated write) — do this in Supabase dashboard
-- [ ] Before uploading, compress the image client-side using `browser-image-compression` (`pnpm add browser-image-compression`): max 800px on the longest side, max 200KB output
-- [ ] Create a thin wrapper `uploadExerciseImage` in `app/(protected)/exercises/actions.ts` that:
+- [x] Create a Supabase Storage bucket `exercise-images` (public read, authenticated write) — do this in Supabase dashboard
+- [x] Before uploading, compress the image client-side using `browser-image-compression` (`pnpm add browser-image-compression`): max 800px on the longest side, max 200KB output
+- [x] Create a thin wrapper `uploadExerciseImage` in `app/(protected)/exercises/actions.ts` that:
   - Validates the file: max 500KB (server-side safety check), image types only (jpeg, png, webp)
   - Calls the boilerplate's existing `uploadFile()` from `lib/storage/` to handle the actual Supabase Storage upload, targeting the `exercise-images` bucket with path `{user_profile_id}/{uuid}.{ext}`
   - Returns the public URL via `getPublicUrl()` from `lib/storage/`
   - **Do NOT reimplement file upload logic** — the boilerplate's `lib/storage/` already handles sanitization and Supabase Storage interaction
-- [ ] Use this action in the create/edit forms
-- [ ] Show image preview after upload
+- [x] Use this action in the create/edit forms
+- [x] Show image preview after upload

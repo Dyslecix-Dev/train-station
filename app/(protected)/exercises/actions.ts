@@ -17,6 +17,23 @@ import { PROGRESS_METRIC_MAP } from "@/lib/workout-constants";
 
 const rateLimiter = createRateLimiter({ limit: 10, windowMs: 60 * 60 * 1000 }); // 10 exercises per 1 hour
 
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const IMAGE_MAX_SIZE = 500 * 1024; // 500KB server-side safety check (after client compression)
+
+async function uploadExerciseImage(file: File, userId: string): Promise<string> {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    throw new Error("Only JPEG, PNG, and WebP images are allowed.");
+  }
+  if (file.size > IMAGE_MAX_SIZE) {
+    throw new Error("Image too large (max 500 KB). Please compress it before uploading.");
+  }
+  const rawExt = file.name.split(".").pop() ?? "bin";
+  const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "bin";
+  const path = `${userId}/${Date.now()}.${ext}`;
+  const { path: storedPath } = await uploadFile("exercise-images", path, file);
+  return getPublicUrl("exercise-images", storedPath);
+}
+
 export async function createExercise(_prev: unknown, formData: FormData) {
   const supabase = await createClient();
   const {
@@ -43,19 +60,12 @@ export async function createExercise(_prev: unknown, formData: FormData) {
   let imageUrl: string | undefined;
   const imageFile = formData.get("imageFile") as File | null;
   if (imageFile && imageFile.size > 0) {
-    const MAX_SIZE = (Number(process.env.UPLOAD_MAX_SIZE_MB) || 5) * 1024 * 1024;
-    if (imageFile.size > MAX_SIZE) {
-      return { error: "Image too large (max 5 MB)" };
-    }
     try {
-      const rawExt = imageFile.name.split(".").pop() ?? "bin";
-      const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "bin";
-      const path = `${user.id}/${Date.now()}.${ext}`;
-      const { path: storedPath } = await uploadFile("exercise-images", path, imageFile);
-      imageUrl = await getPublicUrl("exercise-images", storedPath);
+      imageUrl = await uploadExerciseImage(imageFile, user.id);
     } catch (err) {
+      const msg = err instanceof Error ? err.message : "Image upload failed. Please try again.";
       logger.error("Failed to upload exercise image", { userId: user.id, error: err });
-      return { error: "Image upload failed. Please try again." };
+      return { error: msg };
     }
   }
 
@@ -117,19 +127,12 @@ export async function updateExercise(id: string, _prev: unknown, formData: FormD
   let imageUrl: string | undefined = existing.imageUrl ?? undefined;
   const imageFile = formData.get("imageFile") as File | null;
   if (imageFile && imageFile.size > 0) {
-    const MAX_SIZE = (Number(process.env.UPLOAD_MAX_SIZE_MB) || 5) * 1024 * 1024;
-    if (imageFile.size > MAX_SIZE) {
-      return { error: "Image too large (max 5 MB)" };
-    }
     try {
-      const rawExt = imageFile.name.split(".").pop() ?? "bin";
-      const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "bin";
-      const path = `${user.id}/${Date.now()}.${ext}`;
-      const { path: storedPath } = await uploadFile("exercise-images", path, imageFile);
-      imageUrl = await getPublicUrl("exercise-images", storedPath);
+      imageUrl = await uploadExerciseImage(imageFile, user.id);
     } catch (err) {
+      const msg = err instanceof Error ? err.message : "Image upload failed. Please try again.";
       logger.error("Failed to upload exercise image", { userId: user.id, error: err });
-      return { error: "Image upload failed. Please try again." };
+      return { error: msg };
     }
   }
 

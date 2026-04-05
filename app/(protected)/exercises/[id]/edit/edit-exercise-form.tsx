@@ -3,6 +3,7 @@
 import type { SubmissionResult } from "@conform-to/react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod/v4";
+import imageCompression from "browser-image-compression";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
@@ -86,11 +87,14 @@ export function EditExerciseForm({ exercise }: { exercise: Exercise }) {
     shouldRevalidate: "onInput",
   });
 
-  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-    }
+    if (!file) return;
+    const compressed = await imageCompression(file, { maxSizeMB: 0.2, maxWidthOrHeight: 800, useWebWorker: true });
+    const dt = new DataTransfer();
+    dt.items.add(new File([compressed], file.name, { type: compressed.type }));
+    e.target.files = dt.files;
+    setImagePreview(URL.createObjectURL(compressed));
   }
 
   function toggleMuscleGroup(mg: string) {
