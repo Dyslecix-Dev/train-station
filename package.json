@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@conform-to/react": "^1.17.1",
-    "@conform-to/zod": "^1.17.1",
+    "@conform-to/zod": "^1.18.0",
     "@react-email/components": "^1.0.11",
     "@sentry/nextjs": "^10.47.0",
     "@serwist/turbopack": "^9.5.7",
@@ -33,6 +33,7 @@
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^2.0.1",
+    "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.0",

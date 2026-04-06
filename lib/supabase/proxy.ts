@@ -5,7 +5,7 @@ import { createRateLimiter } from "@/lib/rate-limit";
 
 // NOTE: override with AUTH_RATE_LIMIT (max requests) and AUTH_RATE_WINDOW_MS (window in ms)
 const authLimiter = createRateLimiter({
-  limit: Number(process.env.AUTH_RATE_LIMIT) || 10,
+  limit: Number(process.env.AUTH_RATE_LIMIT) || 30,
   windowMs: Number(process.env.AUTH_RATE_WINDOW_MS) || 60_000,
 });
 
@@ -20,8 +20,8 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isAuthPath = AUTH_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
-  // NOTE: rate-limit auth routes to prevent brute-force attacks
-  if (isAuthPath) {
+  // NOTE: rate-limit auth routes to prevent brute-force attacks; skip Next.js internals and static assets
+  if (isAuthPath && !pathname.startsWith("/_next/")) {
     // NOTE: x-forwarded-for is trusted here because Vercel (and most reverse proxies) overwrite the first value with the real client IP. If you self-host behind a proxy that doesn't strip client-provided values, replace this with a trusted header (e.g. cf-connecting-ip, x-real-ip).
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
     const { success } = await authLimiter.check(ip);

@@ -1,5 +1,6 @@
 "use client";
 
+import { Info } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -7,8 +8,8 @@ import { completeOnboarding } from "@/app/(protected)/onboarding/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateBMR, calculateTargets, calculateTDEE } from "@/lib/tdee";
 import type { ActivityLevel, ActivityLevelValues, BasicStatsValues, PrimaryGoalValues } from "@/lib/validations/onboarding";
 
@@ -98,15 +99,6 @@ export function ReviewConfirmStep({ basicStats, activityLevel, primaryGoal, onBa
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Progress indicator */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Step 4 of 4</span>
-          <span className="font-medium">Review & Confirm</span>
-        </div>
-        <Progress value={100} className="h-2" />
-      </div>
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         {/* Stats summary */}
         <section className="flex flex-col gap-3">
@@ -161,12 +153,38 @@ export function ReviewConfirmStep({ basicStats, activityLevel, primaryGoal, onBa
         {/* Calculated TDEE */}
         <section className="flex flex-col gap-3">
           <h2 className="text-base font-semibold">Calculated TDEE</h2>
-          <div className="bg-muted/40 grid grid-cols-2 gap-x-4 gap-y-2 rounded-lg p-4 text-sm">
-            <span className="text-muted-foreground">BMR</span>
-            <span className="font-medium">{Math.round(bmr)} kcal</span>
-            <span className="text-muted-foreground">TDEE</span>
-            <span className="font-medium">{tdee} kcal</span>
-          </div>
+          <TooltipProvider>
+            <div className="bg-muted/40 grid grid-cols-2 gap-x-4 gap-y-2 rounded-lg p-4 text-sm">
+              <span className="text-muted-foreground flex items-center gap-1">
+                BMR
+                <Tooltip>
+                  <TooltipTrigger type="button" className="text-muted-foreground/60 hover:text-muted-foreground focus-visible:outline-none">
+                    <Info className="size-3.5" aria-label="What is BMR?" />
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="max-w-56">
+                    <p>
+                      <strong>Basal Metabolic Rate</strong> — the calories your body burns at complete rest to sustain basic functions like breathing and circulation.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </span>
+              <span className="font-medium">{Math.round(bmr)} kcal</span>
+              <span className="text-muted-foreground flex items-center gap-1">
+                TDEE
+                <Tooltip>
+                  <TooltipTrigger type="button" className="text-muted-foreground/60 hover:text-muted-foreground focus-visible:outline-none">
+                    <Info className="size-3.5" aria-label="What is TDEE?" />
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="max-w-56">
+                    <p>
+                      <strong>Total Daily Energy Expenditure</strong> — your BMR multiplied by your activity level. This is roughly how many calories you burn in a day.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </span>
+              <span className="font-medium">{tdee} kcal</span>
+            </div>
+          </TooltipProvider>
         </section>
 
         <Separator />

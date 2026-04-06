@@ -12,8 +12,8 @@ importers:
         specifier: ^1.17.1
         version: 1.17.1(react@19.2.4)
       '@conform-to/zod':
-        specifier: ^1.17.1
-        version: 1.17.1(zod@4.3.6)
+        specifier: ^1.18.0
+        version: 1.18.0(zod@4.3.6)
       '@react-email/components':
         specifier: ^1.0.11
         version: 1.0.11(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -41,6 +41,9 @@ importers:
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.2.2(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+      browser-image-compression:
+        specifier: ^2.0.2
+        version: 2.0.2
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -394,13 +397,16 @@ packages:
   '@conform-to/dom@1.17.1':
     resolution: {integrity: sha512-vpwCodVVWpQ6kbrlu5F85BC99ozDxqcrhmt+YDD81bCwvt6NtiycFID3NQQGQyn+bzmpb4qlF3Ay9YcljnrNHw==}
 
+  '@conform-to/dom@1.18.0':
+    resolution: {integrity: sha512-luccJjJJgvePp8mmU1plwEcofP0Gk/7a54ukSX1ta7K6J0Ep37nm18WK7gowrVCIHzCnR7iAdyjd+vGTpuI4zw==}
+
   '@conform-to/react@1.17.1':
     resolution: {integrity: sha512-AXj6HMiG0e6mJXzVNDmeQ9FH4LbGA4HdSt+a0Yb09kEnpESkK3zCopFb8RkO8kls4XMQO05KAmaE6KDlhSzprQ==}
     peerDependencies:
       react: '>=18'
 
-  '@conform-to/zod@1.17.1':
-    resolution: {integrity: sha512-oFt2OdCrAhNEKjjyc8QAgiykDI9s+RG9nAuxrqGyp/BFXuRPPiu0e+QIVUAxSnWtZ82swtSaf87DI+jTAyhaLg==}
+  '@conform-to/zod@1.18.0':
+    resolution: {integrity: sha512-ombphsARN/7QpjOOsk7QPHDvCK1dLr4PlTz6styUQoh9vt8FxTOuH64XdY0XGtwUCTSJ5/9lvBa75cyhDbYm1Q==}
     peerDependencies:
       zod: ^3.21.0 || ^4.0.0
 
@@ -4254,6 +4260,9 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
+  browser-image-compression@2.0.2:
+    resolution: {integrity: sha512-pBLlQyUf6yB8SmmngrcOw3EoS4RpQ1BcylI3T9Yqn7+4nrQTXJD4sJDe5ODnJdrvNMaio5OicFo75rDyJD2Ucw==}
+
   browserslist@4.28.1:
     resolution: {integrity: sha512-ZC5Bd0LgJXgwGqUknZY/vkUQ04r8NXnJZ3yYi4vDmSiZmC/pdSN0NbNRPxZpbtO4uAfDUAFffO8IZoM3Gj8IkA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -7746,6 +7755,9 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
+  uzip@0.20201231.0:
+    resolution: {integrity: sha512-OZeJfZP+R0z9D6TmBgLq2LHzSSptGMGDGigGiEe0pr8UBe/7fdflgHlHBNDASTXB5jnFuxHpNaJywSg8YFeGng==}
+
   validate-npm-package-name@7.0.2:
     resolution: {integrity: sha512-hVDIBwsRruT73PbK7uP5ebUt+ezEtCmzZz3F59BSr2F6OVFnJ/6h8liuvdLrQ88Xmnk6/+xGGuq+pG9WwTuy3A==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -8342,14 +8354,16 @@ snapshots:
 
   '@conform-to/dom@1.17.1': {}
 
+  '@conform-to/dom@1.18.0': {}
+
   '@conform-to/react@1.17.1(react@19.2.4)':
     dependencies:
       '@conform-to/dom': 1.17.1
       react: 19.2.4
 
-  '@conform-to/zod@1.17.1(zod@4.3.6)':
+  '@conform-to/zod@1.18.0(zod@4.3.6)':
     dependencies:
-      '@conform-to/dom': 1.17.1
+      '@conform-to/dom': 1.18.0
       zod: 4.3.6
 
   '@csstools/color-helpers@6.0.2': {}
@@ -11815,6 +11829,10 @@ snapshots:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
+
+  browser-image-compression@2.0.2:
+    dependencies:
+      uzip: 0.20201231.0
 
   browserslist@4.28.1:
     dependencies:
@@ -15753,6 +15771,8 @@ snapshots:
   uuid@8.3.2: {}
 
   uuid@9.0.1: {}
+
+  uzip@0.20201231.0: {}
 
   validate-npm-package-name@7.0.2: {}
 

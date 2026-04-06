@@ -5,10 +5,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { basicStatsSchema, type BasicStatsValues } from "@/lib/validations/onboarding";
+import { buildBasicStatsSchema, type BasicStatsValues } from "@/lib/validations/onboarding";
 
 type Props = {
   defaultValues?: Partial<BasicStatsValues>;
@@ -42,21 +41,21 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
   const [age, setAge] = useState(defaultValues?.age?.toString() ?? "");
   const [sex, setSex] = useState<string>(defaultValues?.sex ?? "");
 
-  // Height state: always stored as cm internally
-  const [heightCm, setHeightCm] = useState<number | "">(defaultValues?.heightCm ?? "");
-  const [heightFeet, setHeightFeet] = useState<number | "">(() => {
-    if (defaultValues?.heightCm) return cmToFeetInches(defaultValues.heightCm).feet;
+  // Height state: stored as strings to preserve decimal input while typing
+  const [heightCm, setHeightCm] = useState<string>(defaultValues?.heightCm?.toString() ?? "");
+  const [heightFeet, setHeightFeet] = useState<string>(() => {
+    if (defaultValues?.heightCm) return cmToFeetInches(defaultValues.heightCm).feet.toString();
     return "";
   });
-  const [heightInches, setHeightInches] = useState<number | "">(() => {
-    if (defaultValues?.heightCm) return cmToFeetInches(defaultValues.heightCm).inches;
+  const [heightInches, setHeightInches] = useState<string>(() => {
+    if (defaultValues?.heightCm) return cmToFeetInches(defaultValues.heightCm).inches.toString();
     return "";
   });
 
-  // Weight state: always stored as kg internally
-  const [weightKg, setWeightKg] = useState<number | "">(defaultValues?.weightKg ?? "");
-  const [weightLb, setWeightLb] = useState<number | "">(() => {
-    if (defaultValues?.weightKg) return kgToLb(defaultValues.weightKg);
+  // Weight state: stored as strings to preserve decimal input while typing
+  const [weightKg, setWeightKg] = useState<string>(defaultValues?.weightKg?.toString() ?? "");
+  const [weightLb, setWeightLb] = useState<string>(() => {
+    if (defaultValues?.weightKg) return kgToLb(defaultValues.weightKg).toString();
     return "";
   });
 
@@ -67,25 +66,25 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
     // Convert currently-entered values to the new unit display
     if (next === "metric") {
       if (heightFeet !== "" || heightInches !== "") {
-        setHeightCm(feetInchesToCm(Number(heightFeet || 0), Number(heightInches || 0)));
+        setHeightCm(feetInchesToCm(Number(heightFeet || 0), Number(heightInches || 0)).toString());
       }
       if (weightLb !== "") {
-        setWeightKg(lbToKg(Number(weightLb)));
+        setWeightKg(lbToKg(Number(weightLb)).toString());
       }
     } else {
       if (heightCm !== "") {
         const { feet, inches } = cmToFeetInches(Number(heightCm));
-        setHeightFeet(feet);
-        setHeightInches(inches);
+        setHeightFeet(feet.toString());
+        setHeightInches(inches.toString());
       }
       if (weightKg !== "") {
-        setWeightLb(kgToLb(Number(weightKg)));
+        setWeightLb(kgToLb(Number(weightKg)).toString());
       }
     }
   }
 
   function getResolvedHeightCm(): number | "" {
-    if (units === "metric") return heightCm;
+    if (units === "metric") return heightCm === "" ? "" : Number(heightCm);
     if (heightFeet !== "" || heightInches !== "") {
       return feetInchesToCm(Number(heightFeet || 0), Number(heightInches || 0));
     }
@@ -93,7 +92,7 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
   }
 
   function getResolvedWeightKg(): number | "" {
-    if (units === "metric") return weightKg;
+    if (units === "metric") return weightKg === "" ? "" : Number(weightKg);
     if (weightLb !== "") return lbToKg(Number(weightLb));
     return "";
   }
@@ -110,7 +109,7 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
       unitsPreference: units,
     };
 
-    const result = basicStatsSchema.safeParse(payload);
+    const result = buildBasicStatsSchema(units).safeParse(payload);
 
     if (!result.success) {
       const fieldErrors: FieldErrors = {};
@@ -128,15 +127,6 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Progress indicator */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Step 1 of 4</span>
-          <span className="font-medium">Basic Stats</span>
-        </div>
-        <Progress value={25} className="h-2" />
-      </div>
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {/* Units toggle */}
         <div className="flex items-center gap-1 self-end rounded-md border p-1">
@@ -201,16 +191,7 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
           {units === "imperial" ? (
             <div className="flex gap-2">
               <div className="flex flex-1 flex-col gap-1">
-                <Input
-                  type="number"
-                  min={0}
-                  max={9}
-                  value={heightFeet}
-                  onChange={(e) => setHeightFeet(e.target.value === "" ? "" : Number(e.target.value))}
-                  placeholder="ft"
-                  aria-label="Height feet"
-                  aria-invalid={!!errors.heightCm}
-                />
+                <Input type="number" min={0} max={9} value={heightFeet} onChange={(e) => setHeightFeet(e.target.value)} placeholder="ft" aria-label="Height feet" aria-invalid={!!errors.heightCm} />
               </div>
               <div className="flex flex-1 flex-col gap-1">
                 <Input
@@ -218,7 +199,7 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
                   min={0}
                   max={11}
                   value={heightInches}
-                  onChange={(e) => setHeightInches(e.target.value === "" ? "" : Number(e.target.value))}
+                  onChange={(e) => setHeightInches(e.target.value)}
                   placeholder="in"
                   aria-label="Height inches"
                   aria-invalid={!!errors.heightCm}
@@ -228,10 +209,11 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
           ) : (
             <Input
               type="number"
+              step="any"
               min={50}
               max={300}
               value={heightCm}
-              onChange={(e) => setHeightCm(e.target.value === "" ? "" : Number(e.target.value))}
+              onChange={(e) => setHeightCm(e.target.value)}
               placeholder="cm"
               aria-label="Height in centimeters"
               aria-invalid={!!errors.heightCm}
@@ -252,10 +234,11 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
             <Input
               id="weight"
               type="number"
+              step="any"
               min={44}
               max={1100}
               value={weightLb}
-              onChange={(e) => setWeightLb(e.target.value === "" ? "" : Number(e.target.value))}
+              onChange={(e) => setWeightLb(e.target.value)}
               placeholder="lb"
               aria-invalid={!!errors.weightKg}
               aria-describedby={errors.weightKg ? "weight-error" : undefined}
@@ -264,10 +247,11 @@ export function BasicStatsStep({ defaultValues, onNext }: Props) {
             <Input
               id="weight"
               type="number"
+              step="any"
               min={20}
               max={500}
               value={weightKg}
-              onChange={(e) => setWeightKg(e.target.value === "" ? "" : Number(e.target.value))}
+              onChange={(e) => setWeightKg(e.target.value)}
               placeholder="kg"
               aria-invalid={!!errors.weightKg}
               aria-describedby={errors.weightKg ? "weight-error" : undefined}
