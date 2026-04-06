@@ -99,8 +99,8 @@ export function ExerciseProgressChart({ exercise, points }: ExerciseProgressChar
             tickFormatter={(v: number) => (exercise.progressMetricType === "estimated_1rm" ? `${v}` : `${v}`)}
           />
           <Tooltip
-            labelFormatter={(label: string) => new Date(label).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-            formatter={(value: number) => [formatSummaryValue(exercise.progressMetricType, value), getMetricLabel(exercise.progressMetricType)]}
+            labelFormatter={(label) => new Date(String(label)).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            formatter={(value) => [formatSummaryValue(exercise.progressMetricType, Number(value)), getMetricLabel(exercise.progressMetricType)]}
           />
           <Line type="monotone" dataKey="value" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} className="stroke-primary" />
         </LineChart>
